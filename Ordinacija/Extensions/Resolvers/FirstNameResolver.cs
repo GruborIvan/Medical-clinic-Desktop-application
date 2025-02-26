@@ -15,21 +15,8 @@ namespace Ordinacija.Extensions.Resolvers
     {
         public string Resolve(PatientDbo source, Patient destination, string member, ResolutionContext context)
         {
-            return source.AcName2.Split(' ').LastOrDefault();
+            var parts = source.AcName2.Split(' ').Skip(1); // Skip the first element
+            return string.Join(" ", parts);
         }
     }
-
-    public class BirthDateResolver : IValueResolver<PatientDbo, Patient, DateTime>
-    {
-        public DateTime Resolve(PatientDbo source, Patient destination, DateTime member, ResolutionContext context)
-        {
-            if (DateTime.TryParse(source.AcFieldSA, out var dateOfBirth))
-            {
-                return dateOfBirth;
-            }
-
-            return DateTime.MinValue;
-        }
-    }
-
 }

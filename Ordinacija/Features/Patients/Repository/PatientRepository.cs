@@ -36,5 +36,51 @@ namespace Ordinacija.Features.Patients.Repository
                 throw;
             }
         }
+
+        public async Task InsertPatient(Patient patient)
+        {
+            var patientDbo = _mapper.Map<PatientDbo>(patient);
+
+            var sql = @"
+                INSERT INTO tHE_SetSubj (AcSubject, AcName2, AcAddress, AdBirthDate, AcFieldSA, AcFieldSC, AcFieldSD, AcFieldSE, AcFieldSF, AcFieldSG, AcFieldSH, AcFieldSI)
+                VALUES (@AcSubject, @AcName2, @AcAddress, @AdDateOfBirth, @AcFieldSA, @AcFieldSC, @AcFieldSD, @AcFieldSE, @AcFieldSF, @AcFieldSG, @AcFieldSH, @AcFieldSI)";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                var lastId = await connection.ExecuteScalarAsync<string>("SELECT MAX(AcSubject) FROM tHE_SetSubj");
+                int nextId = (string.IsNullOrEmpty(lastId) ? 1 : int.Parse(lastId) + 1);
+                patientDbo.AcSubject = nextId.ToString("D6");
+
+                await connection.ExecuteAsync(sql, patientDbo);
+            }
+        }
+
+        public async Task UpdatePatient(Patient patient)
+        {
+            var patientDbo = _mapper.Map<PatientDbo>(patient);
+
+            var sql = @"
+                UPDATE tHE_SetSubj
+                SET AcName2 = @AcName2, 
+                    AcAddress = @AcAddress,
+                    AdBirthDate = @AdDateOfBirth,
+                    AcFieldSA = @AcFieldSA,
+                    AcFieldSC = @AcFieldSC,
+                    AcFieldSD = @AcFieldSD,
+                    AcFieldSE = @AcFieldSE,
+                    AcFieldSF = @AcFieldSF,
+                    AcFieldSG = @AcFieldSG,
+                    AcFieldSH = @AcFieldSH,
+                    AcFieldSI = @AcFieldSI
+                WHERE AcSubject = @AcSubject";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                await connection.ExecuteAsync(sql, patientDbo);
+            }
+        }
     }
 }

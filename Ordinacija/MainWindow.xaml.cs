@@ -12,7 +12,10 @@ namespace Ordinacija
         private readonly PageNavigationService _navigationService;
         private readonly Func<PatientsView> _patientsViewFactory; // Lazy loading
 
-        public MainWindow(MainViewModel mainViewModel, PageNavigationService navigationService, Func<PatientsView> patientsViewFactory)
+        public MainWindow(
+            MainViewModel mainViewModel, 
+            PageNavigationService navigationService, 
+            Func<PatientsView> patientsViewFactory)
         {
             InitializeComponent();
             DataContext = mainViewModel;

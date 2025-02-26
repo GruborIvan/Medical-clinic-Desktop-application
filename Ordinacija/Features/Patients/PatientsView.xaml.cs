@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using Ordinacija.Features.Patients.Models;
+using Ordinacija.Features.Patients.Service;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Ordinacija.Features.Patients
 {
@@ -7,13 +10,31 @@ namespace Ordinacija.Features.Patients
     /// </summary>
     public partial class PatientsView : Window
     {
-        private readonly PatientViewModel _patientViewModel;
+        public PatientViewModel PatientViewModel;
 
-        public PatientsView(PatientViewModel patientViewModel)
+        private readonly IPatientService _patientService;
+
+        public PatientsView(PatientViewModel patientViewModel, IPatientService patientService)
         {
             InitializeComponent();
-            _patientViewModel = patientViewModel;
-            DataContext = _patientViewModel; // Set the DataContext here
+            PatientViewModel = patientViewModel;
+            _patientService = patientService;
+            DataContext = PatientViewModel;
+        }
+
+        private void AddPatient_Click(object sender, RoutedEventArgs e)
+        {
+            var addNewPatientView = new AddNewPatientView(_patientService, this);
+            addNewPatientView.ShowDialog();
+        }
+
+        private void EditPatient_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.CommandParameter is Patient selectedPatient)
+            {
+                var editPatientView = new AddNewPatientView(_patientService, this, selectedPatient);
+                editPatientView.ShowDialog();
+            }
         }
     }
 }

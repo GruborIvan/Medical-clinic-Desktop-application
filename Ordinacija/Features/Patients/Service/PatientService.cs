@@ -12,9 +12,19 @@ namespace Ordinacija.Features.Patients.Service
             _patientRepository = patientRepository;
         }
 
+        public async Task CreateNewPatient(Patient patient)
+        {
+            await _patientRepository.InsertPatient(patient);
+        }
+
         public async Task<IEnumerable<Patient>> GetAllPatients()
         {
             return await _patientRepository.GetAllPatients();
+        }
+
+        public async Task UpdateExistingPatient(Patient patient)
+        {
+            await _patientRepository.UpdatePatient(patient);
         }
     }
 }

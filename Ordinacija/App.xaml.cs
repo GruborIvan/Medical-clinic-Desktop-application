@@ -9,6 +9,7 @@ using Ordinacija.Features.Patients.Repository;
 using Ordinacija.Features.Common;
 using AutoMapper;
 using Ordinacija.Extensions;
+using Ordinacija.Features.Login;
 
 namespace Ordinacija
 {
@@ -43,8 +44,8 @@ namespace Ordinacija
             Mapper = _host.Services.GetRequiredService<IMapper>();
 
             // Get MainWindow and show
-            var mainWindow = _host.Services.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+            var loginWindow = _host.Services.GetRequiredService<LoginView>();
+            loginWindow.Show();
 
             base.OnStartup(e);
         }
@@ -66,7 +67,8 @@ namespace Ordinacija
 
             // Register Views
             services.AddSingleton<MainWindow>();
-            services.AddTransient<PatientsView>();
+            services.AddSingleton<PatientsView>();
+            services.AddSingleton<LoginView>();
 
             services.AddSingleton<Func<PatientsView>>(provider => () => provider.GetRequiredService<PatientsView>());
         }
