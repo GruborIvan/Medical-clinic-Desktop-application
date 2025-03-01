@@ -39,7 +39,7 @@ namespace Ordinacija.Features.Patients
                 ? _patientService.UpdateExistingPatient(CurrentPatient)
                 : _patientService.CreateNewPatient(CurrentPatient));
 
-            _patientsView.PatientViewModel.LoadPatients();
+            await _patientsView.PatientViewModel.LoadPatients();
 
             this.Close();
         }

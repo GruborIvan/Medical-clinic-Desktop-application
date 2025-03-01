@@ -56,19 +56,33 @@
                     <GridViewColumn Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Padding="5"
-                                        Background="Transparent"
-                                        BorderBrush="Transparent"
-                                        Cursor="Hand"
-                                        Click="EditPatient_Click"
-                                        HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center"
-                                        CommandParameter="{Binding}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <!-- Edit Button -->
+                                    <Button Padding="5"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Cursor="Hand"
+                                            Click="EditPatient_Click"
+                                            CommandParameter="{Binding}">
                                         <TextBlock FontFamily="Segoe MDL2 Assets"
-                                               Text="&#xE104;"
-                                               FontSize="16"
-                                               Foreground="Black"/>
-                                </Button>
+                                            Text="&#xE104;"
+                                            FontSize="16"
+                                            Foreground="Black"/>
+                                    </Button>
+
+                                    <!-- Medical Info Button -->
+                                    <Button Padding="5"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Cursor="Hand"
+                                            Click="OpenMedicalReports_Click"
+                                            CommandParameter="{Binding}">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets"
+                                            Text="&#xE130;" 
+                                            FontSize="16"
+                                            Foreground="Black"/>
+                                    </Button>
+                                </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

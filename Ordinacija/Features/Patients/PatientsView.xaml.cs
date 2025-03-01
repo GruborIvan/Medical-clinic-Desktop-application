@@ -1,4 +1,5 @@
-﻿using Ordinacija.Features.Patients.Models;
+﻿using Ordinacija.Features.MedicalReports;
+using Ordinacija.Features.Patients.Models;
 using Ordinacija.Features.Patients.Service;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,6 +36,12 @@ namespace Ordinacija.Features.Patients
                 var editPatientView = new AddNewPatientView(_patientService, this, selectedPatient);
                 editPatientView.ShowDialog();
             }
+        }
+
+        private void OpenMedicalReports_Click(object sender, RoutedEventArgs e)
+        {
+            var medicalReportView = new MedicalReportsView();
+            medicalReportView.Show();
         }
     }
 }
