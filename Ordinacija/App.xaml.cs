@@ -10,6 +10,15 @@ using Ordinacija.Features.Common;
 using AutoMapper;
 using Ordinacija.Extensions;
 using Ordinacija.Features.Login;
+using Ordinacija.Features.MedicalReports;
+using Ordinacija.Features.MedicalReports.Service;
+using Ordinacija.Features.MedicalReports.Service.Implementation;
+using Ordinacija.Features.MedicalReports.Repository;
+using Ordinacija.Features.MedicalReports.Repository.Implementations;
+using Ordinacija.Features.Doctors.Service;
+using Ordinacija.Features.Doctors.Repository;
+using Ordinacija.Features.Doctors.Service.Implementation;
+using Ordinacija.Features.Doctors.Repository.Implementation;
 
 namespace Ordinacija
 {
@@ -59,18 +68,24 @@ namespace Ordinacija
             services.AddSingleton<IPatientService, PatientService>();
             services.AddSingleton<IPatientRepository, PatientRepository>();
 
+            services.AddSingleton<IDoctorService, DoctorService>();
+            services.AddSingleton<IDoctorRepository, DoctorRepository>();
+
+            services.AddSingleton<IMedicalReportService, MedicalReportService>();
+            services.AddSingleton<IMedicalReportRepository, MedicalReportRepository>();
+
+
             services.AddSingleton<PageNavigationService>();
 
             // Register ViewModels
             services.AddSingleton<MainViewModel>();
             services.AddTransient<PatientViewModel>();
+            services.AddTransient<MedicalReportViewModel>();
 
             // Register Views
             services.AddSingleton<MainWindow>();
             services.AddSingleton<PatientsView>();
             services.AddSingleton<LoginView>();
-
-            services.AddSingleton<Func<PatientsView>>(provider => () => provider.GetRequiredService<PatientsView>());
         }
 
         protected override void OnExit(ExitEventArgs e)

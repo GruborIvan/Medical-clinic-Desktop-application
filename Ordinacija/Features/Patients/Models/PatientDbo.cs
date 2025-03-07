@@ -5,7 +5,7 @@
         public string AcSubject { get; set; }      // Šifra
         public string AcName2 { get; set; }        // Prezime i ime
         public string AcAddress { get; set; }      // Adresa
-        public string AdDateOfBirth { get; set; }
+        public string AdBirthDate { get; set; }
         public string AcFieldSA { get; set; }      // Mesto rođenja
         public string AcFieldSC { get; set; }      // Telefon
         public string AcFieldSD { get; set; }      // Ime oca

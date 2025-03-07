@@ -1,0 +1,53 @@
+﻿<Window x:Class="Ordinacija.Features.Doctors.AddNewDoctorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="AddNewDoctorView" Height="550" Width="500">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Dodavanje Novog Doktora" FontSize="22" FontWeight="Bold" Foreground="#333" 
+                   Margin="0 0 0 30" HorizontalAlignment="Center"/>
+
+        <!-- Doctor Information Form -->
+        <StackPanel Grid.Row="1" Margin="0 20 0 20">
+            <TextBlock Text="Ime" Foreground="#555" Margin="0 0 8 0"/>
+            <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding FirstName}"/>
+            </Border>
+            <TextBlock Height="20"/>
+
+            <TextBlock Text="Prezime" Foreground="#555" Margin="0 0 8 0"/>
+            <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding LastName}"/>
+            </Border>
+            <TextBlock Height="20"/>
+
+            <TextBlock Text="Datum rođenja" Foreground="#555" Margin="0 0 8 0"/>
+            <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <DatePicker Height="40" Padding="8" BorderThickness="0" SelectedDate="{Binding DateOfBirth}"/>
+            </Border>
+            <TextBlock Height="20"/>
+
+            <TextBlock Text="Telefon" Foreground="#555" Margin="0 0 8 0"/>
+            <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding PhoneNo}"/>
+            </Border>
+        </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 0">
+            <Button x:Name="ConfirmButton" Content="Sačuvaj izmene" Width="160" Height="45" Background="#4CAF50" Foreground="White" 
+                    BorderBrush="Transparent" FontSize="18" Margin="8" Padding="8" FontWeight="Bold" Click="ConfirmButton_Click"/>
+
+            <Button x:Name="PonistiButton" Content="Poništi" Width="160" Height="45" Background="#F44336" Foreground="White" 
+                    BorderBrush="Transparent" FontSize="18" Margin="8" Padding="8" FontWeight="Bold" Click="PonistiButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

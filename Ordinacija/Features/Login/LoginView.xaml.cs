@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Ordinacija.Features.Patients;
+using System.Windows;
 
 namespace Ordinacija.Features.Login
 {
@@ -7,12 +8,12 @@ namespace Ordinacija.Features.Login
     /// </summary>
     public partial class LoginView : Window
     {
-        private readonly MainWindow _mainWindow;
+        private readonly PatientsView _patientsView;
 
-        public LoginView(MainWindow mainWindow)
+        public LoginView(PatientsView mainWindow)
         {
             InitializeComponent();
-            _mainWindow = mainWindow;
+            _patientsView = mainWindow;
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -22,7 +23,7 @@ namespace Ordinacija.Features.Login
 
             if (username == "" && password == "")
             {
-                _mainWindow.Show();
+                _patientsView.Show();
                 this.Close();
             }
             else

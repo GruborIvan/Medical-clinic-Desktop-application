@@ -9,59 +9,85 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Row for buttons & search -->
             <RowDefinition Height="*"/>
-            <!-- Row for the patient table -->
+            <!-- Row for patient table -->
         </Grid.RowDefinitions>
 
-        <!-- Button and Search Box -->
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+        <!-- Top Bar with Buttons and Search Box -->
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <!-- "Dodaj pacijenta" button -->
+                <ColumnDefinition Width="10"/>
+                <!-- Spacer -->
+                <ColumnDefinition Width="300"/>
+                <!-- Search Box -->
+                <ColumnDefinition Width="*"/>
+                <!-- Fills remaining space -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- "Doctors" button -->
+            </Grid.ColumnDefinitions>
+
+            <!-- "Dodaj pacijenta" Button -->
             <Button Content="Dodaj pacijenta"
-                Padding="10,5"
-                Background="#0078D7"
-                Foreground="White"
-                FontWeight="Bold"
-                BorderBrush="Transparent"
-                Cursor="Hand"
-                Width="150"
-                Height="35"
-                Click="AddPatient_Click"/>
+            Padding="10,5"
+            Background="#0078D7"
+            Foreground="White"
+            FontWeight="Bold"
+            BorderBrush="Transparent"
+            Cursor="Hand"
+            Width="150"
+            Height="35"
+            Click="AddPatient_Click"
+            Grid.Column="0"/>
 
-            <Rectangle Width="10"/>
-
-            <Grid Width="300">
+            <!-- Search Box -->
+            <Grid Grid.Column="2">
                 <TextBlock Foreground="Gray"
-                       FontSize="14"
-                       VerticalAlignment="Center"
-                       Padding="12,0,0,0"
-                       IsHitTestVisible="False"/>
+                   FontSize="14"
+                   VerticalAlignment="Center"
+                   Padding="12,0,0,0"
+                   IsHitTestVisible="False"/>
 
-                <!-- Search TextBox -->
                 <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                     Foreground="Black"
-                     FontSize="14"
-                     Padding="8"
-                     Background="White"
-                     BorderBrush="Gray"
-                     VerticalContentAlignment="Center"/>
+                 Foreground="Black"
+                 FontSize="14"
+                 Padding="8"
+                 Background="White"
+                 BorderBrush="Gray"
+                 VerticalContentAlignment="Center"/>
             </Grid>
-        </StackPanel>
+
+            <!-- "Doctors" Button (aligned to the right) -->
+            <Button Content="Doctors"
+            Padding="10,5"
+            Background="#28A745"
+            Foreground="White"
+            FontWeight="Bold"
+            BorderBrush="Transparent"
+            Cursor="Hand"
+            Width="100"
+            Height="35"
+            Click="Doctors_Click"
+            Grid.Column="4"/>
+        </Grid>
 
         <!-- Patient Table -->
         <Border Background="White" 
-            CornerRadius="10" 
-            Padding="10" 
-            BorderBrush="Gray" 
-            BorderThickness="1"
-            Margin="0,10,0,0"
-            Grid.Row="2">
-            <!-- Move the table to the third row -->
+        CornerRadius="10" 
+        Padding="10" 
+        BorderBrush="Gray" 
+        BorderThickness="1"
+        Margin="0,10,0,0"
+        Grid.Row="1">
 
             <ListView x:Name="PatientsListView" 
-                  SelectionMode="Single"
-                  ItemsSource="{Binding FilteredPatients}" 
-                  SelectedItem="{Binding SelectedPatient, Mode=TwoWay}"
-                  Background="Transparent"
-                  BorderThickness="0">
+              SelectionMode="Single"
+              ItemsSource="{Binding FilteredPatients}" 
+              SelectedItem="{Binding SelectedPatient, Mode=TwoWay}"
+              Background="Transparent"
+              BorderThickness="0">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Margin" Value="4"/>
@@ -91,33 +117,33 @@
                     <GridView>
                         <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding FirstName}" Width="230"/>
                         <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding LastName}" Width="230"/>
-                        <GridViewColumn Header="Datum rođenja" DisplayMemberBinding="{Binding DateOfBirth}" Width="230"/>
+                        <GridViewColumn Header="Datum rođenja" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Width="230"/>
                         <GridViewColumn Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <Button Padding="5"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Cursor="Hand"
-                                            Click="EditPatient_Click"
-                                            CommandParameter="{Binding}">
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Cursor="Hand"
+                                        Click="EditPatient_Click"
+                                        CommandParameter="{Binding}">
                                             <TextBlock FontFamily="Segoe MDL2 Assets"
-                                                   Text="&#xE104;"
-                                                   FontSize="18"
-                                                   Foreground="#0078D7"/>
+                                               Text="&#xE104;"
+                                               FontSize="18"
+                                               Foreground="#0078D7"/>
                                         </Button>
                                         <Button Padding="5"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Cursor="Hand"
-                                            Margin="10,0,0,0"
-                                            Click="OpenMedicalReports_Click"
-                                            CommandParameter="{Binding}">
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Cursor="Hand"
+                                        Margin="10,0,0,0"
+                                        Click="OpenMedicalReports_Click"
+                                        CommandParameter="{Binding}">
                                             <TextBlock FontFamily="Segoe MDL2 Assets"
-                                                   Text="&#xE130;" 
-                                                   FontSize="18"
-                                                   Foreground="#28A745"/>
+                                               Text="&#xE130;" 
+                                               FontSize="18"
+                                               Foreground="#28A745"/>
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>
@@ -128,4 +154,5 @@
             </ListView>
         </Border>
     </Grid>
+
 </Window>

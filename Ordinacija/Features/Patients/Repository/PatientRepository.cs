@@ -59,13 +59,11 @@ namespace Ordinacija.Features.Patients.Repository
 
         public async Task UpdatePatient(Patient patient)
         {
-            var patientDbo = _mapper.Map<PatientDbo>(patient);
-
             var sql = @"
                 UPDATE tHE_SetSubj
                 SET AcName2 = @AcName2, 
                     AcAddress = @AcAddress,
-                    AdBirthDate = @AdDateOfBirth,
+                    AdBirthDate = @AdBirthDate,
                     AcFieldSA = @AcFieldSA,
                     AcFieldSC = @AcFieldSC,
                     AcFieldSD = @AcFieldSD,
@@ -74,12 +72,22 @@ namespace Ordinacija.Features.Patients.Repository
                     AcFieldSG = @AcFieldSG,
                     AcFieldSH = @AcFieldSH,
                     AcFieldSI = @AcFieldSI
-                WHERE AcSubject = @AcSubject";
+                WHERE AcSubject = @AcSubject"
+            ;
 
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
+                var patientDbo = _mapper.Map<PatientDbo>(patient);
+
+                using var connection = new SqlConnection(_connectionString);
+                
                 await connection.OpenAsync();
                 await connection.ExecuteAsync(sql, patientDbo);
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine($"SQL Exception: {ex.Message}");
+                throw;
             }
         }
     }

@@ -1,0 +1,131 @@
+﻿<Window x:Class="Ordinacija.Features.Doctors.DoctorsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="DoctorsView" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Dodaj doktora"
+        Padding="10,5"
+        Background="#0078D7"
+        Foreground="White"
+        FontWeight="Bold"
+        BorderBrush="Transparent"
+        Cursor="Hand"
+        Width="150"
+        Height="35"
+        Click="AddDoctor_Click"
+        Grid.Column="0"/>
+
+            <Grid Grid.Column="2">
+                <TextBlock Foreground="Gray"
+               FontSize="14"
+               VerticalAlignment="Center"
+               Padding="12,0,0,0"
+               IsHitTestVisible="False"/>
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+             Foreground="Black"
+             FontSize="14"
+             Padding="8"
+             Background="White"
+             BorderBrush="Gray"
+             VerticalContentAlignment="Center"/>
+            </Grid>
+        </Grid>
+
+        <Border Background="White" 
+    CornerRadius="10" 
+    Padding="10" 
+    BorderBrush="Gray" 
+    BorderThickness="1"
+    Margin="0,10,0,0"
+    Grid.Row="1">
+            <ListView x:Name="DoctorsListView" 
+          SelectionMode="Single"
+          ItemsSource="{Binding Doctors}" 
+          SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}"
+          Background="Transparent"
+          BorderThickness="0">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="4"/>
+                        <Setter Property="Padding" Value="8"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="5" ShadowDepth="1" Opacity="0.15"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E3F2FD"/>
+                                <Setter Property="BorderBrush" Value="#0078D7"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#0078D7"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding FirstName}" Width="230"/>
+                        <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding LastName}" Width="230"/>
+                        <GridViewColumn Header="Datum rođenja" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Width="230"/>
+                        <GridViewColumn Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button x:Name="EditDoctorButton"
+                                            Click="EditDoctorButton_Click"
+                                            Padding="5"
+                                                Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Cursor="Hand"
+                                            CommandParameter="{Binding}">
+                                                    <TextBlock FontFamily="Segoe MDL2 Assets"
+                                                   Text="&#xE104;"
+                                                   FontSize="18"
+                                                   Foreground="#0078D7"/>
+                                                </Button>
+                                                <Button Padding="5"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Cursor="Hand"
+                                            Margin="10,0,0,0"
+                                            CommandParameter="{Binding}">
+                                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                           Text="&#xE130;" 
+                                           FontSize="18"
+                                           Foreground="#28A745"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+    </Grid>
+
+</Window>
