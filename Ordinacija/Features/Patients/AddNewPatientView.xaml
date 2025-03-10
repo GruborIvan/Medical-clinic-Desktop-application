@@ -4,89 +4,105 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Add Patient" Height="630" Width="700"
+        Title="Add Patient" Height="700" Width="700"
         Background="#F4F4F4">
-    <Grid Margin="20">
+    <Window.Resources>
+        <DropShadowEffect x:Key="ShadowEffect" BlurRadius="10" Opacity="0.2" ShadowDepth="2"/>
+        <DropShadowEffect x:Key="ButtonShadowEffect" BlurRadius="8" Opacity="0.3" ShadowDepth="3"/>
+    </Window.Resources>
+
+    <Grid Margin="20" Background="#F0F4F8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Dodavanje Novog Pacijenta" FontSize="22" FontWeight="Bold" Foreground="#333" 
-                   Margin="0 0 0 30" HorizontalAlignment="Center"/>
+        <TextBlock Text="Dodavanje Novog Pacijenta" FontSize="26" FontWeight="Bold" Foreground="#2C3E50" 
+               Margin="0 0 0 30" HorizontalAlignment="Center"/>
 
         <!-- Patient Information Form -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="40"/>
-                <!-- Spacer -->
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
             <!-- Left Side - Patient Info -->
             <StackPanel Grid.Column="0" Margin="0 0 30 0">
-                <TextBlock Text="Prezime" Foreground="#555" Margin="0 0 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Prezime" Foreground="#34495E" Margin="0 0 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding LastName}"/>
                 </Border>
 
-                <TextBlock Text="Ime" Foreground="#555" Margin="0 12 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Ime" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding FirstName}"/>
                 </Border>
 
-                <TextBlock Text="Datum rođenja" Foreground="#555" Margin="0 12 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Datum rođenja" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <DatePicker Height="40" Padding="8" BorderThickness="0" SelectedDate="{Binding DateOfBirth}"/>
                 </Border>
 
-                <TextBlock Text="Mesto rođenja" Foreground="#555" Margin="0 12 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Mesto rođenja" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding PlaceOfBirth}"/>
                 </Border>
 
-                <TextBlock Text="Adresa" Foreground="#555" Margin="0 12 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Adresa" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding Address}"/>
                 </Border>
 
-                <TextBlock Text="Telefon" Foreground="#555" Margin="0 12 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Telefon" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding PhoneNo}"/>
                 </Border>
             </StackPanel>
 
             <!-- Right Side - Parent Information -->
             <StackPanel Grid.Column="2" Margin="40 0 0 0">
-                <TextBlock Text="Ime Oca" Foreground="#555" Margin="0 0 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Ime Oca" Foreground="#34495E" Margin="0 0 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding FathersName}"/>
                 </Border>
 
-                <TextBlock Text="Zanimanje Oca" Foreground="#555" Margin="0 12 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Zanimanje Oca" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding FathersProfession}"/>
                 </Border>
 
-                <TextBlock Text="Godina rođenja Oca" Foreground="#555" Margin="0 12 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Godina rođenja Oca" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding YearOfFathersBirth}"/>
                 </Border>
 
-                <TextBlock Text="Ime Majke" Foreground="#555" Margin="0 12 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Ime Majke" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding MothersName}"/>
                 </Border>
 
-                <TextBlock Text="Zanimanje Majke" Foreground="#555" Margin="0 12 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Zanimanje Majke" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0"/>
                 </Border>
 
-                <TextBlock Text="Godina rođenja Majke" Foreground="#555" Margin="0 12 8 0"/>
-                <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                <TextBlock Text="Godina rođenja Majke" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
+                <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
+                    Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding YearOfMothersBirth}"/>
                 </Border>
             </StackPanel>
@@ -94,11 +110,29 @@
 
         <!-- Buttons -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 0">
-            <Button x:Name="ConfirmButton" Content="Sačuvaj izmene" Width="160" Height="45" Background="#4CAF50" Foreground="White" 
-                    BorderBrush="Transparent" FontSize="18" Margin="8" Padding="8" FontWeight="Bold" Click="ConfirmButton_Click"/>
+            <Button x:Name="ConfirmButton" Content="Sačuvaj izmene" Width="160" Height="45" Foreground="White"
+        BorderBrush="Transparent" FontSize="18" Margin="8" Padding="8" FontWeight="Bold" 
+        Click="ConfirmButton_Click">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#27AE60" Offset="0"/>
+                        <GradientStop Color="#2ECC71" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
 
-            <Button x:Name="PonistiButton" Content="Poništi" Width="160" Height="45" Background="#F44336" Foreground="White" 
-                    BorderBrush="Transparent" FontSize="18" Margin="8" Padding="8" FontWeight="Bold" Click="PonistiButton_Click"/>
+            <Button x:Name="PonistiButton" Content="Poništi" Width="160" Height="45" Foreground="White"
+        BorderBrush="Transparent" FontSize="18" Margin="8" Padding="8" FontWeight="Bold"
+        Click="PonistiButton_Click">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#E74C3C" Offset="0"/>
+                        <GradientStop Color="#C0392B" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
         </StackPanel>
     </Grid>
+
 </Window>

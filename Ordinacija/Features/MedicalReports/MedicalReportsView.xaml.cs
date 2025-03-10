@@ -20,5 +20,16 @@ namespace Ordinacija.Features.MedicalReports
 
             DataContext = new MedicalReportViewModel(_patient, _medicalReportService);
         }
+
+        private void AddNewMedicalReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addNewMedicalReportView = new AddNewMedicalReportView(_medicalReportService);
+            addNewMedicalReportView.Show();
+        }
+
+        private void PrintButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

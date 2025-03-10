@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="DoctorsView" Height="450" Width="800">
-    <Grid Margin="10">
+        Title="DoctorsView" 
+        WindowState="Maximized" MinHeight="600" MinWidth="1000">
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -14,56 +15,79 @@
         <Grid Grid.Row="0" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
+            <!-- "Dodaj doktora" Button -->
             <Button Content="Dodaj doktora"
-        Padding="10,5"
-        Background="#0078D7"
-        Foreground="White"
-        FontWeight="Bold"
-        BorderBrush="Transparent"
-        Cursor="Hand"
-        Width="150"
-        Height="35"
-        Click="AddDoctor_Click"
-        Grid.Column="0"/>
+            Padding="12,6"
+            Background="#0078D7"
+            Foreground="White"
+            FontWeight="Bold"
+            BorderBrush="Transparent"
+            Cursor="Hand"
+            Width="180"
+            Height="40"
+            Click="AddDoctor_Click"
+            Grid.Column="0"/>
 
-            <Grid Grid.Column="2">
-                <TextBlock Foreground="Gray"
-               FontSize="14"
-               VerticalAlignment="Center"
-               Padding="12,0,0,0"
-               IsHitTestVisible="False"/>
-            </Grid>
+            <!-- Search Box with Built-in Search Icon -->
+            <Border Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     Foreground="Black"
+                     FontSize="16"
+                     Padding="12,0,12,0"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     VerticalContentAlignment="Center"
+                     Height="40"
+                     Width="500"/>
+
+                    <TextBlock Text="&#xE721;" 
+                       FontFamily="Segoe MDL2 Assets"
+                       FontSize="18"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Grid.Column="1"
+                       Foreground="Gray"/>
+                </Grid>
+            </Border>
         </Grid>
 
+        <!-- Doctors Table -->
         <Border Background="White" 
-    CornerRadius="10" 
-    Padding="10" 
-    BorderBrush="Gray" 
-    BorderThickness="1"
-    Margin="0,10,0,0"
-    Grid.Row="1">
+                CornerRadius="12" 
+                Padding="15" 
+                Margin="0,20,0,0"
+                BorderBrush="Gray" 
+                BorderThickness="1"
+                Grid.Row="1">
+
             <ListView x:Name="DoctorsListView" 
-          SelectionMode="Single"
-          ItemsSource="{Binding Doctors}" 
-          SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}"
-          Background="Transparent"
-          BorderThickness="0">
+                      SelectionMode="Single"
+                      ItemsSource="{Binding Doctors}" 
+                      SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}"
+                      Background="Transparent"
+                      BorderThickness="0">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <Setter Property="Margin" Value="4"/>
-                        <Setter Property="Padding" Value="8"/>
+                        <Setter Property="Margin" Value="6"/>
+                        <Setter Property="Padding" Value="10"/>
                         <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="BorderBrush" Value="Transparent"/>
                         <Setter Property="BorderThickness" Value="1"/>
                         <Setter Property="Effect">
                             <Setter.Value>
-                                <DropShadowEffect BlurRadius="5" ShadowDepth="1" Opacity="0.15"/>
+                                <DropShadowEffect BlurRadius="6" ShadowDepth="1" Opacity="0.2"/>
                             </Setter.Value>
                         </Setter>
                         <Style.Triggers>
@@ -81,35 +105,34 @@
 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding FirstName}" Width="230"/>
-                        <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding LastName}" Width="230"/>
-                        <GridViewColumn Header="Datum rođenja" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Width="230"/>
-                        <GridViewColumn Width="100">
+                        <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding FirstName}" Width="500"/>
+                        <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding LastName}" Width="500"/>
+                        <GridViewColumn Header="Datum rođenja" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Width="300"/>
+                        <GridViewColumn Width="120">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Button x:Name="EditDoctorButton"
-                                            Click="EditDoctorButton_Click"
-                                            Padding="5"
+                                        <Button Padding="5"
                                                 Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Cursor="Hand"
-                                            CommandParameter="{Binding}">
-                                                    <TextBlock FontFamily="Segoe MDL2 Assets"
-                                                   Text="&#xE104;"
-                                                   FontSize="18"
-                                                   Foreground="#0078D7"/>
-                                                </Button>
-                                                <Button Padding="5"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Cursor="Hand"
-                                            Margin="10,0,0,0"
-                                            CommandParameter="{Binding}">
+                                                BorderBrush="Transparent"
+                                                Cursor="Hand"
+                                                Click="EditDoctorButton_Click"
+                                                CommandParameter="{Binding}">
                                             <TextBlock FontFamily="Segoe MDL2 Assets"
-                                           Text="&#xE130;" 
-                                           FontSize="18"
-                                           Foreground="#28A745"/>
+                                                       Text="&#xE104;"
+                                                       FontSize="20"
+                                                       Foreground="#0078D7"/>
+                                        </Button>
+                                        <Button Padding="5"
+                                                Background="Transparent"
+                                                BorderBrush="Transparent"
+                                                Cursor="Hand"
+                                                Margin="10,0,0,0"
+                                                CommandParameter="{Binding}">
+                                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                                       Text="&#xE130;" 
+                                                       FontSize="20"
+                                                       Foreground="#28A745"/>
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>
