@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:medicalreports="clr-namespace:Ordinacija.Features.MedicalReports" 
         mc:Ignorable="d" Background="#F5F5F5"
         Title="Prikaz nalaza po pacijentu" WindowState="Maximized">
     <Grid>
@@ -24,62 +25,81 @@
                 <TextBlock Text="Prezime:" FontWeight="Bold" FontSize="14"/>
                 <TextBlock Text="{Binding Patient.FirstName}" FontSize="14" Margin="0 0 0 10"/>
                 <TextBlock Text="Datum rođenja:" FontWeight="Bold" FontSize="14"/>
-                <TextBlock Text="{Binding Patient.DateOfBirth}" FontSize="14" Margin="0 0 0 10"/>
+                <TextBlock Text="{Binding Patient.DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" FontSize="14" Margin="0 0 0 10"/>
             </StackPanel>
         </Border>
 
         <!-- Right Panel: Medical Report -->
         <Border Grid.Column="1" Padding="15" CornerRadius="10" Background="White" Margin="5">
             <StackPanel>
-                <Grid Margin="0 0 0 10">
+                <Grid Margin="0 0 0 30">
+                    <!-- Increased bottom margin -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Nalaz" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                    <TextBlock Text="Nalaz" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
 
                     <!-- Add New Medical Report Button -->
-                    <Button Grid.Column="1" Content="Dodaj novi nalaz +" Width="150" Height="30" FontSize="14" VerticalAlignment="Center" Margin="0 0 10 0" Command="{Binding AddNewReportCommand}"/>
+                    <Button Grid.Column="1" Content="Dodaj novi nalaz +" Width="150" Height="30" FontSize="14"
+            VerticalAlignment="Center" Margin="0 0 10 0" Command="{Binding AddNewReportCommand}"/>
 
                     <!-- Print Button -->
-                    <Button Grid.Column="2" Content="Stampaj" Width="100" Height="30" FontSize="14" VerticalAlignment="Center" Command="{Binding PrintReportCommand}"/>
+                    <Button Grid.Column="2" Content="Štampaj" Width="100" Height="30" FontSize="14"
+            VerticalAlignment="Center" Command="{Binding PrintReportCommand}"/>
                 </Grid>
 
-                <Grid Margin="0 0 0 15">
+                <Grid Margin="0 0 0 30">
+                    <!-- Increased bottom margin -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Datum nalaza:" FontWeight="Bold" VerticalAlignment="Center" Margin="0 0 10 0"/>
-                    <TextBlock Text="{Binding CurrentReport.Date}" Grid.Column="1" VerticalAlignment="Center"/>
+                    <TextBlock Text="Datum nalaza:" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding CurrentMedicalReport.DateOfReport, StringFormat='{}{0:dd.MM.yyyy}'}" 
+               Grid.Column="1" VerticalAlignment="Center" Margin="10,0,31,0"/>
                 </Grid>
 
-                <TextBlock Text="Diagnosis:" FontWeight="Bold"/>
-                <Border Background="#F0F0F0" Padding="10" CornerRadius="5" Margin="0 0 0 15">
-                    <TextBlock Text="{Binding CurrentReport.Diagnosis}" TextWrapping="Wrap"/>
+                <TextBlock Text="Dijagnoza:" FontWeight="Bold" Margin="0 0 0 10"/>
+                <!-- Increased bottom margin -->
+                <Border Background="#F0F0F0" Padding="30" CornerRadius="5" Margin="0 0 0 30">
+                    <!-- Increased padding and margin -->
+                    <TextBlock Text="{Binding CurrentMedicalReport.DG}" TextWrapping="Wrap"/>
                 </Border>
 
-                <TextBlock Text="Therapy:" FontWeight="Bold"/>
-                <Border Background="#F0F0F0" Padding="10" CornerRadius="5" Margin="0 0 0 15">
-                    <TextBlock Text="{Binding CurrentReport.Therapy}" TextWrapping="Wrap"/>
+                <TextBlock Text="Terapija:" FontWeight="Bold" Margin="0 0 0 10"/>
+                <Border Background="#F0F0F0" Padding="30" CornerRadius="5" Margin="0 0 0 30">
+                    <TextBlock Text="{Binding CurrentMedicalReport.TH}" TextWrapping="Wrap"/>
                 </Border>
 
-                <TextBlock Text="Doctor's Notes:" FontWeight="Bold"/>
-                <Border Background="#F0F0F0" Padding="10" CornerRadius="5" Margin="0 0 0 15">
-                    <TextBlock Text="{Binding CurrentReport.Notes}" TextWrapping="Wrap"/>
+                <TextBlock Text="Napomene lekara:" FontWeight="Bold" Margin="0 0 0 10"/>
+                <Border Background="#F0F0F0" Padding="30" CornerRadius="5" Margin="0 0 0 40">
+                    <TextBlock Text="{Binding CurrentMedicalReport.Description}" TextWrapping="Wrap"/>
                 </Border>
 
-                <TextBlock Text="Doctor Signature:" FontWeight="Bold"/>
-                <TextBlock Text="{Binding CurrentReport.Doctor}" Margin="0 0 0 10"/>
+                <TextBlock Text="Potpis doktora:" FontWeight="Bold" Margin="0 0 0 10"/>
+                <TextBlock Text="{Binding CurrentMedicalReport.DoctorId}" Margin="0 0 0 30"/>
+                <!-- Increased bottom margin -->
             </StackPanel>
         </Border>
 
-        <!-- Pagination Controls -->
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 20 0 20">
-            <Button Content="◀" Width="35" Height="35" FontSize="18" Command="{Binding PreviousReportCommand}"/>
-            <TextBlock Text="{Binding CurrentReportIndex, StringFormat='Page {0}'}" FontSize="16" Margin="10 0"/>
-            <Button Content="▶" Width="35" Height="35" FontSize="18" Command="{Binding NextReportCommand}"/>
+            <!-- Previous Button -->
+            <Button Content="◀" Width="35" Height="35" FontSize="18" 
+            Command="{Binding PreviousReportCommand}" />
+
+            <!-- Page Counter -->
+            <TextBlock Text="{Binding CurrentReportPage, StringFormat='{}{0} / '}" FontSize="16" Margin="10 0"/>
+            <TextBlock Text="{Binding TotalReports}" FontSize="16" Margin="0 0 10 0"/>
+
+
+            <!-- Next Button with MultiBinding -->
+            <Button Content="▶" Width="35" Height="35" FontSize="18"
+            Command="{Binding NextReportCommand}">
+            </Button>
         </StackPanel>
+
+
     </Grid>
 </Window>

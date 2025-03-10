@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ordinacija.Features.MedicalReports.Service;
+using Ordinacija.Features.Patients.Models;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Ordinacija.Features.MedicalReports
 {
@@ -19,9 +9,16 @@ namespace Ordinacija.Features.MedicalReports
     /// </summary>
     public partial class MedicalReportsView : Window
     {
-        public MedicalReportsView()
+        private readonly Patient _patient;
+        private readonly IMedicalReportService _medicalReportService;
+
+        public MedicalReportsView(Patient patient, IMedicalReportService medicalReportService)
         {
             InitializeComponent();
+            _patient = patient ?? throw new ArgumentNullException(nameof(patient));
+            _medicalReportService = medicalReportService ?? throw new ArgumentNullException(nameof(medicalReportService));
+
+            DataContext = new MedicalReportViewModel(_patient, _medicalReportService);
         }
     }
 }

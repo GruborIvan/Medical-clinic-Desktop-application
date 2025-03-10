@@ -1,6 +1,7 @@
 ﻿using Ordinacija.Features.Doctors;
 using Ordinacija.Features.Doctors.Service;
 using Ordinacija.Features.MedicalReports;
+using Ordinacija.Features.MedicalReports.Service;
 using Ordinacija.Features.Patients.Models;
 using Ordinacija.Features.Patients.Service;
 using System.Windows;
@@ -17,16 +18,19 @@ namespace Ordinacija.Features.Patients
 
         private readonly IPatientService _patientService;
         private readonly IDoctorService _doctorService;
+        private readonly IMedicalReportService _medicalReportService;
 
         public PatientsView(
             IPatientService patientService,
-            IDoctorService doctorService)
+            IDoctorService doctorService,
+            IMedicalReportService medicalReportService)
         {
             InitializeComponent();
 
             PatientViewModel = new PatientViewModel(patientService);
             _patientService = patientService;
             _doctorService = doctorService;
+            _medicalReportService = medicalReportService;
             DataContext = PatientViewModel;
         }
 
@@ -48,8 +52,11 @@ namespace Ordinacija.Features.Patients
 
         private void OpenMedicalReports_Click(object sender, RoutedEventArgs e)
         {
-            var medicalReportView = new MedicalReportsView();
-            medicalReportView.Show();
+            if (sender is Button button && button.CommandParameter is Patient selectedPatient)
+            {
+                var medicalReportView = new MedicalReportsView(selectedPatient, _medicalReportService);
+                medicalReportView.Show();
+            }
         }
 
         private void Doctors_Click(object sender, RoutedEventArgs e)

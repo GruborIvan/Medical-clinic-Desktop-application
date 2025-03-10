@@ -19,6 +19,7 @@ using Ordinacija.Features.Doctors.Service;
 using Ordinacija.Features.Doctors.Repository;
 using Ordinacija.Features.Doctors.Service.Implementation;
 using Ordinacija.Features.Doctors.Repository.Implementation;
+using Ordinacija.Features.Patients.Models;
 
 namespace Ordinacija
 {
@@ -86,6 +87,8 @@ namespace Ordinacija
             services.AddSingleton<MainWindow>();
             services.AddSingleton<PatientsView>();
             services.AddSingleton<LoginView>();
+
+            services.AddScoped<Patient>(provider => new Patient());
         }
 
         protected override void OnExit(ExitEventArgs e)

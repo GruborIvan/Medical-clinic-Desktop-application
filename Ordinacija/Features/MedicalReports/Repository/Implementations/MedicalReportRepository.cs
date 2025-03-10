@@ -27,9 +27,20 @@ namespace Ordinacija.Features.MedicalReports.Repository.Implementations
                 FROM _css_Nalaz
                 WHERE acSubject = @AcSubject";
 
-            var medicalReportsDbos = connection.Query<IEnumerable<MedicalReportDbo>>(query, new { AcSubject = "patient_id" }).ToList();
+            try
+            {
+                var medicalReportsDbos = (await connection.QueryAsync<MedicalReportDbo>(query, new { AcSubject = patientId })).ToList();
 
-            return _mapper.Map<IEnumerable<MedicalReport>>(medicalReportsDbos);
+                // Fix: Ensure _mapper.Map is correct and compatible with IEnumerable<>
+                return _mapper.Map<IEnumerable<MedicalReport>>(medicalReportsDbos);
+            }
+            catch (Exception e)
+            {
+                // Log the exception for debugging
+                Console.WriteLine($"Error fetching medical reports: {e.Message}");
+                throw;
+            }
+
         }
     }
 }
