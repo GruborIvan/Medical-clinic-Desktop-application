@@ -13,28 +13,23 @@ namespace Ordinacija.Features.Doctors.Repository.Implementation
 
         public DoctorRepository(IConfiguration configuration, IMapper mapper)
         {
-            _connectionString = configuration.GetConnectionString("PantheonDB");
-            _mapper = mapper;
+            _connectionString = configuration.GetConnectionString("PantheonDB") ?? throw new ArgumentNullException(nameof(configuration));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<IEnumerable<Doctor>> GetAllDoctors()
         {
-            try
-            {
-                using var connection = new SqlConnection(_connectionString);
-                
-                await connection.OpenAsync();
+            using var connection = new SqlConnection(_connectionString);
+            
+            await connection.OpenAsync();
 
-                var query = "SELECT AcSubject, AcName2, AcAddress, AdBirthDate, AcFieldSC FROM THE_SetSubj";
-                var doctorsDbo = await connection.QueryAsync<DoctorDbo>(query);
-                return _mapper.Map<List<Doctor>>(doctorsDbo);
-                
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine($"SQL Exception: {ex.Message}");
-                throw;
-            }
+            var query = @"SELECT AcSubject, AcName2, AcAddress, AdBirthDate, AcFieldSC 
+                          FROM THE_SetSubj
+                          WHERE acSupplier = 'T';
+                         ";
+
+            var doctorsDbo = await connection.QueryAsync<DoctorDbo>(query);
+            return _mapper.Map<List<Doctor>>(doctorsDbo);
         }
 
 
@@ -43,8 +38,8 @@ namespace Ordinacija.Features.Doctors.Repository.Implementation
             var doctorDbo = _mapper.Map<DoctorDbo>(doctor);
 
             var sql = @"
-                INSERT INTO tHE_SetSubj (AcSubject, AcName2, AdBirthDate, AcFieldSC) 
-                VALUES (@AcSubject, @AcName2, @AdDateOfBirth, @AcFieldSC);
+                INSERT INTO tHE_SetSubj (AcSubject, AcName2, AdBirthDate, AcFieldSC, AcSupplier) 
+                VALUES (@AcSubject, @AcName2, @AdDateOfBirth, @AcFieldSC, 'T');
             ";
 
             using var connection = new SqlConnection(_connectionString);

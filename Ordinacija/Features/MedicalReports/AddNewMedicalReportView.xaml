@@ -79,15 +79,15 @@
 
         <!-- Buttons -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 20">
-            <Button Content="Sačuvaj" Width="160" Height="50" Background="#4CAF50" Foreground="White" 
+            <Button Name="ConfirmCreateMedicalReportButton" Content="Sačuvaj" Width="160" Height="50" Background="#4CAF50" Foreground="White" 
                 BorderBrush="Transparent" FontSize="18" FontWeight="Bold" Cursor="Hand"
                 Effect="{DynamicResource ButtonShadowEffect}"
-                Command="{Binding SaveReportCommand}"/>
+                Command="{Binding SaveReportCommand}" Click="ConfirmCreateMedicalReportButton_Click"/>
 
-            <Button Content="Otkaži" Width="160" Height="50" Background="#F44336" Foreground="White" 
+            <Button Name="CancelButton" Content="Otkaži" Width="160" Height="50" Background="#F44336" Foreground="White" 
                 BorderBrush="Transparent" FontSize="18" FontWeight="Bold" Cursor="Hand"
                 Effect="{DynamicResource ButtonShadowEffect}"
-                Command="{Binding CancelCommand}" Margin="20 0 0 0"/>
+                Command="{Binding CancelCommand}" Margin="20 0 0 0" Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
 

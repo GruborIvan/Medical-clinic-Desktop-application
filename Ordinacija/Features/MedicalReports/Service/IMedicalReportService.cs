@@ -5,5 +5,6 @@ namespace Ordinacija.Features.MedicalReports.Service
     public interface IMedicalReportService
     {
         Task<IEnumerable<MedicalReport>> GetMedicalReportsForPatient(string patientId);
+        Task InsertMedicalReport(MedicalReport medicalReport);
     }
 }

@@ -12,10 +12,13 @@ namespace Ordinacija.Features.MedicalReports
         private readonly Patient _patient;
         private readonly IMedicalReportService _medicalReportService;
 
-        public MedicalReportsView(Patient patient, IMedicalReportService medicalReportService)
+        public MedicalReportsView(
+            IMedicalReportService medicalReportService,
+            Patient? patient = null)
         {
             InitializeComponent();
-            _patient = patient ?? throw new ArgumentNullException(nameof(patient));
+
+            _patient = patient;
             _medicalReportService = medicalReportService ?? throw new ArgumentNullException(nameof(medicalReportService));
 
             DataContext = new MedicalReportViewModel(_patient, _medicalReportService);
@@ -24,7 +27,7 @@ namespace Ordinacija.Features.MedicalReports
         private void AddNewMedicalReportButton_Click(object sender, RoutedEventArgs e)
         {
             var addNewMedicalReportView = new AddNewMedicalReportView(_medicalReportService);
-            addNewMedicalReportView.Show();
+            addNewMedicalReportView.ShowDialog();
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)

@@ -16,5 +16,10 @@ namespace Ordinacija.Features.MedicalReports.Service.Implementation
         {
             return await _medicalReportRepository.GetMedicalReportsForPatient(patientId);
         }
+
+        public async Task InsertMedicalReport(MedicalReport medicalReport)
+        {
+            await _medicalReportRepository.InsertMedicalReport(medicalReport);
+        }
     }
 }

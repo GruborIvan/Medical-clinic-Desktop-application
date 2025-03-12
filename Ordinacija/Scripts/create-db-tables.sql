@@ -11,8 +11,10 @@ CREATE TABLE THE_SetSubj (
     acFieldSF INT NULL,                          -- Godište oca (nullable)
     acFieldSG VARCHAR(255) NULL,                 -- Ime majke (nullable)
     acFieldSH VARCHAR(255) NULL,                 -- Mesto rođenja majke (nullable)
-    acFieldSI INT NULL                           -- Godište majke (nullable)
+    acFieldSI INT NULL,                          -- Godište majke (nullable)
+    acSupplier CHAR(1) NOT NULL DEFAULT 'F'      -- Supplier (T for True, F for False)
 );
+
 
 
 -- Medical reports table

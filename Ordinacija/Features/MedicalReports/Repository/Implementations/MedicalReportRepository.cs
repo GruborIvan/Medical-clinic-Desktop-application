@@ -13,8 +13,8 @@ namespace Ordinacija.Features.MedicalReports.Repository.Implementations
 
         public MedicalReportRepository(IConfiguration configuration, IMapper mapper)
         {
-            _connectionString = configuration.GetConnectionString("PantheonDB");
-            _mapper = mapper;
+            _connectionString = configuration.GetConnectionString("PantheonDB") ?? throw new ArgumentNullException(nameof(configuration));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<IEnumerable<MedicalReport>> GetMedicalReportsForPatient(string patientId)
@@ -23,24 +23,36 @@ namespace Ordinacija.Features.MedicalReports.Repository.Implementations
             
             var query = @"
                 SELECT 
-                    acNalaz, acSubject, adDate, acDescription, acDG, acTH, acKontrola, acLekar
-                FROM _css_Nalaz
-                WHERE acSubject = @AcSubject";
+                    acNalaz, report.acSubject, adDate, acDescription, acDG, acTH, acKontrola, AcName2 as acLekar
+                FROM _css_Nalaz report
+                LEFT JOIN THE_SetSubj patient
+                ON report.acLekar = patient.AcSubject
+                WHERE report.acSubject = @AcSubject;
+            ";
 
+            var medicalReportsDbos = (await connection.QueryAsync<MedicalReportDbo>(query, new { AcSubject = patientId })).ToList();
+
+            return _mapper.Map<IEnumerable<MedicalReport>>(medicalReportsDbos);
+        }
+
+        public async Task InsertMedicalReport(MedicalReport medicalReport)
+        {
+            var medicalReportDbo = _mapper.Map<MedicalReportDbo>(medicalReport);
+
+            const string query = @"
+            INSERT INTO _css_Nalaz (acNalaz, acSubject, adDate, acDescription, acDG, acTH, acKontrola, acLekar)
+            VALUES (@AcNalaz, @AcSubject, @AdDate, @AcDescription, @AcDG, @AcTH, @AcKontrola, @AcLekar)";
+
+            using var connection = new SqlConnection(_connectionString);
             try
             {
-                var medicalReportsDbos = (await connection.QueryAsync<MedicalReportDbo>(query, new { AcSubject = patientId })).ToList();
-
-                // Fix: Ensure _mapper.Map is correct and compatible with IEnumerable<>
-                return _mapper.Map<IEnumerable<MedicalReport>>(medicalReportsDbos);
+                await connection.ExecuteAsync(query, medicalReportDbo);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                // Log the exception for debugging
-                Console.WriteLine($"Error fetching medical reports: {e.Message}");
+                Console.WriteLine($"Error inserting medical report: {ex.Message}");
                 throw;
             }
-
         }
     }
 }

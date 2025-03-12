@@ -16,5 +16,15 @@ namespace Ordinacija.Features.MedicalReports
 
             _medicalReportService = medicalReportService;
         }
+
+        private async void ConfirmCreateMedicalReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            await _medicalReportService.InsertMedicalReport(null);
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

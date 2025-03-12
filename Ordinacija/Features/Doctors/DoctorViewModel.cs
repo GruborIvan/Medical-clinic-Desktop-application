@@ -24,11 +24,11 @@ namespace Ordinacija.Features.Doctors
 
         public async Task LoadDoctors()
         {
-            var patients = await _doctorService.GetAllDoctors();
+            var doctors = await _doctorService.GetAllDoctors();
 
             Doctors.Clear();
 
-            foreach (var patient in patients)
+            foreach (var patient in doctors)
             {
                 Doctors.Add(patient);
             }

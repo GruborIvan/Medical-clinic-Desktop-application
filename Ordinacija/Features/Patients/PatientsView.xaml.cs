@@ -37,7 +37,6 @@ namespace Ordinacija.Features.Patients
         private void AddPatient_Click(object sender, RoutedEventArgs e)
         {
             var addNewPatientView = new AddNewPatientView(_patientService, this);
-            this.Close();
             addNewPatientView.ShowDialog();
         }
 
@@ -54,14 +53,14 @@ namespace Ordinacija.Features.Patients
         {
             if (sender is Button button && button.CommandParameter is Patient selectedPatient)
             {
-                var medicalReportView = new MedicalReportsView(selectedPatient, _medicalReportService);
+                var medicalReportView = new MedicalReportsView(_medicalReportService, selectedPatient);
                 medicalReportView.Show();
             }
         }
 
         private void Doctors_Click(object sender, RoutedEventArgs e)
         {
-            var doctorsView = new DoctorsView(_doctorService, _patientService);
+            var doctorsView = new DoctorsView(_doctorService);
             doctorsView.Show();
         }
     }

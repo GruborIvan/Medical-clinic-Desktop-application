@@ -1,6 +1,5 @@
 ﻿using Ordinacija.Features.Doctors.Models;
 using Ordinacija.Features.Doctors.Service;
-using Ordinacija.Features.Patients.Service;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,19 +11,15 @@ namespace Ordinacija.Features.Doctors
     public partial class DoctorsView : Window
     {
         private readonly IDoctorService _doctorService;
-        private readonly IPatientService _patientService;
 
         public DoctorViewModel DoctorViewModel;
 
 
-        public DoctorsView(
-            IDoctorService doctorService,
-            IPatientService patientService)
+        public DoctorsView(IDoctorService doctorService)
         {
             InitializeComponent();
 
             _doctorService = doctorService;
-            _patientService = patientService;
 
             DoctorViewModel = new DoctorViewModel(doctorService);
             DataContext = DoctorViewModel;
@@ -33,7 +28,7 @@ namespace Ordinacija.Features.Doctors
         private void AddDoctor_Click(object sender, RoutedEventArgs e)
         {
             var addNewDoctorView = new AddNewDoctorView( _doctorService, this);
-            addNewDoctorView.Show();
+            addNewDoctorView.ShowDialog();
         }
 
         private void EditDoctorButton_Click(object sender, RoutedEventArgs e)

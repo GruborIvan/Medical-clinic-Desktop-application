@@ -1,7 +1,5 @@
 ﻿using Ordinacija.Features.Doctors.Models;
 using Ordinacija.Features.Doctors.Service;
-using Ordinacija.Features.Patients;
-using Ordinacija.Features.Patients.Models;
 using System.Windows;
 
 namespace Ordinacija.Features.Doctors

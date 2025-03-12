@@ -42,13 +42,13 @@ namespace Ordinacija.Extensions
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.AcSubject))
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom<FirstNameResolver<DoctorDbo>>())
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom<LastNameResolver<DoctorDbo>>())
-                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.AdDateOfBirth))
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.AdBirthDate))
                 .ForMember(dest => dest.PhoneNo, opt => opt.MapFrom(src => src.AcFieldSC));
 
             CreateMap<Doctor, DoctorDbo>()
                 .ForMember(dest => dest.AcSubject, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.AcName2, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
-                .ForMember(dest => dest.AdDateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.ToString("yyyy-MM-dd")))
+                .ForMember(dest => dest.AdBirthDate, opt => opt.MapFrom(src => src.DateOfBirth.ToString("yyyy-MM-dd")))
                 .ForMember(dest => dest.AcFieldSC, opt => opt.MapFrom(src => src.PhoneNo));
 
 
