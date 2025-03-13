@@ -53,7 +53,7 @@ namespace Ordinacija.Features.Patients
         {
             if (sender is Button button && button.CommandParameter is Patient selectedPatient)
             {
-                var medicalReportView = new MedicalReportsView(_medicalReportService, selectedPatient);
+                var medicalReportView = new MedicalReportsView(_medicalReportService, _doctorService, selectedPatient);
                 medicalReportView.Show();
             }
         }

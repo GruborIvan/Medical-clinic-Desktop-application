@@ -55,7 +55,7 @@ namespace Ordinacija.Features.MedicalReports
             _ = LoadMedicalReports();
         }
 
-        private async Task LoadMedicalReports()
+        public async Task LoadMedicalReports()
         {
             OnPropertyChanged(nameof(Patient));
             var reports = await _medicalReportService.GetMedicalReportsForPatient(Patient.AcSubject);

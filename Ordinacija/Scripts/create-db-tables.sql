@@ -21,7 +21,7 @@ CREATE TABLE THE_SetSubj (
 CREATE TABLE _css_Nalaz (
     acNalaz CHAR(6) NOT NULL PRIMARY KEY,     -- Šifra nalaza
     acSubject CHAR(6) NOT NULL,               -- Šifra pacijenta (foreign key)
-    adDate DATE NOT NULL,                     -- Datum nalaza
+    adDate DATETIME NOT NULL,                     -- Datum nalaza
     acDescription TEXT,                        -- Opis nalaza
     acDG VARCHAR(255),                        -- Dijagnoza
     acTH VARCHAR(255),                        -- TH

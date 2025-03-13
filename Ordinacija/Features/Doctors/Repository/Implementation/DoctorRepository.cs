@@ -39,7 +39,7 @@ namespace Ordinacija.Features.Doctors.Repository.Implementation
 
             var sql = @"
                 INSERT INTO tHE_SetSubj (AcSubject, AcName2, AdBirthDate, AcFieldSC, AcSupplier) 
-                VALUES (@AcSubject, @AcName2, @AdDateOfBirth, @AcFieldSC, 'T');
+                VALUES (@AcSubject, @AcName2, @AdBirthDate, @AcFieldSC, 'T');
             ";
 
             using var connection = new SqlConnection(_connectionString);
@@ -61,7 +61,7 @@ namespace Ordinacija.Features.Doctors.Repository.Implementation
                 UPDATE tHE_SetSubj
                 SET 
                     AcName2 = @AcName2, 
-                    AdBirthDate = @AdDateOfBirth,
+                    AdBirthDate = @AdBirthDate,
                     AcFieldSC = @AcFieldSC
                 WHERE AcSubject = @AcSubject";
 

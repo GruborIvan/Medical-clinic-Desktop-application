@@ -1,4 +1,6 @@
-﻿namespace Ordinacija.Features.Doctors.Models
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+
+namespace Ordinacija.Features.Doctors.Models
 {
     public class Doctor
     {
@@ -7,5 +9,7 @@
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string PhoneNo { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}";
     }
 }

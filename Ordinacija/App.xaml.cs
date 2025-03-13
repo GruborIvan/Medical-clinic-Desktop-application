@@ -75,16 +75,11 @@ namespace Ordinacija
             services.AddSingleton<IMedicalReportService, MedicalReportService>();
             services.AddSingleton<IMedicalReportRepository, MedicalReportRepository>();
 
-
-            services.AddSingleton<PageNavigationService>();
-
             // Register ViewModels
-            services.AddSingleton<MainViewModel>();
             services.AddTransient<PatientViewModel>();
             services.AddTransient<MedicalReportViewModel>();
 
             // Register Views
-            services.AddSingleton<MainWindow>();
             services.AddSingleton<PatientsView>();
             services.AddSingleton<LoginView>();
 

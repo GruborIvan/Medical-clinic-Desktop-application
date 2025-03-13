@@ -27,7 +27,8 @@ namespace Ordinacija.Features.MedicalReports.Repository.Implementations
                 FROM _css_Nalaz report
                 LEFT JOIN THE_SetSubj patient
                 ON report.acLekar = patient.AcSubject
-                WHERE report.acSubject = @AcSubject;
+                WHERE report.acSubject = @AcSubject
+                ORDER BY adDate DESC;
             ";
 
             var medicalReportsDbos = (await connection.QueryAsync<MedicalReportDbo>(query, new { AcSubject = patientId })).ToList();
@@ -38,21 +39,29 @@ namespace Ordinacija.Features.MedicalReports.Repository.Implementations
         public async Task InsertMedicalReport(MedicalReport medicalReport)
         {
             var medicalReportDbo = _mapper.Map<MedicalReportDbo>(medicalReport);
+            medicalReportDbo.AcNalaz = await GenerateNextNalazId();
 
             const string query = @"
-            INSERT INTO _css_Nalaz (acNalaz, acSubject, adDate, acDescription, acDG, acTH, acKontrola, acLekar)
-            VALUES (@AcNalaz, @AcSubject, @AdDate, @AcDescription, @AcDG, @AcTH, @AcKontrola, @AcLekar)";
+                INSERT INTO _css_Nalaz (acNalaz, acSubject, adDate, acDescription, acDG, acTH, acKontrola, acLekar)
+                VALUES (@AcNalaz, @AcSubject, @AdDate, @AcDescription, @AcDG, @AcTH, @AcKontrola, @AcLekar)
+            ";
 
             using var connection = new SqlConnection(_connectionString);
-            try
-            {
-                await connection.ExecuteAsync(query, medicalReportDbo);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error inserting medical report: {ex.Message}");
-                throw;
-            }
+
+            await connection.ExecuteAsync(query, medicalReportDbo);
+        }
+
+        private SqlConnection CreateConnection() => new SqlConnection(_connectionString);
+
+        private async Task<string> GenerateNextNalazId()
+        {
+            const string sql = "SELECT MAX(acNalaz) FROM _css_Nalaz";
+
+            using var connection = CreateConnection();
+            var lastId = await connection.ExecuteScalarAsync<string>(sql);
+            int nextId = string.IsNullOrEmpty(lastId) ? 1 : int.Parse(lastId) + 1;
+
+            return nextId.ToString("D6");
         }
     }
 }
