@@ -10,5 +10,7 @@
         public string AcTH { get; set; }  // TH
         public string AcKontrola { get; set; }  // Kontrola
         public string AcLekar { get; set; }  // Šifra lekara
-    }
+        public string Anamneza { get; set; }
+        public string DoctorName { get; set; }
+    }   
 }

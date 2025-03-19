@@ -6,7 +6,6 @@ using System.IO;
 using System.Windows;
 using Microsoft.Extensions.Hosting;
 using Ordinacija.Features.Patients.Repository;
-using Ordinacija.Features.Common;
 using AutoMapper;
 using Ordinacija.Extensions;
 using Ordinacija.Features.Login;
@@ -20,6 +19,8 @@ using Ordinacija.Features.Doctors.Repository;
 using Ordinacija.Features.Doctors.Service.Implementation;
 using Ordinacija.Features.Doctors.Repository.Implementation;
 using Ordinacija.Features.Patients.Models;
+using Ordinacija.Features.ReportPrint.Repository;
+using Ordinacija.Features.ReportPrint.Repository.Implementation;
 
 namespace Ordinacija
 {
@@ -74,6 +75,8 @@ namespace Ordinacija
 
             services.AddSingleton<IMedicalReportService, MedicalReportService>();
             services.AddSingleton<IMedicalReportRepository, MedicalReportRepository>();
+
+            services.AddTransient<ISchemaRepository, SchemaRepository>();
 
             // Register ViewModels
             services.AddTransient<PatientViewModel>();

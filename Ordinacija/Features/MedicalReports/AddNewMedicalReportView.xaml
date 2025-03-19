@@ -18,7 +18,7 @@
 
         <!-- Title -->
         <TextBlock Text="Unos novog nalaza" FontSize="28" FontWeight="Bold" Foreground="#2C3E50" 
-           Margin="20 10" HorizontalAlignment="Center"/>
+           Margin="20 0" HorizontalAlignment="Center"/>
 
         <!-- Content Grid -->
         <Grid Grid.Row="1" Margin="20">
@@ -29,14 +29,19 @@
             </Grid.ColumnDefinitions>
 
             <!-- Left Side (Patient Info) -->
-            <StackPanel Grid.Column="0" Margin="0 20 30 0">
+            <StackPanel Grid.Column="0" Margin="0 0 30 0">
                 <TextBlock Text="Lekar" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 0 8 0"/>
                 <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
                     Effect="{DynamicResource ShadowEffect}">
-                    <ComboBox Height="40" Padding="8" BorderThickness="0" 
+                    <ComboBox Name="DoctorComboBox"
+                              Height="40" 
+                              Padding="8" 
+                              BorderThickness="0" 
                               ItemsSource="{Binding Doctors}" 
                               DisplayMemberPath="FullName" 
                               SelectedValuePath="AcSubject" 
+                              IsEditable="True"
+                              PreviewTextInput="ComboBox_PreviewTextInput"
                               SelectedValue="{Binding CurrentMedicalReport.DoctorId, Mode=TwoWay}"
                               SelectionChanged="ComboBox_SelectionChanged"/>
                 </Border>
@@ -50,18 +55,30 @@
                             xmlns:sys="clr-namespace:System;assembly=mscorlib"/>
                 </Border>
 
+                <!-- New Field: Anamneza i fizikalni nalaz -->
+                <TextBlock Text="Anamneza i fizikalni nalaz" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
+                <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
+                    Effect="{DynamicResource ShadowEffect}">
+                    <TextBox Height="180" Padding="8" BorderThickness="0" 
+                         AcceptsReturn="True" TextWrapping="Wrap" 
+                         VerticalScrollBarVisibility="Auto"
+                         Text="{Binding CurrentMedicalReport.Anamneza}"/>
+                </Border>
+
+                <!-- Dijagnoza Field (Reduced Height) -->
                 <TextBlock Text="Dijagnoza" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
                 <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
                     Effect="{DynamicResource ShadowEffect}">
-                    <TextBox Height="200" Padding="8" BorderThickness="0" 
+                    <TextBox Height="70" Padding="8" BorderThickness="0" 
                          AcceptsReturn="True" TextWrapping="Wrap" 
                          VerticalScrollBarVisibility="Auto"
                          Text="{Binding CurrentMedicalReport.DG}"/>
                 </Border>
             </StackPanel>
 
-            <!-- Right Side (Treatment & Notes) -->
-            <StackPanel Grid.Column="2" Margin="40 20 0 0" Width="160">
+            <!-- Right Side (Treatment, Control & Description) -->
+            <StackPanel Grid.Column="2" Margin="40 0 0 0">
+                <!-- Terapija -->
                 <TextBlock Text="Terapija" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 0 8 0"/>
                 <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
                     Effect="{DynamicResource ShadowEffect}">
@@ -71,13 +88,24 @@
                          Text="{Binding CurrentMedicalReport.TH}"/>
                 </Border>
 
-                <TextBlock Text="Kontrola:" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
+                <!-- Kontrola -->
+                <TextBlock Text="Kontrola" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
                 <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
                     Effect="{DynamicResource ShadowEffect}">
-                    <TextBox Height="174" Padding="8" BorderThickness="0" 
+                    <TextBox Height="100" Padding="8" BorderThickness="0" 
                          AcceptsReturn="True" TextWrapping="Wrap" 
                          VerticalScrollBarVisibility="Auto"
                          Text="{Binding CurrentMedicalReport.Control}"/>
+                </Border>
+
+                <!-- Opis -->
+                <TextBlock Text="Opis" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
+                <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
+                    Effect="{DynamicResource ShadowEffect}">
+                    <TextBox Height="100" Padding="8" BorderThickness="0" 
+                         AcceptsReturn="True" TextWrapping="Wrap" 
+                         VerticalScrollBarVisibility="Auto"
+                         Text="{Binding CurrentMedicalReport.Description}"/>
                 </Border>
             </StackPanel>
         </Grid>
@@ -95,6 +123,4 @@
                 Command="{Binding CancelCommand}" Margin="20 0 0 0" Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
-
-
 </Window>

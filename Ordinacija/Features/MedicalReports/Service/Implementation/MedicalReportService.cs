@@ -21,5 +21,10 @@ namespace Ordinacija.Features.MedicalReports.Service.Implementation
         {
             await _medicalReportRepository.InsertMedicalReport(medicalReport);
         }
+
+        public async Task UpdateMedicalReport(MedicalReport medicalReport)
+        {
+            await _medicalReportRepository.UpdateMedicalReport(medicalReport);
+        }
     }
 }

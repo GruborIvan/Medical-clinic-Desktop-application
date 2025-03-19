@@ -4,6 +4,7 @@ using Ordinacija.Features.MedicalReports;
 using Ordinacija.Features.MedicalReports.Service;
 using Ordinacija.Features.Patients.Models;
 using Ordinacija.Features.Patients.Service;
+using Ordinacija.Features.ReportPrint.Repository;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,17 +20,20 @@ namespace Ordinacija.Features.Patients
         private readonly IPatientService _patientService;
         private readonly IDoctorService _doctorService;
         private readonly IMedicalReportService _medicalReportService;
+        private readonly ISchemaRepository _schemaRepository;
 
         public PatientsView(
             IPatientService patientService,
             IDoctorService doctorService,
-            IMedicalReportService medicalReportService)
+            IMedicalReportService medicalReportService,
+            ISchemaRepository schemaRepository)
         {
             InitializeComponent();
 
             PatientViewModel = new PatientViewModel(patientService);
             _patientService = patientService;
             _doctorService = doctorService;
+            _schemaRepository = schemaRepository;
             _medicalReportService = medicalReportService;
             DataContext = PatientViewModel;
         }
@@ -53,7 +57,7 @@ namespace Ordinacija.Features.Patients
         {
             if (sender is Button button && button.CommandParameter is Patient selectedPatient)
             {
-                var medicalReportView = new MedicalReportsView(_medicalReportService, _doctorService, selectedPatient);
+                var medicalReportView = new MedicalReportsView(_medicalReportService, _doctorService, _schemaRepository, selectedPatient);
                 medicalReportView.Show();
             }
         }
@@ -62,6 +66,23 @@ namespace Ordinacija.Features.Patients
         {
             var doctorsView = new DoctorsView(_doctorService);
             doctorsView.Show();
+        }
+
+        private void PrintButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewMedicalReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.CommandParameter is Patient selectedPatient)
+            {
+                var medicalReportView = new MedicalReportsView(_medicalReportService, _doctorService, _schemaRepository, selectedPatient);
+                medicalReportView.Show();
+
+                var addNewMedicalReport = new AddNewMedicalReportView(_medicalReportService, _doctorService, medicalReportView, selectedPatient);
+                addNewMedicalReport.ShowDialog();
+            }
         }
     }
 }

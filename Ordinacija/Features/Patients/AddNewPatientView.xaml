@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Add Patient" Height="700" Width="700"
+        Title="Add Patient" Height="750" Width="720"
         Background="#F4F4F4">
     <Window.Resources>
         <DropShadowEffect x:Key="ShadowEffect" BlurRadius="10" Opacity="0.2" ShadowDepth="2"/>
@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Dodavanje Novog Pacijenta" FontSize="26" FontWeight="Bold" Foreground="#2C3E50" 
+        <TextBlock Text="{Binding TitleText}" FontSize="26" FontWeight="Bold" Foreground="#2C3E50" 
                Margin="0 0 0 30" HorizontalAlignment="Center"/>
 
         <!-- Patient Information Form -->
@@ -34,37 +34,37 @@
                 <TextBlock Text="Prezime" Foreground="#34495E" Margin="0 0 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding LastName}"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.LastName}"/>
                 </Border>
 
                 <TextBlock Text="Ime" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding FirstName}"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FirstName}"/>
                 </Border>
 
                 <TextBlock Text="Datum rođenja" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <DatePicker Height="40" Padding="8" BorderThickness="0" SelectedDate="{Binding DateOfBirth}"/>
+                    <DatePicker Height="40" Padding="8" BorderThickness="0" SelectedDate="{Binding CurrentPatient.DateOfBirth}"/>
                 </Border>
 
                 <TextBlock Text="Mesto rođenja" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding PlaceOfBirth}"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.PlaceOfBirth}"/>
                 </Border>
 
                 <TextBlock Text="Adresa" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding Address}"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.Address}"/>
                 </Border>
 
                 <TextBlock Text="Telefon" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding PhoneNo}"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.PhoneNo}"/>
                 </Border>
             </StackPanel>
 
@@ -73,25 +73,25 @@
                 <TextBlock Text="Ime Oca" Foreground="#34495E" Margin="0 0 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding FathersName}"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FathersName}"/>
                 </Border>
 
                 <TextBlock Text="Zanimanje Oca" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding FathersProfession}"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FathersProfession}"/>
                 </Border>
 
                 <TextBlock Text="Godina rođenja Oca" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding YearOfFathersBirth}"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.YearOfFathersBirth}"/>
                 </Border>
 
                 <TextBlock Text="Ime Majke" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding MothersName}"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.MothersName}"/>
                 </Border>
 
                 <TextBlock Text="Zanimanje Majke" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
@@ -103,7 +103,7 @@
                 <TextBlock Text="Godina rođenja Majke" Foreground="#34495E" Margin="0 12 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding YearOfMothersBirth}"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.YearOfMothersBirth}"/>
                 </Border>
             </StackPanel>
         </Grid>

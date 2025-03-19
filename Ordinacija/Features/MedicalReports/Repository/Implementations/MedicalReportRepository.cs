@@ -23,7 +23,7 @@ namespace Ordinacija.Features.MedicalReports.Repository.Implementations
             
             var query = @"
                 SELECT 
-                    acNalaz, report.acSubject, adDate, acDescription, acDG, acTH, acKontrola, AcName2 as acLekar
+                    acNalaz, report.acSubject, adDate, acDescription, acDG, acTH, acKontrola, acLekar, Anamneza, AcName2 as DoctorName
                 FROM _css_Nalaz report
                 LEFT JOIN THE_SetSubj patient
                 ON report.acLekar = patient.AcSubject
@@ -42,12 +42,34 @@ namespace Ordinacija.Features.MedicalReports.Repository.Implementations
             medicalReportDbo.AcNalaz = await GenerateNextNalazId();
 
             const string query = @"
-                INSERT INTO _css_Nalaz (acNalaz, acSubject, adDate, acDescription, acDG, acTH, acKontrola, acLekar)
-                VALUES (@AcNalaz, @AcSubject, @AdDate, @AcDescription, @AcDG, @AcTH, @AcKontrola, @AcLekar)
+                INSERT INTO _css_Nalaz (acNalaz, acSubject, adDate, acDescription, acDG, acTH, acKontrola, acLekar, Anamneza)
+                VALUES (@AcNalaz, @AcSubject, @AdDate, @AcDescription, @AcDG, @AcTH, @AcKontrola, @AcLekar, @Anamneza)
             ";
 
             using var connection = new SqlConnection(_connectionString);
 
+            await connection.ExecuteAsync(query, medicalReportDbo);
+        }
+
+        public async Task UpdateMedicalReport(MedicalReport medicalReport)
+        {
+            var medicalReportDbo = _mapper.Map<MedicalReportDbo>(medicalReport);
+
+            const string query = @"
+                UPDATE _css_Nalaz
+                SET 
+                    acSubject = @AcSubject,
+                    adDate = @AdDate,
+                    acDescription = @AcDescription,
+                    acDG = @AcDG,
+                    acTH = @AcTH,
+                    acKontrola = @AcKontrola,
+                    acLekar = @AcLekar,
+                    Anamneza = @Anamneza
+                WHERE acNalaz = @AcNalaz
+            ";
+
+            using var connection = new SqlConnection(_connectionString);
             await connection.ExecuteAsync(query, medicalReportDbo);
         }
 

@@ -6,5 +6,6 @@ namespace Ordinacija.Features.MedicalReports.Service
     {
         Task<IEnumerable<MedicalReport>> GetMedicalReportsForPatient(string patientId);
         Task InsertMedicalReport(MedicalReport medicalReport);
+        Task UpdateMedicalReport(MedicalReport medicalReport);
     }
 }

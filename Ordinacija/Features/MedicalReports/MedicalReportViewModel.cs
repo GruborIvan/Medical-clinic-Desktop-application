@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Ordinacija.Features.Common;
+using Ordinacija.Features.Doctors.Service;
 using Ordinacija.Features.MedicalReports.Models;
 using Ordinacija.Features.MedicalReports.Service;
 using Ordinacija.Features.Patients.Models;
@@ -12,15 +13,13 @@ namespace Ordinacija.Features.MedicalReports
     public class MedicalReportViewModel : BaseViewModel
     {
         private readonly IMedicalReportService _medicalReportService;
+        private readonly IDoctorService _doctorService;
 
-        private Patient _patient;
         public Patient Patient
         {
             get => _patient;
             set => SetProperty(ref _patient, value);
         }
-
-        private int _currentIndex;
 
         public ObservableCollection<MedicalReport> MedicalReports { get; } = new();
 
@@ -29,8 +28,6 @@ namespace Ordinacija.Features.MedicalReports
         public IAsyncRelayCommand PreviousReportCommand { get; }
         public IAsyncRelayCommand CreateNewMedicalReportCommand { get; }
 
-
-        private MedicalReport? _currentMedicalReport;
         public MedicalReport? CurrentMedicalReport
         {
             get => _currentMedicalReport;
@@ -40,12 +37,16 @@ namespace Ordinacija.Features.MedicalReports
         public int CurrentReportPage => _currentIndex + 1;
         public int TotalReports => MedicalReports.Count;
 
-        public MedicalReportViewModel(Patient patient, IMedicalReportService medicalReportService)
+        public MedicalReportViewModel(
+            Patient patient, 
+            IMedicalReportService medicalReportService,
+            IDoctorService doctorService)
         {
             Patient = patient ?? throw new ArgumentNullException(nameof(patient));
             _patient = patient;
 
             _medicalReportService = medicalReportService ?? throw new ArgumentNullException(nameof(medicalReportService));
+            _doctorService = doctorService ?? throw new ArgumentNullException(nameof(doctorService));
 
             LoadMedicalReportsCommand = new RelayCommand(LoadMedicalReports);
             NextReportCommand = new AsyncRelayCommand(NextReport, CanMoveNext);
@@ -60,14 +61,11 @@ namespace Ordinacija.Features.MedicalReports
             OnPropertyChanged(nameof(Patient));
             var reports = await _medicalReportService.GetMedicalReportsForPatient(Patient.AcSubject);
 
-            MedicalReports.Clear();
-            foreach (var report in reports)
-                MedicalReports.Add(report);
+            FillMedicalReportsList(reports);
 
             _currentIndex = 0;
             CurrentMedicalReport = MedicalReports.FirstOrDefault();
 
-            // Manually trigger updates for report data
             OnPropertyChanged(nameof(MedicalReports));
             OnPropertyChanged(nameof(CurrentReportPage));
             OnPropertyChanged(nameof(TotalReports));
@@ -80,12 +78,20 @@ namespace Ordinacija.Features.MedicalReports
 
         public async Task CreateNewMedicalReport()
         {
-            await _medicalReportService.InsertMedicalReport(CurrentMedicalReport);
-            MedicalReports.Add(CurrentMedicalReport);
+            await _medicalReportService.InsertMedicalReport(CurrentMedicalReport!);
+            MedicalReports.Add(CurrentMedicalReport!);
             _currentIndex = MedicalReports.Count - 1;
-            CurrentMedicalReport = CurrentMedicalReport;
 
             RefreshCommandStates();
+        }
+
+        private void FillMedicalReportsList(IEnumerable<MedicalReport> medicalReports)
+        {
+            MedicalReports.Clear();
+            foreach (var report in medicalReports)
+            {
+                MedicalReports.Add(report);
+            }
         }
 
         private async Task NextReport()
@@ -123,5 +129,9 @@ namespace Ordinacija.Features.MedicalReports
 
         private bool CanMoveNext() => _currentIndex < MedicalReports.Count - 1;
         private bool CanMovePrevious() => _currentIndex > 0;
+
+        private Patient _patient;
+        private int _currentIndex;
+        private MedicalReport? _currentMedicalReport;
     }
 }

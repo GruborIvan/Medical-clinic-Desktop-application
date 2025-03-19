@@ -13,3 +13,23 @@ VALUES
 ('N00001', '000001', '2025-03-04', 'Pacijent se žali na bol u grudima.', 'I20.0', 'Aspirin', 'Kontrola za 7 dana', '000002'),
 ('N00002', '000002', '2025-03-04', 'Pregled zbog visokog pritiska.', 'I10', 'Enalapril', 'Kontrola za 14 dana', '000003'),
 ('N00003', '000004 ', '2025-03-04', 'Rutinski pregled.', 'Z00.0', 'Nema terapije', 'Nije potrebna kontrola', '000001');
+
+
+-- Insert real data into SchemaTable
+INSERT INTO SchemaTable (SchemaName, SchemaValue)
+VALUES 
+('UZ ABDOMENA I BUBREGA',
+'Jetra je normalnih dimenzija, homogene strukture.
+Žučna kesa jasnih kontura, bez prisustva intraluminalnog patološkog sadržaja.
+Žučni putevi nisu prošireni.
+Slezina je normalne veličine, homogene strukture.
+Pankreas je normalne veličine, jasnih kontura, homogene strukture.
+U projekciji na obe nadbubrežne žlezde ne vide se patološke promene.
+Oba bubrega su normalne veličine i oblika, održane širine parenhima, jasne kortikomedularne granice, bez znakova dilatacije pijelokaliksnog sistema.
+Mokraćna bešika umereno distendirana urinom, bez prisustva grubljih intraluminalnih patoloških promena.
+Ne vidi se prisustvo slobodne tečnosti u abdomenu i maloj karlici.
+Mezenterijalni limfonodusi se vide kao pojedinačni nisu signifikantno uvećani.
+Retroperitonealni limfonodusi dostupni UZ pregledu nisu signifikantno uvećani.
+Apendiks uredne morfologije.
+Debljina crevnog zida je normalna.
+')

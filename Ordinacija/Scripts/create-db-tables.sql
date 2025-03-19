@@ -27,7 +27,13 @@ CREATE TABLE _css_Nalaz (
     acTH VARCHAR(255),                        -- TH
     acKontrola VARCHAR(255),                  -- Kontrola
     acLekar CHAR(6) NOT NULL,                 -- Šifra lekara (foreign key)
+    Anamneza VARCHAR(1000),    
     
     FOREIGN KEY (acSubject) REFERENCES THE_SetSubj(acSubject),
     FOREIGN KEY (acLekar) REFERENCES THE_SetSubj(acSubject)
+);
+
+CREATE TABLE SchemaTable (
+    SchemaName NVARCHAR(20) NOT NULL PRIMARY KEY, -- Unique identifier
+    SchemaValue NVARCHAR(MAX) NOT NULL -- Stores large text with new lines
 );

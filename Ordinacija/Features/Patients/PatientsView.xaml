@@ -40,7 +40,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <!-- TextBox -->
-                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="50"/>
                         <!-- Icon -->
                     </Grid.ColumnDefinitions>
 
@@ -125,34 +125,76 @@
                         <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding FirstName}" Width="500"/>
                         <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding LastName}" Width="500"/>
                         <GridViewColumn Header="Datum rođenja" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Width="300"/>
-                        <GridViewColumn Width="120">
+                        <GridViewColumn Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                        <!-- Edit Patient Button (Now First) -->
                                         <Button Padding="5"
-                                                Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                Cursor="Hand"
-                                                Click="EditPatient_Click"
-                                                CommandParameter="{Binding}">
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Cursor="Hand"
+                                            Click="EditPatient_Click"
+                                            ToolTip="Izmeni podatke o pacijentu"
+                                            CommandParameter="{Binding}">
                                             <TextBlock FontFamily="Segoe MDL2 Assets"
-                                                       Text="&#xE104;"
-                                                       FontSize="20"
-                                                       Foreground="#0078D7"/>
+                                                   Text="&#xE104;"
+                                                   FontSize="20"
+                                                   Foreground="#0078D7"/>
                                         </Button>
+
+                                        <!-- Empty Space -->
+                                        <Rectangle Width="20"/>
+
+                                        <!-- Add New Medical Report Button -->
+                                        <Button x:Name="AddNewMedicalReportButton" 
+                                            Padding="5"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Cursor="Hand"
+                                            ToolTip="Dodaj nalaz"
+                                            Click="AddNewMedicalReportButton_Click"
+                                            CommandParameter="{Binding}">
+                                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                                   Text="&#xE710;" 
+                                                   FontSize="20"
+                                                   Foreground="#28A745"/>
+                                        </Button>
+
+                                        <!-- Medical Reports Button -->
                                         <Button Padding="5"
-                                                Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                Cursor="Hand"
-                                                Margin="10,0,0,0"
-                                                Click="OpenMedicalReports_Click"
-                                                CommandParameter="{Binding}">
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Cursor="Hand"
+                                            Margin="10,0,0,0"
+                                            ToolTip="Otvori nalaze"
+                                            Click="OpenMedicalReports_Click"
+                                            CommandParameter="{Binding}">
                                             <TextBlock FontFamily="Segoe MDL2 Assets"
-                                                       Text="&#xE130;" 
-                                                       FontSize="20"
-                                                       Foreground="#28A745"/>
+                                                   Text="&#xE130;" 
+                                                   FontSize="20"
+                                                   Foreground="#28A745"/>
                                         </Button>
+
+                                        <!-- Print Button -->
+                                        <Button x:Name="PrintButton"
+                                            Padding="5"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Cursor="Hand"
+                                            Margin="10,0,0,0"
+                                            ToolTip="Štampanje potvrde"
+                                            Click="PrintButton_Click"
+                                            CommandParameter="{Binding}">
+                                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                                   Text="&#xE749;" 
+                                                   FontSize="20"
+                                                   Foreground="#D9534F"/>
+                                        </Button>
+
                                     </StackPanel>
+
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

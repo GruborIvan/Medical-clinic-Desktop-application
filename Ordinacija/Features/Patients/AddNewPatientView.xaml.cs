@@ -13,6 +13,8 @@ namespace Ordinacija.Features.Patients
         private readonly PatientsView _patientsView;
 
         public Patient CurrentPatient { get; private set; }
+
+        public string TitleText { get; }
         private bool _isEditMode;
 
         public AddNewPatientView(
@@ -27,9 +29,11 @@ namespace Ordinacija.Features.Patients
             _isEditMode = patient != null;
 
             CurrentPatient = patient ?? new Patient();
-            DataContext = CurrentPatient;
 
             this.Title = _isEditMode ? "Edit Patient" : "Add New Patient";
+            TitleText = _isEditMode ? "Izmena podataka o pacijentu" : "Unos podataka o pacijentu";
+
+            DataContext = this;
         }
 
         private async void ConfirmButton_Click(object sender, RoutedEventArgs e)
@@ -47,7 +51,7 @@ namespace Ordinacija.Features.Patients
         private void PonistiButton_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                "Da li ste sigurni da želite da zatvorite stranicu? Imate nesačuvane izmene.",
+                "Da li ste sigurni da želite da zatvorite stranicu bez čuvanja izmena?",
                 "Confirm Exit",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
