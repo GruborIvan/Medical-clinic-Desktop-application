@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Doctor form" Height="550" Width="500">
+        Title="Doctor form" Height="650" Width="500">
     <Window.Resources>
         <DropShadowEffect x:Key="ShadowEffect" BlurRadius="10" Opacity="0.2" ShadowDepth="2"/>
         <DropShadowEffect x:Key="ButtonShadowEffect" BlurRadius="8" Opacity="0.3" ShadowDepth="3"/>
@@ -23,25 +23,25 @@
         <StackPanel Grid.Row="1" Margin="0 20 0 20">
             <TextBlock Text="Ime*" Foreground="#555" Margin="0 0 8 0"/>
             <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
-                <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding FirstName}"/>
+                <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentDoctor.FirstName}"/>
             </Border>
             <TextBlock Height="20"/>
 
             <TextBlock Text="Prezime*" Foreground="#555" Margin="0 0 8 0"/>
             <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
-                <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding LastName}"/>
+                <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentDoctor.LastName}"/>
             </Border>
             <TextBlock Height="20"/>
 
             <TextBlock Text="Datum rođenja*" Foreground="#555" Margin="0 0 8 0"/>
             <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
-                <DatePicker Height="40" Padding="8" BorderThickness="0" SelectedDate="{Binding DateOfBirth}"/>
+                <DatePicker Height="40" Padding="8" BorderThickness="0" SelectedDate="{Binding CurrentDoctor.DateOfBirth}"/>
             </Border>
             <TextBlock Height="20"/>
 
             <TextBlock Text="Telefon" Foreground="#555" Margin="0 0 8 0"/>
             <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
-                <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding PhoneNo}"/>
+                <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentDoctor.PhoneNo}"/>
             </Border>
         </StackPanel>
 

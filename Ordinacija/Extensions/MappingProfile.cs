@@ -18,9 +18,11 @@ namespace Ordinacija.Extensions
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.AcAddress))
                 .ForMember(dest => dest.PhoneNo, opt => opt.MapFrom(src => src.AcFieldSC))
                 .ForMember(dest => dest.FathersName, opt => opt.MapFrom(src => src.AcFieldSD))
+                .ForMember(dest => dest.FathersOccupation, opt => opt.MapFrom(src => src.AcFieldSE))
                 .ForMember(dest => dest.YearOfFathersBirth, opt => opt.MapFrom(src => src.AcFieldSF))
                 .ForMember(dest => dest.MothersName, opt => opt.MapFrom(src => src.AcFieldSG))
-                .ForMember(dest => dest.YearOfMothersBirth, opt => opt.MapFrom(src => src.AcFieldSI));
+                .ForMember(dest => dest.YearOfMothersBirth, opt => opt.MapFrom(src => src.AcFieldSI))
+                .ForMember(dest => dest.MothersOccupation, opt => opt.MapFrom(src => src.AcFieldSH));
 
 
             // Map from Patient to PatientDbo
@@ -36,7 +38,9 @@ namespace Ordinacija.Extensions
                 .ForMember(dest => dest.AcFieldSF, opt => opt.MapFrom(src => src.YearOfFathersBirth))
                 .ForMember(dest => dest.AcFieldSG, opt => opt.MapFrom(src => src.MothersName))
                 .ForMember(dest => dest.AcFieldSH, opt => opt.MapFrom(src => "")) 
-                .ForMember(dest => dest.AcFieldSI, opt => opt.MapFrom(src => src.YearOfMothersBirth));
+                .ForMember(dest => dest.AcFieldSI, opt => opt.MapFrom(src => src.YearOfMothersBirth))
+                .ForMember(dest => dest.AcFieldSE, opt => opt.MapFrom(src => src.FathersOccupation))
+                .ForMember(dest => dest.AcFieldSH, opt => opt.MapFrom(src => src.MothersOccupation));
 
             CreateMap<DoctorDbo, Doctor>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.AcSubject))

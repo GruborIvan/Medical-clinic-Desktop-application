@@ -32,12 +32,13 @@ namespace Ordinacija.Features.Doctors
 
             DoctorsView = doctorsView;
             CurrentDoctor = doctor ?? new Doctor();
-            DataContext = CurrentDoctor;
 
             var pageTitle = _isEditMode ? _editDoctorTitle : _addDoctorTitle;
 
             this.Title = pageTitle;
             TitleText = pageTitle;
+
+            DataContext = this;
         }
 
         private async void ConfirmButton_Click(object sender, RoutedEventArgs e)

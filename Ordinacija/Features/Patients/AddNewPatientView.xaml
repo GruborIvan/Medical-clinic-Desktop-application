@@ -79,7 +79,7 @@
                 <TextBlock Text="Zanimanje Oca" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FathersProfession}"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FathersOccupation}"/>
                 </Border>
 
                 <TextBlock Text="Godina rođenja Oca" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
@@ -99,7 +99,7 @@
                 <TextBlock Text="Zanimanje Majke" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0"/>
+                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.MothersOccupation}"/>
                 </Border>
 
                 <TextBlock Text="Godina rođenja Majke" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>

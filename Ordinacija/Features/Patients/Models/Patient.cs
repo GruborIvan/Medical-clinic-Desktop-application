@@ -10,9 +10,13 @@
 
         public string PlaceOfBirth { get; set; }
         public string PhoneNo { get; set; }
+
         public string FathersName { get; set; }
         public int YearOfFathersBirth { get; set; }
+        public string FathersOccupation { get; set; }
+
         public string MothersName { get; set; }
         public int YearOfMothersBirth { get; set; }
+        public string MothersOccupation { get; set; }
     }
 }
