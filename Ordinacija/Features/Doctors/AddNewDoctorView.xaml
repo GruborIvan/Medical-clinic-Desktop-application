@@ -21,19 +21,19 @@
 
         <!-- Doctor Information Form -->
         <StackPanel Grid.Row="1" Margin="0 20 0 20">
-            <TextBlock Text="Ime" Foreground="#555" Margin="0 0 8 0"/>
+            <TextBlock Text="Ime*" Foreground="#555" Margin="0 0 8 0"/>
             <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
                 <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding FirstName}"/>
             </Border>
             <TextBlock Height="20"/>
 
-            <TextBlock Text="Prezime" Foreground="#555" Margin="0 0 8 0"/>
+            <TextBlock Text="Prezime*" Foreground="#555" Margin="0 0 8 0"/>
             <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
                 <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding LastName}"/>
             </Border>
             <TextBlock Height="20"/>
 
-            <TextBlock Text="Datum rođenja" Foreground="#555" Margin="0 0 8 0"/>
+            <TextBlock Text="Datum rođenja*" Foreground="#555" Margin="0 0 8 0"/>
             <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
                 <DatePicker Height="40" Padding="8" BorderThickness="0" SelectedDate="{Binding DateOfBirth}"/>
             </Border>

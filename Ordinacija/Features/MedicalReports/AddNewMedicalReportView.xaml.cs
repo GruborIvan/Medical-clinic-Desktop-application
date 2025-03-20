@@ -62,6 +62,9 @@ namespace Ordinacija.Features.MedicalReports
 
         private async void ConfirmCreateMedicalReportButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!ValidateMedicalReportEntry())
+                return;
+
             _currentlySelectedDoctorId = DoctorComboBox.Text.Length == 6 ? DoctorComboBox.Text : GetDoctorIdForDoctorName(DoctorComboBox.Text);
             CurrentMedicalReport.DoctorId = _currentlySelectedDoctorId;
             CurrentMedicalReport.DateOfReport = DateTime.Now;
@@ -104,6 +107,34 @@ namespace Ordinacija.Features.MedicalReports
             {
                 comboBox.Text = text;
             }
+        }
+
+        public bool ValidateMedicalReportEntry()
+        {
+            string errorMessage = string.Empty;
+
+            if (string.IsNullOrEmpty(CurrentMedicalReport.Anamneza))
+                errorMessage += "Obavezno je uneti anamnezu i fizikalni nalaz.\n";
+
+            if (string.IsNullOrEmpty(CurrentMedicalReport.DG))
+                errorMessage += "Obavezno je uneti dijagnozu.\n";
+
+            if (string.IsNullOrEmpty(CurrentMedicalReport.TH))
+                errorMessage += "Obavezno je uneti terapiju.\n";
+
+            if (string.IsNullOrEmpty(CurrentMedicalReport.Control))
+                errorMessage += "Obavezno je uneti kontrolu.\n";
+
+            if (errorMessage != string.Empty)
+            {
+                MessageBox.Show(
+                $"Potrebno je popuniti sva obavezna polja! \n {errorMessage}",
+                "Nepotpun unos",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            }
+
+            return errorMessage == string.Empty;
         }
 
         private string GetDoctorIdForDoctorName(string doctorName)

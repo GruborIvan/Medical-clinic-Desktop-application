@@ -3,8 +3,8 @@ CREATE TABLE THE_SetSubj (
     acSubject CHAR(6) NOT NULL PRIMARY KEY,      -- Šifra
     acName2 VARCHAR(255) NOT NULL,               -- Prezime i ime
     AdDateOfBirth VARCHAR(255) NOT NULL,         -- Datum rođenja
-    acFieldSC VARCHAR(255) NOT NULL,             -- Telefon
-    acAddress VARCHAR(255) NULL,                 -- Adresa (nullable)
+    acFieldSC VARCHAR(255) NULL,             -- Telefon
+    acAddress VARCHAR(255) NULL,                 -- Adresa
     acFieldSA VARCHAR(255) NULL,                 -- Mesto rođenja (nullable)
     acFieldSD VARCHAR(255) NULL,                 -- Ime oca (nullable)
     acFieldSE VARCHAR(255) NULL,                 -- Mesto rođenja oca (nullable)

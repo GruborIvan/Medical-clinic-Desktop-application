@@ -80,8 +80,12 @@ namespace Ordinacija.Features.Patients
                 var medicalReportView = new MedicalReportsView(_medicalReportService, _doctorService, _schemaRepository, selectedPatient);
                 medicalReportView.Show();
 
-                var addNewMedicalReport = new AddNewMedicalReportView(_medicalReportService, _doctorService, medicalReportView, selectedPatient);
-                addNewMedicalReport.ShowDialog();
+                medicalReportView.ContentRendered += (sender, e) =>
+                {
+                    var addNewMedicalReport = new AddNewMedicalReportView(_medicalReportService, _doctorService, medicalReportView, selectedPatient);
+                    addNewMedicalReport.Topmost = true;
+                    addNewMedicalReport.ShowDialog();
+                };
             }
         }
     }

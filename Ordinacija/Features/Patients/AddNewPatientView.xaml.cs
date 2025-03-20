@@ -1,6 +1,8 @@
-﻿using Ordinacija.Features.Patients.Models;
+﻿using Microsoft.IdentityModel.Tokens;
+using Ordinacija.Features.Patients.Models;
 using Ordinacija.Features.Patients.Service;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Ordinacija.Features.Patients
 {
@@ -38,6 +40,9 @@ namespace Ordinacija.Features.Patients
 
         private async void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!ValidatePatientEntry())
+                return;
+
             await (
                 _isEditMode
                 ? _patientService.UpdateExistingPatient(CurrentPatient)
@@ -59,6 +64,40 @@ namespace Ordinacija.Features.Patients
             if (result == MessageBoxResult.Yes)
             {
                 this.Close();
+            }
+        }
+
+        private bool ValidatePatientEntry()
+        {
+            string errorMessage = string.Empty;
+
+            if (CurrentPatient.FirstName.IsNullOrEmpty())
+                errorMessage += "Obavezno je uneti ime pacijenta.\n";
+
+            if  (CurrentPatient.LastName.IsNullOrEmpty())
+                errorMessage += "Obavezno je uneti prezime pacijenta.\n";
+
+            if (CurrentPatient.DateOfBirth == DateTime.MinValue)
+                errorMessage += "Obavezno je uneti datum rodjenja pacijenta.\n";
+
+            if (errorMessage != string.Empty)
+            {
+                MessageBox.Show(
+                $"Potrebno je popuniti sva obavezna polja! \n {errorMessage}",
+                "Nepotpun unos",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            }
+
+            return errorMessage == string.Empty;
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            // Allow only numeric input
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
             }
         }
     }

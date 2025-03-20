@@ -51,7 +51,6 @@
                     Effect="{DynamicResource ShadowEffect}">
                     <DatePicker Height="40" Padding="8" BorderThickness="0" 
                             SelectedDate="{x:Static sys:DateTime.Today}" 
-                            IsEnabled="False"
                             xmlns:sys="clr-namespace:System;assembly=mscorlib"/>
                 </Border>
 

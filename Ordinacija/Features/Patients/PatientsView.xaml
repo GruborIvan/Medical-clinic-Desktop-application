@@ -122,10 +122,10 @@
 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding FirstName}" Width="500"/>
-                        <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding LastName}" Width="500"/>
-                        <GridViewColumn Header="Datum rođenja" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Width="300"/>
-                        <GridViewColumn Width="200">
+                        <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding FirstName}" Width="450"/>
+                        <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding LastName}" Width="450"/>
+                        <GridViewColumn Header="Datum rođenja" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Width="250"/>
+                        <GridViewColumn Width="280">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

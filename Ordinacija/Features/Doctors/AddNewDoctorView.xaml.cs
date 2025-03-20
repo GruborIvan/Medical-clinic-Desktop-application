@@ -34,6 +34,9 @@ namespace Ordinacija.Features.Doctors
 
         private async void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!ValidateDoctorEntry())
+                return;
+
             await (
                 _isEditMode
                 ? _doctorService.UpdateExistingDoctor(CurrentDoctor)
@@ -56,6 +59,31 @@ namespace Ordinacija.Features.Doctors
             {
                 this.Close();
             }
+        }
+
+        private bool ValidateDoctorEntry()
+        {
+            string errorMessage = string.Empty;
+
+            if (string.IsNullOrEmpty(CurrentDoctor.FirstName))
+                errorMessage += "Obavezno je uneti ime doktora.\n";
+
+            if (string.IsNullOrEmpty(CurrentDoctor.LastName))
+                errorMessage += "Obavezno je uneti prezime doktora.\n";
+
+            if (CurrentDoctor.DateOfBirth == DateTime.MinValue)
+                errorMessage += "Obavezno je uneti datum rodjenja doktora.\n";
+
+            if (errorMessage != string.Empty)
+            {
+                MessageBox.Show(
+                $"Potrebno je popuniti sva obavezna polja! \n {errorMessage}",
+                "Nepotpun unos",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            }
+
+            return errorMessage == string.Empty;
         }
     }
 }
