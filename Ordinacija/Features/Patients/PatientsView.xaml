@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d" Title="Patients"
+             mc:Ignorable="d" 
+            Title="Pregled pacijenata"
              WindowState="Maximized" MinHeight="600" MinWidth="1000">
 
     <Grid Margin="20">
@@ -66,7 +67,7 @@
             </Border>
 
             <!-- "Doctors" Button -->
-            <Button Content="Doctors"
+            <Button Content="Pregled doktora"
             Padding="12,6"
             Background="#28A745"
             Foreground="White"

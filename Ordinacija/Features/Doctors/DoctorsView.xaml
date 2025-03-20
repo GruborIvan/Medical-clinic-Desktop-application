@@ -22,7 +22,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- "Dodaj doktora" Button -->
-            <Button Content="Dodaj doktora"
+            <Button Content="Dodaj novog doktora"
             Padding="12,6"
             Background="#0078D7"
             Foreground="White"

@@ -14,6 +14,9 @@ namespace Ordinacija.Features.Patients
         private readonly IPatientService _patientService;
         private readonly PatientsView _patientsView;
 
+        private const string _editPatientTitle = "Izmena podataka o pacijentu";
+        private const string _addNewPatientTitle = "Unos novog pacijenta";
+
         public Patient CurrentPatient { get; private set; }
 
         public string TitleText { get; }
@@ -32,8 +35,10 @@ namespace Ordinacija.Features.Patients
 
             CurrentPatient = patient ?? new Patient();
 
-            this.Title = _isEditMode ? "Edit Patient" : "Add New Patient";
-            TitleText = _isEditMode ? "Izmena podataka o pacijentu" : "Unos podataka o pacijentu";
+            var pageTitle = _isEditMode ? _editPatientTitle : _addNewPatientTitle;
+
+            this.Title = pageTitle;
+            TitleText = pageTitle;
 
             DataContext = this;
         }

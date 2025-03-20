@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="AddNewDoctorView" Height="550" Width="500">
+        Title="Doctor form" Height="550" Width="500">
     <Window.Resources>
         <DropShadowEffect x:Key="ShadowEffect" BlurRadius="10" Opacity="0.2" ShadowDepth="2"/>
         <DropShadowEffect x:Key="ButtonShadowEffect" BlurRadius="8" Opacity="0.3" ShadowDepth="3"/>
@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Dodavanje Novog Doktora" FontSize="22" FontWeight="Bold" Foreground="#333" 
+        <TextBlock Text="{Binding TitleText}" FontSize="26" FontWeight="Bold" Foreground="#333" 
                    Margin="0 0 0 30" HorizontalAlignment="Center"/>
 
         <!-- Doctor Information Form -->

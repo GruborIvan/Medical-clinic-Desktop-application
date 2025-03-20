@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <!-- Title -->
-        <TextBlock Text="Unos novog nalaza" FontSize="28" FontWeight="Bold" Foreground="#2C3E50" 
+        <TextBlock Text="{Binding TitleText}" FontSize="26" FontWeight="Bold" Foreground="#2C3E50" 
            Margin="20 0" HorizontalAlignment="Center"/>
 
         <!-- Content Grid -->

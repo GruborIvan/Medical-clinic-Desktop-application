@@ -1,5 +1,6 @@
 ﻿using Ordinacija.Features.Doctors.Models;
 using Ordinacija.Features.Doctors.Service;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace Ordinacija.Features.Doctors
@@ -14,6 +15,10 @@ namespace Ordinacija.Features.Doctors
 
         public readonly DoctorsView DoctorsView;
         public Doctor CurrentDoctor { get; }
+        public string TitleText { get; }
+
+        private const string _editDoctorTitle = "Izmena podataka o doktoru";
+        private const string _addDoctorTitle = "Dodavanje novog doktora";
 
         public AddNewDoctorView(
             IDoctorService doctorService,
@@ -29,7 +34,10 @@ namespace Ordinacija.Features.Doctors
             CurrentDoctor = doctor ?? new Doctor();
             DataContext = CurrentDoctor;
 
-            this.Title = _isEditMode ? "Edit Doctor" : "Add New Doctor";
+            var pageTitle = _isEditMode ? _editDoctorTitle : _addDoctorTitle;
+
+            this.Title = pageTitle;
+            TitleText = pageTitle;
         }
 
         private async void ConfirmButton_Click(object sender, RoutedEventArgs e)

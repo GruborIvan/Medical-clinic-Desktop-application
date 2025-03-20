@@ -25,6 +25,10 @@ namespace Ordinacija.Features.MedicalReports
 
         public MedicalReport CurrentMedicalReport { get; set; }
         public ObservableCollection<Doctor> Doctors { get; } = new();
+        public string TitleText { get; }
+
+        private const string _editMedicalReportTitle = "Izmena podataka o nalazu";
+        private const string _addNewMedicalReportTitle = "Unos novog nalaza";
 
         public AddNewMedicalReportView(
             IMedicalReportService medicalReportService,
@@ -41,6 +45,11 @@ namespace Ordinacija.Features.MedicalReports
 
             _medicalReportsView = medicalReportsView;
             _isEditMode = medicalReport != null;
+
+            var pageTitle = _isEditMode ? _editMedicalReportTitle : _addNewMedicalReportTitle;
+
+            this.Title = pageTitle;
+            TitleText = pageTitle;
 
             LoadDoctors();
 
