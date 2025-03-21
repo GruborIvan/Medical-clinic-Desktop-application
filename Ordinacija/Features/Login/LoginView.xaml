@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="LoginView" Height="550" Width="450" WindowStartupLocation="CenterScreen"
+        Title="LoginView" WindowState="Maximized" WindowStartupLocation="CenterScreen"
         Background="{DynamicResource WindowBackgroundBrush}">
     <Window.Resources>
         <!-- Background Gradient -->
@@ -60,26 +60,33 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Border Background="White" Padding="20" CornerRadius="10" Width="400" Height="420"
+        <Border Background="White" 
+                Padding="20" 
+                CornerRadius="10" 
+                Width="500" 
+                Height="550"
                 VerticalAlignment="Center" HorizontalAlignment="Center"
                 Effect="{DynamicResource ShadowEffect}">
             <StackPanel HorizontalAlignment="Center">
                 <TextBlock Text="Login" FontSize="20" FontWeight="Bold" Foreground="#2E3B55"
-                           Margin="0,0,0,20" TextAlignment="Center"/>
+                           Margin="0,50,0,20" TextAlignment="Center"/>
 
-                <TextBlock Text="Username" Foreground="#4A637D"/>
+                <TextBlock Text="Username" Foreground="#4A637D" Margin="0,15,0,0"/>
                 <Border Style="{StaticResource RoundedTextBox}">
                     <TextBox x:Name="txtUsername" Background="Transparent" BorderThickness="0"
                              FontSize="14" Padding="5" Width="204"/>
                 </Border>
 
-                <TextBlock Text="Password" Foreground="#4A637D"/>
+                <TextBlock Text="Password" Foreground="#4A637D" Margin="0,10,0,0"/>
                 <Border Style="{StaticResource RoundedTextBox}">
                     <PasswordBox x:Name="txtPassword" Background="Transparent" BorderThickness="0"
                                  FontSize="14" Padding="5"/>
                 </Border>
 
-                <Button Content="Login" Style="{StaticResource RoundedButton}" Click="Login_Click"/>
+                <Button Content="Login" 
+                        Style="{StaticResource RoundedButton}" 
+                        Margin="0,10,0,0" 
+                        Click="Login_Click"/>
             </StackPanel>
         </Border>
     </Grid>
