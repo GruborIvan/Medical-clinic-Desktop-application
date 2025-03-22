@@ -3,6 +3,7 @@ using Ordinacija.Features.Doctors.Service;
 using Ordinacija.Features.MedicalReports.Models;
 using Ordinacija.Features.MedicalReports.Service;
 using Ordinacija.Features.Patients.Models;
+using Ordinacija.Features.ReportPrint.Repository.Implementation;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -88,6 +89,16 @@ namespace Ordinacija.Features.MedicalReports
             }
 
             await _medicalReportsView.MedicalReportViewModel.LoadMedicalReports();
+
+            var shouldPrint = Dialog_DoYouWantToPrint();
+
+            if (shouldPrint)
+            {
+                var printPdfRepositor = new PdfPrintService();
+                CurrentMedicalReport.DoctorName = DoctorComboBox.Text;
+                printPdfRepositor.PrintMedicalReport(CurrentMedicalReport, _patient);
+            }
+
             this.Close();
         }
 
@@ -145,6 +156,19 @@ namespace Ordinacija.Features.MedicalReports
 
             return errorMessage == string.Empty;
         }
+
+        private bool Dialog_DoYouWantToPrint()
+        {
+            var messageBoxResult = MessageBox.Show(
+                "Nalaz je uspešno sačuvan! Da li želite odmah da ga odštampate?",
+                "Kreiran novi nalaz",
+                MessageBoxButton.YesNo,     
+                MessageBoxImage.Question
+            );
+
+            return messageBoxResult == MessageBoxResult.Yes;
+        }
+        
 
         private string GetDoctorIdForDoctorName(string doctorName)
         {

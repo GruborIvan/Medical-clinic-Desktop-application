@@ -16,26 +16,19 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 
         public async Task<string> GetTemplateSchemaByKey(string schemaKey)
         {
-            try
+            string query = $"SELECT SchemaValue FROM SchemaTable WHERE SchemaName = '{schemaKey}'";
+
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            var schema = await connection.QuerySingleOrDefaultAsync<string>(query);
+
+            if (schema == null)
             {
-                string query = $"SELECT SchemaValue FROM SchemaTable WHERE SchemaName = '{schemaKey}'";
-
-                using var connection = new SqlConnection(_connectionString);
-                await connection.OpenAsync();
-
-                var schema = await connection.QuerySingleOrDefaultAsync<string>(query);
-
-                if (schema == null)
-                {
-                    throw new SchemaNotFoundException(schemaKey);
-                }
-
-                return schema;
+                throw new SchemaNotFoundException(schemaKey);
             }
-            catch (Exception e)
-            {
-                throw;
-            }
+
+            return schema;
         }
     }
 }

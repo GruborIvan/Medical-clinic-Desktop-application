@@ -3,9 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Ordinacija.Features.ReportPrint"
         mc:Ignorable="d"
-        Title="AddNewUZView" WindowState="Maximized"
+        Title="Dodavanje novog ultrazvuka" WindowState="Maximized"
         Background="#F5F5F5">
     <Grid Margin="30">
         <Grid.RowDefinitions>
@@ -30,7 +29,7 @@
         <!-- Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 20">
             <Button Name="SaveButton"
-                    Content="Sačuvaj"
+                    Content="Kreiraj UZ"
                     Width="160"
                     Height="50"
                     Background="#4CAF50"
@@ -39,7 +38,7 @@
                     FontSize="18"
                     FontWeight="Bold"
                     Cursor="Hand"
-                    Command="{Binding SaveReportCommand}"/>
+                    Command="{Binding SaveReportCommand}" Click="SaveButton_Click"/>
 
             <Button Name="CancelButton"
                     Content="Otkaži"
@@ -52,7 +51,7 @@
                     FontWeight="Bold"
                     Cursor="Hand"
                     Command="{Binding CancelCommand}"
-                    Margin="20 0 0 0"/>
+                    Margin="20 0 0 0" Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
