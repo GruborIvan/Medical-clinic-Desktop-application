@@ -30,15 +30,28 @@ namespace Ordinacija.Features.Patients.Repository
 
         public async Task InsertPatient(Patient patient)
         {
-            var patientDbo = _mapper.Map<PatientDbo>(patient);
-            patientDbo.AcSubject = await GenerateNextPatientId();
-
-            const string sql = @"
-            INSERT INTO tHE_SetSubj (AcSubject, AcName2, AcAddress, AdBirthDate, AcFieldSA, AcFieldSC, AcFieldSD, AcFieldSE, AcFieldSF, AcFieldSG, AcFieldSH, AcFieldSI, AcSupplier)
-            VALUES (@AcSubject, @AcName2, @AcAddress, @AdBirthDate, @AcFieldSA, @AcFieldSC, @AcFieldSD, @AcFieldSE, @AcFieldSF, @AcFieldSG, @AcFieldSH, @AcFieldSI, 'F')";
-
             using var connection = CreateConnection();
-            await connection.ExecuteAsync(sql, patientDbo);
+            await connection.OpenAsync();
+            using var transaction = connection.BeginTransaction();
+
+            try
+            {
+                const string sql = @"
+                    INSERT INTO tHE_SetSubj (AcSubject, AcName2, AcAddress, AdBirthDate, AcFieldSA, AcFieldSC, AcFieldSD, AcFieldSE, AcFieldSF, AcFieldSG, AcFieldSH, AcFieldSI, AcSupplier)
+                    VALUES (@AcSubject, @AcName2, @AcAddress, @AdBirthDate, @AcFieldSA, @AcFieldSC, @AcFieldSD, @AcFieldSE, @AcFieldSF, @AcFieldSG, @AcFieldSH, @AcFieldSI, 'F')
+                ";
+
+                var patientDbo = _mapper.Map<PatientDbo>(patient);
+                patientDbo.AcSubject = await GenerateNextPatientId(transaction, connection);
+
+                await connection.ExecuteAsync(sql, patientDbo, transaction);
+                await transaction.CommitAsync();
+            }
+            catch (Exception e)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
 
         public async Task UpdatePatient(Patient patient)
@@ -71,15 +84,14 @@ namespace Ordinacija.Features.Patients.Repository
 
         private SqlConnection CreateConnection() => new SqlConnection(_connectionString);
 
-        private async Task<string> GenerateNextPatientId()
+        private async Task<string> GenerateNextPatientId(SqlTransaction transaction, SqlConnection connection)
         {
-            const string sql = "SELECT MAX(AcSubject) FROM tHE_SetSubj";
+            const string sql = "SELECT MAX(AcSubject) FROM tHE_SetSubj WITH (UPDLOCK, ROWLOCK)";
 
-            using var connection = CreateConnection();
-            var lastId = await connection.ExecuteScalarAsync<string>(sql);
+            var lastId = await connection.ExecuteScalarAsync<string>(sql, transaction: transaction);
             int nextId = string.IsNullOrEmpty(lastId) ? 1 : int.Parse(lastId) + 1;
 
-            return nextId.ToString("D6"); // Ensures 6-digit format
+            return nextId.ToString("D6");
         }
     }
 }

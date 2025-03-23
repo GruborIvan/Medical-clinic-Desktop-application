@@ -21,6 +21,8 @@ using Ordinacija.Features.Doctors.Repository.Implementation;
 using Ordinacija.Features.Patients.Models;
 using Ordinacija.Features.ReportPrint.Repository;
 using Ordinacija.Features.ReportPrint.Repository.Implementation;
+using Ordinacija.Features.Login.Repository;
+using Ordinacija.Features.Login.Repository.Implementation;
 
 namespace Ordinacija
 {
@@ -58,6 +60,8 @@ namespace Ordinacija
             var loginWindow = _host.Services.GetRequiredService<LoginView>();
             loginWindow.Show();
 
+            CleanupOldFiles(AppDomain.CurrentDomain.BaseDirectory, TimeSpan.FromDays(7));
+
             base.OnStartup(e);
         }
 
@@ -77,6 +81,7 @@ namespace Ordinacija
             services.AddSingleton<IMedicalReportRepository, MedicalReportRepository>();
 
             services.AddTransient<ISchemaRepository, SchemaRepository>();
+            services.AddTransient<ILoginRepository, LoginRepository>();
 
             // Register ViewModels
             services.AddTransient<PatientViewModel>();
@@ -87,6 +92,26 @@ namespace Ordinacija
             services.AddSingleton<LoginView>();
 
             services.AddScoped<Patient>(provider => new Patient());
+        }
+
+        public void CleanupOldFiles(string directory, TimeSpan maxAge)
+        {
+            var files = Directory.GetFiles(directory, "*.pdf");
+            foreach (var file in files)
+            {
+                var fileInfo = new FileInfo(file);
+                if (DateTime.UtcNow - fileInfo.CreationTimeUtc > maxAge)
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to delete file {file}: {ex.Message}");
+                    }
+                }
+            }
         }
 
         protected override void OnExit(ExitEventArgs e)

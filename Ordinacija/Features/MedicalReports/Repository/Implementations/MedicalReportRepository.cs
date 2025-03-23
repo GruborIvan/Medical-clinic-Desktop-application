@@ -2,6 +2,7 @@
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using Ordinacija.Features.MedicalReports.Models;
+using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace Ordinacija.Features.MedicalReports.Repository.Implementations
@@ -38,17 +39,28 @@ namespace Ordinacija.Features.MedicalReports.Repository.Implementations
 
         public async Task InsertMedicalReport(MedicalReport medicalReport)
         {
-            var medicalReportDbo = _mapper.Map<MedicalReportDbo>(medicalReport);
-            medicalReportDbo.AcNalaz = await GenerateNextNalazId();
+            using var connection = CreateConnection();
+            await connection.OpenAsync();
+            using var transaction = await connection.BeginTransactionAsync();
 
-            const string query = @"
+            try
+            {
+                var medicalReportDbo = _mapper.Map<MedicalReportDbo>(medicalReport);
+                medicalReportDbo.AcNalaz = await GenerateNextNalazId(transaction, connection);
+
+                const string query = @"
                 INSERT INTO _css_Nalaz (acNalaz, acSubject, adDate, acDescription, acDG, acTH, acKontrola, acLekar, Anamneza)
                 VALUES (@AcNalaz, @AcSubject, @AdDate, @AcDescription, @AcDG, @AcTH, @AcKontrola, @AcLekar, @Anamneza)
-            ";
+                ";
 
-            using var connection = new SqlConnection(_connectionString);
-
-            await connection.ExecuteAsync(query, medicalReportDbo);
+                await connection.ExecuteAsync(query, medicalReportDbo, transaction);
+                await transaction.CommitAsync();
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
 
         public async Task UpdateMedicalReport(MedicalReport medicalReport)
@@ -75,12 +87,11 @@ namespace Ordinacija.Features.MedicalReports.Repository.Implementations
 
         private SqlConnection CreateConnection() => new SqlConnection(_connectionString);
 
-        private async Task<string> GenerateNextNalazId()
+        private async Task<string> GenerateNextNalazId(DbTransaction transaction, SqlConnection connection)
         {
-            const string sql = "SELECT MAX(acNalaz) FROM _css_Nalaz";
+            const string sql = "SELECT MAX(acNalaz) FROM _css_Nalaz WITH (UPDLOCK, ROWLOCK)";
 
-            using var connection = CreateConnection();
-            var lastId = await connection.ExecuteScalarAsync<string>(sql);
+            var lastId = await connection.ExecuteScalarAsync<string>(sql, transaction: transaction);
             int nextId = string.IsNullOrEmpty(lastId) ? 1 : int.Parse(lastId) + 1;
 
             return nextId.ToString("D6");

@@ -73,7 +73,9 @@ namespace Ordinacija.Features.ReportPrint
         }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
+        { 
+            SaveButton.IsEnabled = false; 
+
             var newUZMedicalReport = new MedicalReport()
             {
                 Anamneza = SchemaTextBox.Text,
@@ -93,6 +95,7 @@ namespace Ordinacija.Features.ReportPrint
 
             await _medicalReportsView.MedicalReportViewModel.LoadMedicalReports();
 
+            SaveButton.IsEnabled = true;
             this.Close();
         }
 

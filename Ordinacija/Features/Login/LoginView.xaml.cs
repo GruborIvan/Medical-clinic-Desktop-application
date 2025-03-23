@@ -1,4 +1,6 @@
-﻿using Ordinacija.Features.Patients;
+﻿using Ordinacija.Features.Login.Models;
+using Ordinacija.Features.Login.Repository;
+using Ordinacija.Features.Patients;
 using System.Windows;
 
 namespace Ordinacija.Features.Login
@@ -8,20 +10,33 @@ namespace Ordinacija.Features.Login
     /// </summary>
     public partial class LoginView : Window
     {
+        private readonly ILoginRepository _loginRepository;
         private readonly PatientsView _patientsView;
 
-        public LoginView(PatientsView mainWindow)
+        public LoginView(
+            ILoginRepository loginRepository,
+            PatientsView mainWindow)
         {
             InitializeComponent();
-            _patientsView = mainWindow;
+            _loginRepository = loginRepository ?? throw new ArgumentNullException(nameof(loginRepository));
+            _patientsView = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
         }
 
-        private void Login_Click(object sender, RoutedEventArgs e)
+        private async void Login_Click(object sender, RoutedEventArgs e)
         {
-            string username = txtUsername.Text;
+            string username = txtUsername.Text.Trim();
             string password = txtPassword.Password;
 
-            if (username == "" && password == "")
+            bool isAuthenticated = await _loginRepository.AuthenticateUser(new LoginCredentials
+            {
+                Username = username,
+                Password = password
+            });
+
+            // THIS:
+            isAuthenticated = true;
+
+            if (isAuthenticated)
             {
                 _patientsView.Show();
                 this.Close();

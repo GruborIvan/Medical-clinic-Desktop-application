@@ -4,7 +4,6 @@ using Ordinacija.Features.Patients.Models;
 using Ordinacija.Features.ReportPrint.Repository;
 using Ordinacija.Features.ReportPrint.Repository.Implementation;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -70,17 +69,22 @@ namespace Ordinacija.Features.ReportPrint
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            SaveButton.IsEnabled = false;
+
             var doctorName = GetDoctorFullNameById(_currentlySelectedDoctorId);
 
             var selectedFileTypeOption = DocumentTypesComboBox.Text;
 
             if (selectedFileTypeOption.Equals(""))
+            {
+                SaveButton.IsEnabled = true;
                 return;
+            }
 
             switch(selectedFileTypeOption)
             {
                 case "Lekarska potvrda": 
-                    _pdfPrintService.PrintAlergyConfirmation(_patient.FullName, doctorName);
+                    _pdfPrintService.PrintDoctorsExemption(_patient.FullName);
                     break;
                 case "Potvrda za predskolsku ustanovu":
                     _pdfPrintService.PrintPreSchoolApproval(_patient);
@@ -93,7 +97,7 @@ namespace Ordinacija.Features.ReportPrint
 
             }
 
-            _pdfPrintService.PrintDoctorsExemption(_patient.FullName);
+            SaveButton.IsEnabled = true;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
