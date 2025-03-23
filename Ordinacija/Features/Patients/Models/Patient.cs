@@ -18,5 +18,7 @@
         public string MothersName { get; set; }
         public int YearOfMothersBirth { get; set; }
         public string MothersOccupation { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}";
     }
 }

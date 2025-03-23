@@ -49,7 +49,7 @@ namespace Ordinacija.Features.MedicalReports
 
         private void AddNewUZButton_Click(object sender, RoutedEventArgs e)
         {
-            var addNewUZView = new AddNewUZView(_schemaRepository, _medicalReportService, _patient);
+            var addNewUZView = new AddNewUZView(_schemaRepository, _medicalReportService, _doctorService, this, _patient);
             addNewUZView.ShowDialog();
         }
 

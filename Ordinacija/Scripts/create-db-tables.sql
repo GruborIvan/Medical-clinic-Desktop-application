@@ -23,11 +23,11 @@ CREATE TABLE _css_Nalaz (
     acSubject CHAR(6) NOT NULL,               -- Šifra pacijenta (foreign key)
     adDate DATETIME NOT NULL,                     -- Datum nalaza
     acDescription TEXT,                        -- Opis nalaza
-    acDG VARCHAR(255),                        -- Dijagnoza
+    acDG VARCHAR(500),                        -- Dijagnoza
     acTH VARCHAR(255),                        -- TH
     acKontrola VARCHAR(255),                  -- Kontrola
     acLekar CHAR(6) NOT NULL,                 -- Šifra lekara (foreign key)
-    Anamneza VARCHAR(1000),    
+    Anamneza VARCHAR(MAX),    
     
     FOREIGN KEY (acSubject) REFERENCES THE_SetSubj(acSubject),
     FOREIGN KEY (acLekar) REFERENCES THE_SetSubj(acSubject)

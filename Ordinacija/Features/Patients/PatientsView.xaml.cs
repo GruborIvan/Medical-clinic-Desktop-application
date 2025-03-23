@@ -4,6 +4,7 @@ using Ordinacija.Features.MedicalReports;
 using Ordinacija.Features.MedicalReports.Service;
 using Ordinacija.Features.Patients.Models;
 using Ordinacija.Features.Patients.Service;
+using Ordinacija.Features.ReportPrint;
 using Ordinacija.Features.ReportPrint.Repository;
 using System.Windows;
 using System.Windows.Controls;
@@ -70,7 +71,11 @@ namespace Ordinacija.Features.Patients
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (sender is Button button && button.CommandParameter is Patient selectedPatient)
+            {
+                var documentsManagerView = new DocumentsManagerView(_doctorService,_schemaRepository, selectedPatient);
+                documentsManagerView.Show();
+            }
         }
 
         private void AddNewMedicalReportButton_Click(object sender, RoutedEventArgs e)
