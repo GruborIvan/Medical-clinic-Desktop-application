@@ -24,9 +24,9 @@
                 BorderThickness="1"
                 ItemsSource="{Binding DocumentTypes}"
                 DisplayMemberPath="."
-                SelectedValue="{Binding SelectedDocumentType, Mode=TwoWay}" />
+                SelectedValue="{Binding SelectedDocumentType, Mode=TwoWay}" 
+                SelectionChanged="DocumentTypesComboBox_SelectionChanged"/>
         </StackPanel>
-
 
         <Border Grid.Row="1" 
                 Background="White" 
@@ -34,7 +34,7 @@
             Padding="20" 
             Margin="0 0 0 20">
                 <TextBox Name="SchemaTextBox"
-                 Text="{Binding FormText, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding FormText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
                  VerticalScrollBarVisibility="Auto"

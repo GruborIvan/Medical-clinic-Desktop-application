@@ -4,7 +4,9 @@ using Ordinacija.Features.Patients.Models;
 using Ordinacija.Features.ReportPrint.Repository;
 using Ordinacija.Features.ReportPrint.Repository.Implementation;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Reactive.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,9 +16,21 @@ namespace Ordinacija.Features.ReportPrint
     /// <summary>
     /// Interaction logic for DocumentsManagerView.xaml
     /// </summary>
-    public partial class DocumentsManagerView : Window
+    public partial class DocumentsManagerView : Window, INotifyPropertyChanged
     {
-        public string FormText { get; set; }
+        private string _formText = string.Empty;
+        public string FormText
+        {
+            get => _formText;
+            set
+            {
+                if (_formText != value)
+                {
+                    _formText = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public ObservableCollection<Doctor> Doctors { get; } = new();
         public List<string> DocumentTypes { get; }
 
@@ -26,6 +40,8 @@ namespace Ordinacija.Features.ReportPrint
 
         private Patient _patient;
         private string _currentlySelectedDoctorId = string.Empty;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public DocumentsManagerView(
             IDoctorService doctorService,
@@ -48,23 +64,10 @@ namespace Ordinacija.Features.ReportPrint
 
         private async void InitializeAsync()
         {
-            try
-            {
-                //FormText = await _schemaRepository.GetTemplateSchemaByKey("UZ ABDOMENA I BUBREGA");
-                var doctors = await _doctorService.GetAllDoctors();
+            var doctors = await _doctorService.GetAllDoctors();
 
-                foreach (var doctor in doctors)
-                    Doctors.Add(doctor);
-
-                Dispatcher.Invoke(() =>
-                {
-                    SchemaTextBox.Text = FormText;
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading template: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            foreach (var doctor in doctors)
+                Doctors.Add(doctor);
         }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -84,13 +87,13 @@ namespace Ordinacija.Features.ReportPrint
             switch(selectedFileTypeOption)
             {
                 case "Lekarska potvrda": 
-                    _pdfPrintService.PrintDoctorsExemption(_patient.FullName);
+                    _pdfPrintService.PrintDoctorsExemption(FormText);
                     break;
                 case "Potvrda za predskolsku ustanovu":
-                    _pdfPrintService.PrintPreSchoolApproval(_patient);
+                    _pdfPrintService.PrintPreSchoolApproval(FormText);
                     break;
                 case "Preporuke za ishranu - Alergije":
-                    _pdfPrintService.PrintAlergyConfirmation(_patient.FullName, doctorName);
+                    _pdfPrintService.PrintAlergyConfirmation(FormText);
                     break;
                 default: 
                     break;
@@ -131,6 +134,41 @@ namespace Ordinacija.Features.ReportPrint
                 "Potvrda za predskolsku ustanovu",
                 "Preporuke za ishranu - Alergije"
             };
+        }
+
+        private void DocumentTypesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox comboBox && comboBox.SelectedItem is string documentType)
+            {
+                switch(documentType)
+                {
+                    case "Lekarska potvrda": FormText = GetDoctorsExemptionText(); break;
+                    case "Potvrda za predskolsku ustanovu": FormText = GetPreSchoolExemptionText(); break;
+                    case "Preporuke za ishranu - Alergije": FormText = GetAlergyConfirmationText(); break;
+                    default: break;
+                }
+            }
+        }
+
+        private string GetDoctorsExemptionText()
+        {
+            return string.Format(Constants.DOCTORS_EXEMPTION, _patient.FullName);
+        }
+
+        private string GetPreSchoolExemptionText()
+        {
+            return string.Format(Constants.PRE_SCHOOL_APPROVAL, _patient.FullName, _patient.DateOfBirth.ToString("dd.MM.yyyy."));
+        }
+
+        private string GetAlergyConfirmationText()
+        {
+            var doctorName = GetDoctorFullNameById(_currentlySelectedDoctorId);
+            return string.Format(Constants.ALERGY_CONFIRMATION, _patient.FullName, doctorName);
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
