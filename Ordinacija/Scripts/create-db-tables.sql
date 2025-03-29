@@ -34,6 +34,6 @@ CREATE TABLE _css_Nalaz (
 );
 
 CREATE TABLE SchemaTable (
-    SchemaName NVARCHAR(20) NOT NULL PRIMARY KEY, -- Unique identifier
+    SchemaName NVARCHAR(50) NOT NULL PRIMARY KEY, -- Unique identifier
     SchemaValue NVARCHAR(MAX) NOT NULL -- Stores large text with new lines
 );

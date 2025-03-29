@@ -73,7 +73,7 @@ namespace Ordinacija.Features.Patients
         {
             if (sender is Button button && button.CommandParameter is Patient selectedPatient)
             {
-                var documentsManagerView = new DocumentsManagerView(_doctorService,_schemaRepository, selectedPatient);
+                var documentsManagerView = new DocumentsManagerView(_doctorService, selectedPatient);
                 documentsManagerView.Show();
             }
         }
@@ -87,8 +87,11 @@ namespace Ordinacija.Features.Patients
 
                 medicalReportView.ContentRendered += (sender, e) =>
                 {
-                    var addNewMedicalReport = new AddNewMedicalReportView(_medicalReportService, _doctorService, medicalReportView, selectedPatient);
-                    addNewMedicalReport.Topmost = true;
+                    var addNewMedicalReport = new AddNewMedicalReportView(_medicalReportService, _doctorService, _schemaRepository, medicalReportView, selectedPatient, false)
+                    {
+                        Topmost = true
+                    };
+
                     addNewMedicalReport.ShowDialog();
                 };
             }

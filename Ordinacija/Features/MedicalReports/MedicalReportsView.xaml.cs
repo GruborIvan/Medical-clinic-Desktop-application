@@ -3,6 +3,7 @@ using Ordinacija.Features.MedicalReports.Service;
 using Ordinacija.Features.Patients.Models;
 using Ordinacija.Features.ReportPrint;
 using Ordinacija.Features.ReportPrint.Repository;
+using Ordinacija.Features.ReportPrint.Repository.Implementation;
 using System.Windows;
 
 namespace Ordinacija.Features.MedicalReports
@@ -38,24 +39,55 @@ namespace Ordinacija.Features.MedicalReports
 
         private void AddNewMedicalReportButton_Click(object sender, RoutedEventArgs e)
         {
-            var addNewMedicalReportView = new AddNewMedicalReportView(_medicalReportService, _doctorService, this, _patient);
+            var addNewMedicalReportView = new AddNewMedicalReportView(
+                _medicalReportService, 
+                _doctorService, 
+                _schemaRepository,
+                this, 
+                _patient, 
+                false
+            );
+
             addNewMedicalReportView.ShowDialog();
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
+            if (MedicalReportViewModel.CurrentMedicalReport == null)
+            {
+                return;
+            }
 
+            var printPdfRepositor = new PdfPrintService();
+            printPdfRepositor.PrintMedicalReport(MedicalReportViewModel.CurrentMedicalReport, _patient);
         }
 
         private void AddNewUZButton_Click(object sender, RoutedEventArgs e)
         {
-            var addNewUZView = new AddNewUZView(_schemaRepository, _medicalReportService, _doctorService, this, _patient);
+            var addNewUZView = new AddNewMedicalReportView(
+                _medicalReportService, 
+                _doctorService, 
+                _schemaRepository,
+                this, 
+                _patient, 
+                true
+            );
+            
             addNewUZView.ShowDialog();
         }
 
         private void EditMedicalReportButton_Click(object sender, RoutedEventArgs e)
         {
-            var addNewMedicalReportView = new AddNewMedicalReportView(_medicalReportService, _doctorService, this, _patient, MedicalReportViewModel.CurrentMedicalReport);
+            var addNewMedicalReportView = new AddNewMedicalReportView(
+                _medicalReportService,
+                _doctorService, 
+                _schemaRepository, 
+                this, 
+                _patient, 
+                false, 
+                MedicalReportViewModel.CurrentMedicalReport
+            );
+
             addNewMedicalReportView.ShowDialog();
         }
     }

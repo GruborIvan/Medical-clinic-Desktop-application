@@ -18,7 +18,7 @@
             Pod DG: __________________________________________
             Izlečen i oporavljen sa savetom za dalju terapiju i postupanje
             Potvrda se izdaje radi pravdanja izostanka iz škole _______________
-            U dane _____________
+            U periodu od _____________
             I u druge svrhe se ne može koristiti.
             
             Novi Sad, ______________

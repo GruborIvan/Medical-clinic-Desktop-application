@@ -146,7 +146,7 @@
                 </Border>
 
                 <!-- Potpis doktora Field (Inline) -->
-                <Grid Margin="0 10 0 10">
+                <Grid Margin="0 0 0 10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />

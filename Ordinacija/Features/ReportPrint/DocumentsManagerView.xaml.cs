@@ -1,7 +1,6 @@
 ﻿using Ordinacija.Features.Doctors.Models;
 using Ordinacija.Features.Doctors.Service;
 using Ordinacija.Features.Patients.Models;
-using Ordinacija.Features.ReportPrint.Repository;
 using Ordinacija.Features.ReportPrint.Repository.Implementation;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -36,22 +35,19 @@ namespace Ordinacija.Features.ReportPrint
 
         private readonly PdfPrintService _pdfPrintService;
         private readonly IDoctorService _doctorService;
-        private readonly ISchemaRepository _schemaRepository;
 
-        private Patient _patient;
+        private readonly Patient _patient;
         private string _currentlySelectedDoctorId = string.Empty;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public DocumentsManagerView(
             IDoctorService doctorService,
-            ISchemaRepository schemaRepository,
             Patient patient)
         {
             InitializeComponent();
 
             _doctorService = doctorService;
-            _schemaRepository = schemaRepository;
             _pdfPrintService = new PdfPrintService();
             _patient = patient;
 

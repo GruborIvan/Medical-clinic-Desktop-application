@@ -19,7 +19,9 @@ VALUES
 INSERT INTO SchemaTable (SchemaName, SchemaValue)
 VALUES 
 ('UZ ABDOMENA I BUBREGA',
-'Jetra je normalnih dimenzija, homogene strukture.
+'UZ ABDOMENA I BUBREGA
+
+Jetra je normalnih dimenzija, homogene strukture.
 Žučna kesa jasnih kontura, bez prisustva intraluminalnog patološkog sadržaja.
 Žučni putevi nisu prošireni.
 Slezina je normalne veličine, homogene strukture.
@@ -32,4 +34,20 @@ Mezenterijalni limfonodusi se vide kao pojedinačni nisu signifikantno uvećani.
 Retroperitonealni limfonodusi dostupni UZ pregledu nisu signifikantno uvećani.
 Apendiks uredne morfologije.
 Debljina crevnog zida je normalna.
+
+UZ LUMBOSAKRALNE KIČME
+
+Spinalni kanal održane širine, bez prisustva patološkog sadržaja.
+Filum terminale normalne debljine, slobodan.
+Conus medullaris na nivou L1/2, očuvane pokretljivosti.
+Cauda equine održane pokretljivosti.
+Nema znakova "tethered cord" sindroma.
+
+UZ CNS-a:
+Mozdani prenhim uredne ehogenosti, nezrelijeg izgleda girusa i sukusa za uzrast.
+Interhemisferina pukotina i sinokortikalna distanca urednih dimenzija.
+Corpus callosum uredne anatomke grade.
+Komorni sistem cuvane sirine i oblika.
+Plexuis chorioideusi uredne ehogenosti, neravnih ivica, urednih dimenzja.
+Doppler a.c.a RI 0,72
 ')

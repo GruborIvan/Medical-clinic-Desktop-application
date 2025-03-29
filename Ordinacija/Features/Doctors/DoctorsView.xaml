@@ -79,7 +79,11 @@
                     <GridView>
                         <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding FirstName}" Width="500"/>
                         <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding LastName}" Width="500"/>
-                        <GridViewColumn Header="Datum rođenja" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Width="300"/>
+                        <GridViewColumn Header="Datum rođenja" Width="300">
+                            <GridViewColumn.DisplayMemberBinding>
+                                <Binding Path="DateOfBirth" StringFormat="{}{0:dd.MM.yyyy.}"/>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
                         <GridViewColumn Width="120">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

@@ -33,9 +33,6 @@ namespace Ordinacija.Features.Login
                 Password = password
             });
 
-            // THIS:
-            isAuthenticated = true;
-
             if (isAuthenticated)
             {
                 _patientsView.Show();

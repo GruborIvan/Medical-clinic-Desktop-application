@@ -69,7 +69,7 @@
                 HorizontalAlignment="Center" 
                 Margin="0 30 0 20">
                     <Button Name="SaveButton"
-                Content="Kreiraj UZ"
+                Content="Štampanje"
                 Width="160"
                 Height="50"
                 Background="#4CAF50"

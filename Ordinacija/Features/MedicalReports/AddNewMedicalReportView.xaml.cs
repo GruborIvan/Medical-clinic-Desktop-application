@@ -3,6 +3,7 @@ using Ordinacija.Features.Doctors.Service;
 using Ordinacija.Features.MedicalReports.Models;
 using Ordinacija.Features.MedicalReports.Service;
 using Ordinacija.Features.Patients.Models;
+using Ordinacija.Features.ReportPrint.Repository;
 using Ordinacija.Features.ReportPrint.Repository.Implementation;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -18,9 +19,10 @@ namespace Ordinacija.Features.MedicalReports
     {
         private readonly IMedicalReportService _medicalReportService;
         private readonly IDoctorService _doctorService;
+        private readonly ISchemaRepository _schemaRepository;
         private readonly Patient _patient;
 
-        private bool _isEditMode; 
+        private bool _isEditMode;
         private string _currentlySelectedDoctorId = string.Empty;
         private readonly MedicalReportsView _medicalReportsView;
 
@@ -34,18 +36,23 @@ namespace Ordinacija.Features.MedicalReports
         public AddNewMedicalReportView(
             IMedicalReportService medicalReportService,
             IDoctorService doctorService,
+            ISchemaRepository schemaRepository,
             MedicalReportsView medicalReportsView,
             Patient patient,
+            bool isUltrasound,
             MedicalReport? medicalReport = null)
         {
             InitializeComponent();
 
             _medicalReportService = medicalReportService;
             _doctorService = doctorService;
+            _schemaRepository = schemaRepository;
             _patient = patient;
 
             _medicalReportsView = medicalReportsView;
             _isEditMode = medicalReport != null;
+            
+            FillUltraSoundSchema(isUltrasound);
 
             var pageTitle = _isEditMode ? _editMedicalReportTitle : _addNewMedicalReportTitle;
 
@@ -58,6 +65,15 @@ namespace Ordinacija.Features.MedicalReports
             SetComboBoxText(CurrentMedicalReport.DoctorName);
 
             DataContext = this;
+        }
+
+        private async void FillUltraSoundSchema(bool isUltraSound)
+        {
+            if (isUltraSound)
+            {
+                CurrentMedicalReport = new MedicalReport();
+                Anamneza.Text = await _schemaRepository.GetTemplateSchemaByKey("UZ ABDOMENA I BUBREGA");
+            }
         }
 
         private async void LoadDoctors()
