@@ -1,0 +1,11 @@
+Application works because it has TrustServerCertificate=True in the connection string.
+
+----------------
+Quick Fix (for testing/development only)
+Add TrustServerCertificate=True to your SSMS connection:
+
+In SSMS connection dialog, click "Options >>"
+
+Go to the "Additional Connection Parameters" tab
+
+Add: TrustServerCertificate=True

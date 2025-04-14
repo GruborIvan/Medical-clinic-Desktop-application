@@ -10,6 +10,7 @@ using iText.Layout.Properties;
 using Ordinacija.Features.MedicalReports.Models;
 using Ordinacija.Features.Patients.Models;
 using System.Diagnostics;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 {
@@ -22,7 +23,9 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 
         public void PrintMedicalReport(MedicalReport medicalReport, Patient patient)
         {
-            string title = "Nalaz Specijaliste";
+            string title = "Poliklinika „Velisavljev“";
+            string address = "Novi Sad, J.Boškoviča 6";
+            string confirmationTitle = "Nalaz Specijaliste";
 
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory; // Get the app's directory
             string defaultPdfPath = System.IO.Path.Combine(appDirectory, $"NalazSpecijaliste-{Guid.NewGuid()}.pdf");
@@ -31,15 +34,29 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             using PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
 
-            // Add the title
-            Paragraph titleParagraph = new Paragraph(title)
-                .SetTextAlignment(TextAlignment.CENTER)
-                .SetFontSize(20)
-                .SimulateBold();
-            document.Add(titleParagraph);
+            string fontPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
+            PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
 
-            // Add a horizontal line
+            // Add the title
+            document.Add(new Paragraph(title)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetFontSize(16)
+                .SetFont(font)
+                .SimulateBold());
+
+            document.Add(new Paragraph(address)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetFontSize(14)
+                .SetFont(font));
+
             document.Add(new LineSeparator(new SolidLine()));
+            document.Add(new Paragraph("\n"));
+
+            document.Add(new Paragraph(confirmationTitle)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetFontSize(18)
+                .SetFont(font)
+                .SimulateBold());
 
             // Add some space (2 blank lines)
             document.Add(new Paragraph("\n\n"));
@@ -94,7 +111,9 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 
         public void PrintUZ(string UZContent)
         {
-            string title = "UZ ABDOMENA I BUBREGA";
+            string title = "Poliklinika „Velisavljev“";
+            string address = "Novi Sad, J.Boškoviča 6";
+            string confirmationTitle = "UZ ABDOMENA I BUBREGA";
 
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string defaultPdfPath = System.IO.Path.Combine(appDirectory, $"UZAbdomenaIBubrega-{Guid.NewGuid()}.pdf");
@@ -103,12 +122,30 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             using PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf, PageSize.A4);
 
+            string fontPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
+            PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
+
             // Add the title
             Paragraph titleParagraph = new Paragraph(title)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(20)
                 .SimulateBold();
             document.Add(titleParagraph);
+
+            document.Add(new Paragraph(address)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetFontSize(14)
+                .SetFont(font));
+
+            document.Add(new Paragraph("\n\n"));
+
+            document.Add(new Paragraph(confirmationTitle)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetFontSize(18)
+                .SetFont(font)
+                .SimulateBold());
+
+            document.Add(new Paragraph("\n"));
 
             // Add a horizontal line
             document.Add(new LineSeparator(new SolidLine()));
@@ -233,7 +270,9 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 
         public void PrintAlergyConfirmation(string textBody)
         {
-            string title = "Preporuke za ishranu u vrtićima za decu sa alergijom na hranu";
+            string title = "Poliklinika „Velisavljev“";
+            string address = "Novi Sad, J.Boškoviča 6";
+            string confirmationTitle = "Preporuke za ishranu u vrtićima za decu sa alergijom na hranu";
 
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string defaultPdfPath = System.IO.Path.Combine(appDirectory, $"Iskljucenje-{Guid.NewGuid()}.pdf");
@@ -249,6 +288,19 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             document.Add(new Paragraph(title)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(16)
+                .SetFont(font)
+                .SimulateBold());
+
+            document.Add(new Paragraph(address)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetFontSize(14)
+                .SetFont(font));
+
+            document.Add(new Paragraph("\n\n"));
+
+            document.Add(new Paragraph(confirmationTitle)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetFontSize(18)
                 .SetFont(font)
                 .SimulateBold());
 

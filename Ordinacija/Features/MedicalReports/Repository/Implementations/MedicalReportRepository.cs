@@ -49,8 +49,9 @@ namespace Ordinacija.Features.MedicalReports.Repository.Implementations
                 medicalReportDbo.AcNalaz = await GenerateNextNalazId(transaction, connection);
 
                 const string query = @"
-                INSERT INTO _css_Nalaz (acNalaz, acSubject, adDate, acDescription, acDG, acTH, acKontrola, acLekar, Anamneza)
-                VALUES (@AcNalaz, @AcSubject, @AdDate, @AcDescription, @AcDG, @AcTH, @AcKontrola, @AcLekar, @Anamneza)
+                    INSERT INTO _css_Nalaz (acNalaz, acSubject, adDate, acDescription, acDG, acTH, acKontrola, acLekar, Anamneza)
+                    VALUES 
+                            (@AcNalaz, @AcSubject, @AdDate, @AcDescription, @AcDG, @AcTH, @AcKontrola, @AcLekar, @Anamneza)
                 ";
 
                 await connection.ExecuteAsync(query, medicalReportDbo, transaction);
