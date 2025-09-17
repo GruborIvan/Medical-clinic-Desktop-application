@@ -19,13 +19,20 @@ namespace Ordinacija.Features.Patients.Repository
 
         public async Task<IEnumerable<Patient>> GetAllPatients()
         {
-            const string query = @"SELECT * 
+            try
+            {
+                const string query = @"SELECT * 
                                    FROM THE_SetSubj
                                    WHERE acSupplier = 'F'";
 
-            using var connection = CreateConnection();
-            var patients = await connection.QueryAsync<PatientDbo>(query);
-            return _mapper.Map<List<Patient>>(patients);
+                using var connection = CreateConnection();
+                var patients = await connection.QueryAsync<PatientDbo>(query);
+                return _mapper.Map<List<Patient>>(patients);
+            }
+            catch(Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task InsertPatient(Patient patient)

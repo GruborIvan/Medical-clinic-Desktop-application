@@ -10,12 +10,13 @@ using iText.Layout.Properties;
 using Ordinacija.Features.MedicalReports.Models;
 using Ordinacija.Features.Patients.Models;
 using System.Diagnostics;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 {
     public class PdfPrintService : IPdfPrintService
     {
+        
+
         public PdfPrintService() 
         { 
         
@@ -23,8 +24,6 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 
         public void PrintMedicalReport(MedicalReport medicalReport, Patient patient)
         {
-            string title = "Poliklinika „Velisavljev“";
-            string address = "Novi Sad, J.Boškoviča 6";
             string confirmationTitle = "Nalaz Specijaliste";
 
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory; // Get the app's directory
@@ -38,13 +37,13 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
 
             // Add the title
-            document.Add(new Paragraph(title)
+            document.Add(new Paragraph(Constants.PageTitle)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(16)
                 .SetFont(font)
                 .SimulateBold());
 
-            document.Add(new Paragraph(address)
+            document.Add(new Paragraph(Constants.Address)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(14)
                 .SetFont(font));
@@ -111,8 +110,6 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 
         public void PrintUZ(string UZContent)
         {
-            string title = "Poliklinika „Velisavljev“";
-            string address = "Novi Sad, J.Boškoviča 6";
             string confirmationTitle = "UZ ABDOMENA I BUBREGA";
 
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -126,13 +123,13 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
 
             // Add the title
-            Paragraph titleParagraph = new Paragraph(title)
+            Paragraph titleParagraph = new Paragraph(Constants.PageTitle)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(20)
                 .SimulateBold();
             document.Add(titleParagraph);
 
-            document.Add(new Paragraph(address)
+            document.Add(new Paragraph(Constants.Address)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(14)
                 .SetFont(font));
@@ -168,8 +165,6 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 
         public void PrintPreSchoolApproval(string textBody)
         {
-            string title = "Poliklinika „Velisavljev“";
-            string address = "Novi Sad, J.Boškoviča 6";
             string confirmationTitle = "POTVRDA ZA PREDŠKOLSKU USTANOVU";
 
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -183,13 +178,13 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
 
             // Add header
-            document.Add(new Paragraph(title)
+            document.Add(new Paragraph(Constants.PageTitle)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(20)
                 .SetFont(font)
                 .SimulateBold());
 
-            document.Add(new Paragraph(address)
+            document.Add(new Paragraph(Constants.Address)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(14)
                 .SetFont(font));
@@ -216,8 +211,6 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 
         public void PrintDoctorsExemption(string textBody)
         {
-            string title = "POLIKLINIKA „VELISAVLJEV“";
-            string address = "Novi Sad, Jovana Boškoviča 6";
             string phone = "021/457-417";
             string confirmationTitle = "LEKARSKO OPRAVDANJE";
 
@@ -232,13 +225,13 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
 
             // Add header
-            document.Add(new Paragraph(title)
+            document.Add(new Paragraph(Constants.PageTitle)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(20)
                 .SetFont(font)
                 .SimulateBold());
 
-            document.Add(new Paragraph(address)
+            document.Add(new Paragraph(Constants.Address)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(14)
                 .SetFont(font));
@@ -270,8 +263,6 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 
         public void PrintAlergyConfirmation(string textBody)
         {
-            string title = "Poliklinika „Velisavljev“";
-            string address = "Novi Sad, J.Boškoviča 6";
             string confirmationTitle = "Preporuke za ishranu u vrtićima za decu sa alergijom na hranu";
 
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -285,13 +276,13 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
 
             // Add header
-            document.Add(new Paragraph(title)
+            document.Add(new Paragraph(Constants.PageTitle)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(16)
                 .SetFont(font)
                 .SimulateBold());
 
-            document.Add(new Paragraph(address)
+            document.Add(new Paragraph(Constants.Address)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(14)
                 .SetFont(font));

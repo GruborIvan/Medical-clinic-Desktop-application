@@ -31,7 +31,7 @@ namespace Ordinacija.Features.Doctors
             _isEditMode = doctor != null;
 
             DoctorsView = doctorsView;
-            CurrentDoctor = doctor ?? new Doctor();
+            CurrentDoctor = doctor ?? new Doctor() { DateOfBirth = DateTime.Now} ;
 
             var pageTitle = _isEditMode ? _editDoctorTitle : _addDoctorTitle;
 

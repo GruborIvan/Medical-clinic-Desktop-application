@@ -2,6 +2,10 @@
 {
     public class Constants
     {
+        public static string PageTitle = "Poliklinika „Velisavljev“";
+        public static string Address = "Novi Sad, J.Boškovića 6";
+
+
         public static string PRE_SCHOOL_APPROVAL = @"
             Pacijent: {0} , dat. rođenja {1} -
             Pregledan u Poliklinici „Velisavljev“, dana ________________

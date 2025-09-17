@@ -33,7 +33,7 @@ namespace Ordinacija.Features.Patients
 
             _isEditMode = patient != null;
 
-            CurrentPatient = patient ?? new Patient();
+            CurrentPatient = patient ?? new Patient() { DateOfBirth = DateTime.Now };
 
             var pageTitle = _isEditMode ? _editPatientTitle : _addNewPatientTitle;
 
