@@ -36,7 +36,7 @@
                     Padding="5" Effect="{StaticResource ShadowEffect}">
                     <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FirstName}"/>
                 </Border>
-                
+
                 <TextBlock Text="Prezime*" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
@@ -45,25 +45,66 @@
 
                 <TextBlock Text="Datum rođenja*" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
-                    Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <DatePicker SelectedDate="{Binding CurrentPatient.DateOfBirth}">
-                        <DatePicker.Resources>
-                            <Style TargetType="{x:Type DatePickerTextBox}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate>
-                                            <TextBox 
-                            Text="{Binding 
-                                Path=SelectedDate, 
-                                RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, 
-                                StringFormat=dd.MM.yyyy.}"
-                            />
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DatePicker.Resources>
-                    </DatePicker>
+    Padding="5" Effect="{StaticResource ShadowEffect}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Day Section -->
+                        <TextBlock Text="Dan" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center"
+      Margin="0,0,0,4" Foreground="#444444" FontSize="14" FontWeight="SemiBold"/>
+                        <TextBox x:Name="DayTextBox" Grid.Row="1" Grid.Column="2" Width="60" Height="40"
+    HorizontalAlignment="Center"
+    Text="{Binding Day, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+    MaxLength="2" 
+    TextAlignment="Center" FontSize="18" BorderThickness="1" BorderBrush="#999999"
+    ToolTip="Unesite dan (01-31)" Padding="0" VerticalContentAlignment="Center"/>
+
+                        <!-- Separator 1 -->
+                        <TextBlock Text="-" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" 
+      HorizontalAlignment="Center" Foreground="#666666" FontSize="20" FontWeight="Bold"
+      Margin="0,4,0,0"/>
+
+                        <!-- Month Section -->
+                        <TextBlock Text="Mesec" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Center"
+      Margin="0,0,0,4" Foreground="#444444" FontSize="14" FontWeight="SemiBold"/>
+                        <TextBox x:Name="MonthTextBox" Grid.Row="1" Grid.Column="6" Width="60" Height="40"
+    HorizontalAlignment="Center"
+    Text="{Binding Month, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+    MaxLength="2"
+    TextAlignment="Center" FontSize="18" BorderThickness="1" BorderBrush="#999999"
+    ToolTip="Unesite mesec (01-12)" Padding="0" VerticalContentAlignment="Center"/>
+
+                        <!-- Separator 2 -->
+                        <TextBlock Text="-" Grid.Row="1" Grid.Column="8" VerticalAlignment="Center" 
+      HorizontalAlignment="Center" Foreground="#666666" FontSize="20" FontWeight="Bold"
+      Margin="0,4,0,0"/>
+
+                        <!-- Year Section -->
+                        <TextBlock Text="Godina" Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="3" HorizontalAlignment="Center"
+      Margin="0,0,0,4" Foreground="#444444" FontSize="14" FontWeight="SemiBold"/>
+                        <TextBox x:Name="YearTextBox" Grid.Row="1" Grid.Column="10" Width="80" Height="40"
+    HorizontalAlignment="Center"
+    Text="{Binding Year, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+    MaxLength="4"
+    TextAlignment="Center" FontSize="18" BorderThickness="1" BorderBrush="#999999"
+    ToolTip="Unesite godinu (npr. 2023)" Padding="0" VerticalContentAlignment="Center"/>
+                    </Grid>
                 </Border>
 
                 <TextBlock Text="Mesto rođenja" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>

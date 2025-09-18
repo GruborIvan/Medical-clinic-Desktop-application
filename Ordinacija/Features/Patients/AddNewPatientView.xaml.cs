@@ -33,7 +33,10 @@ namespace Ordinacija.Features.Patients
 
             _isEditMode = patient != null;
 
-            CurrentPatient = patient ?? new Patient() { DateOfBirth = DateTime.Now };
+            CurrentPatient = patient ?? new Patient();
+            
+            if (patient != null) 
+                PreFillDateOfBirth(patient.DateOfBirth);
 
             var pageTitle = _isEditMode ? _editPatientTitle : _addNewPatientTitle;
 
@@ -82,8 +85,17 @@ namespace Ordinacija.Features.Patients
             if  (CurrentPatient.LastName.IsNullOrEmpty())
                 errorMessage += "Obavezno je uneti prezime pacijenta.\n";
 
-            if (CurrentPatient.DateOfBirth == DateTime.MinValue)
-                errorMessage += "Obavezno je uneti datum rodjenja pacijenta.\n";
+            var (isValid, dateOfBirth, errors) = ValidateAndParseDateOfBirth();
+
+            if (isValid)
+            {
+                CurrentPatient.DateOfBirth = dateOfBirth;
+            }
+            else
+            {
+                var dateErrors = string.Join("\n", errors);
+                errorMessage += dateErrors;
+            }
 
             if (errorMessage != string.Empty)
             {
@@ -97,13 +109,61 @@ namespace Ordinacija.Features.Patients
             return errorMessage == string.Empty;
         }
 
+        public (bool IsValid, DateTime DateOfBirth, List<string> Errors) ValidateAndParseDateOfBirth()
+        {
+            var day = DayTextBox.Text;
+            var month = MonthTextBox.Text;
+            var year = YearTextBox.Text;
+
+            var errorList = new List<string>();
+            DateTime resultDate = DateTime.MinValue;
+
+            if (string.IsNullOrWhiteSpace(day)) errorList.Add("Polje za dan je obavezno.");
+            if (string.IsNullOrWhiteSpace(month)) errorList.Add("Polje za mesec je obavezno.");
+            if (string.IsNullOrWhiteSpace(year)) errorList.Add("Polje za godinu je obavezno.");
+
+            if (errorList.Count > 0)
+            {
+                return (false, resultDate, errorList);
+            }
+
+            if (!int.TryParse(day, out int dayValue)) errorList.Add("Dan mora biti broj.");
+            if (!int.TryParse(month, out int monthValue)) errorList.Add("Mesec mora biti broj.");
+            if (!int.TryParse(year, out int yearValue)) errorList.Add("Godina mora biti broj.");
+
+            if (errorList.Count > 0)
+            {
+                return (false, resultDate, errorList);
+            }
+
+            if (!DateTime.TryParse($"{yearValue}-{monthValue:00}-{dayValue:00}", out resultDate))
+            {
+                errorList.Add("Uneti datum rodjenja nije validan.");
+                return (false, resultDate, errorList);
+            }
+
+            if (resultDate > DateTime.Today)
+            {
+                errorList.Add("Datum rodjenja ne može biti u budućnosti.");
+                return (false, resultDate, errorList);
+            }
+
+            return (true, resultDate, errorList);
+        }
+
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            // Allow only numeric input
             if (!char.IsDigit(e.Text, e.Text.Length - 1))
             {
                 e.Handled = true;
             }
+        }
+
+        private void PreFillDateOfBirth(DateTime dateOfBirth)
+        {
+            DayTextBox.Text = dateOfBirth.Day.ToString();
+            MonthTextBox.Text = dateOfBirth.Month.ToString();
+            YearTextBox.Text = dateOfBirth.Year.ToString();
         }
     }
 }

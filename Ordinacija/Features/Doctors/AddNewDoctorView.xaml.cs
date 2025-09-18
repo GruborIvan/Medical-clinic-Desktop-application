@@ -1,5 +1,6 @@
 ﻿using Ordinacija.Features.Doctors.Models;
 using Ordinacija.Features.Doctors.Service;
+using Ordinacija.Features.Patients.Models;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
@@ -10,15 +11,15 @@ namespace Ordinacija.Features.Doctors
     /// </summary>
     public partial class AddNewDoctorView : Window
     {
-        private bool _isEditMode;
         private readonly IDoctorService _doctorService;
-
         public readonly DoctorsView DoctorsView;
+
         public Doctor CurrentDoctor { get; }
         public string TitleText { get; }
 
         private const string _editDoctorTitle = "Izmena podataka o doktoru";
         private const string _addDoctorTitle = "Dodavanje novog doktora";
+        private bool _isEditMode;
 
         public AddNewDoctorView(
             IDoctorService doctorService,
@@ -31,7 +32,11 @@ namespace Ordinacija.Features.Doctors
             _isEditMode = doctor != null;
 
             DoctorsView = doctorsView;
-            CurrentDoctor = doctor ?? new Doctor() { DateOfBirth = DateTime.Now} ;
+
+            CurrentDoctor = doctor ?? new Doctor();
+
+            if (doctor != null)
+                PreFillDateOfBirth(doctor.DateOfBirth);
 
             var pageTitle = _isEditMode ? _editDoctorTitle : _addDoctorTitle;
 
@@ -62,7 +67,8 @@ namespace Ordinacija.Features.Doctors
                 "Da li ste sigurni da želite da zatvorite stranicu? Imate nesačuvane izmene.",
                 "Confirm Exit",
                 MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
+                MessageBoxImage.Warning
+            );
 
             if (result == MessageBoxResult.Yes)
             {
@@ -80,19 +86,78 @@ namespace Ordinacija.Features.Doctors
             if (string.IsNullOrEmpty(CurrentDoctor.LastName))
                 errorMessage += "Obavezno je uneti prezime doktora.\n";
 
-            if (CurrentDoctor.DateOfBirth == DateTime.MinValue)
-                errorMessage += "Obavezno je uneti datum rodjenja doktora.\n";
+            var (isValid, dateOfBirth, errors) = ValidateAndParseDateOfBirth();
+
+            if (isValid)
+            {
+                CurrentDoctor.DateOfBirth = dateOfBirth;
+            }
+            else
+            {
+                var dateErrors = string.Join("\n", errors);
+                errorMessage += dateErrors;
+            }
 
             if (errorMessage != string.Empty)
             {
                 MessageBox.Show(
-                $"Potrebno je popuniti sva obavezna polja! \n {errorMessage}",
-                "Nepotpun unos",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
+                    $"Potrebno je popuniti sva obavezna polja! \n {errorMessage}",
+                    "Nepotpun unos",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
             }
 
             return errorMessage == string.Empty;
+        }
+
+        public (bool IsValid, DateTime DateOfBirth, List<string> Errors) ValidateAndParseDateOfBirth()
+        {
+            var day = DayTextBox.Text;
+            var month = MonthTextBox.Text;
+            var year = YearTextBox.Text;
+
+            var errorList = new List<string>();
+            DateTime resultDate = DateTime.MinValue;
+
+            if (string.IsNullOrWhiteSpace(day)) errorList.Add("Polje za dan je obavezno.");
+            if (string.IsNullOrWhiteSpace(month)) errorList.Add("Polje za mesec je obavezno.");
+            if (string.IsNullOrWhiteSpace(year)) errorList.Add("Polje za godinu je obavezno.");
+
+            if (errorList.Count > 0)
+            {
+                return (false, resultDate, errorList);
+            }
+
+            if (!int.TryParse(day, out int dayValue)) errorList.Add("Dan mora biti broj.");
+            if (!int.TryParse(month, out int monthValue)) errorList.Add("Mesec mora biti broj.");
+            if (!int.TryParse(year, out int yearValue)) errorList.Add("Godina mora biti broj.");
+
+            if (errorList.Count > 0)
+            {
+                return (false, resultDate, errorList);
+            }
+
+            if (!DateTime.TryParse($"{yearValue}-{monthValue:00}-{dayValue:00}", out resultDate))
+            {
+                errorList.Add("Uneti datum rodjenja nije validan.");
+                return (false, resultDate, errorList);
+            }
+
+            if (resultDate > DateTime.Today)
+            {
+                errorList.Add("Datum rodjenja ne može biti u budućnosti.");
+                return (false, resultDate, errorList);
+            }
+
+            return (true, resultDate, errorList);
+        }
+
+        private void PreFillDateOfBirth(DateTime dateOfBirth)
+        {
+            DayTextBox.Text = dateOfBirth.Day.ToString();
+            MonthTextBox.Text = dateOfBirth.Month.ToString();
+            YearTextBox.Text = dateOfBirth.Year.ToString();
         }
     }
 }
