@@ -40,7 +40,7 @@ namespace Ordinacija.Features.Login
             }
             else
             {
-                MessageBox.Show("Invalid credentials, try again!", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Pogrešno korisničko ime ili lozinka!", "Neuspešna prijava", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

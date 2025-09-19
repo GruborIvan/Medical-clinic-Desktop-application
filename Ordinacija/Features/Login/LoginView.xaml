@@ -68,22 +68,22 @@
                 VerticalAlignment="Center" HorizontalAlignment="Center"
                 Effect="{DynamicResource ShadowEffect}">
             <StackPanel HorizontalAlignment="Center">
-                <TextBlock Text="Login" FontSize="20" FontWeight="Bold" Foreground="#2E3B55"
+                <TextBlock Text="Prijavi se" FontSize="20" FontWeight="Bold" Foreground="#2E3B55"
                            Margin="0,50,0,20" TextAlignment="Center"/>
 
-                <TextBlock Text="Username" Foreground="#4A637D" Margin="0,15,0,0"/>
+                <TextBlock Text="Korisničko ime" Foreground="#4A637D" Margin="0,15,0,0"/>
                 <Border Style="{StaticResource RoundedTextBox}">
                     <TextBox x:Name="txtUsername" Background="Transparent" BorderThickness="0"
                              FontSize="14" Padding="5" Width="204"/>
                 </Border>
 
-                <TextBlock Text="Password" Foreground="#4A637D" Margin="0,10,0,0"/>
+                <TextBlock Text="Lozinka" Foreground="#4A637D" Margin="0,10,0,0"/>
                 <Border Style="{StaticResource RoundedTextBox}">
                     <PasswordBox x:Name="txtPassword" Background="Transparent" BorderThickness="0"
                                  FontSize="14" Padding="5"/>
                 </Border>
 
-                <Button Content="Login" 
+                <Button Content="Prijava" 
                         Style="{StaticResource RoundedButton}" 
                         Margin="0,10,0,0" 
                         Click="Login_Click"/>
