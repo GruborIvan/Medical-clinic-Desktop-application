@@ -33,8 +33,9 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             using PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
 
-            string fontPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
-            PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
+            string fontPath = System.IO.Path.Combine(appDirectory, "Resources", "Fonts", "DejaVuSans.ttf");
+            FontProgram fontProgram = FontProgramFactory.CreateFont(fontPath);
+            PdfFont font = PdfFontFactory.CreateFont(fontProgram, PdfEncodings.IDENTITY_H);
 
             // Add the title
             document.Add(new Paragraph(Constants.PageTitle)
@@ -68,7 +69,8 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
 
             Cell cellStyle = new Cell()
                 .SetBorder(Border.NO_BORDER)
-                .SetPadding(0);
+                .SetPadding(0)
+                .SetFont(font);
 
             // Add "Ime & Prezime" and its value
             patientInfoTable.AddCell(cellStyle.Clone(true).Add(new Paragraph("Prezime:").SimulateBold()));
@@ -84,7 +86,9 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             // Add the medical report content (left-aligned)
             Paragraph reportContent = new Paragraph(medicalReport.Anamneza)
                 .SetTextAlignment(TextAlignment.LEFT)
-                .SetFontSize(12);
+                .SetFontSize(12)
+                .SetFont(font);
+
             document.Add(reportContent);
 
             // Add some space (1 blank line)
@@ -98,7 +102,9 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
                 .Add($"Datum:     {medicalReport.DateOfReport.ToString("dd/MM/yyyy")}\n\n")
                 .Add($"{medicalReport.DoctorName}")
                 .SetTextAlignment(TextAlignment.LEFT)
-                .SetFontSize(12);
+                .SetFontSize(12)
+                .SetFont(font);
+
             document.Add(additionalFields);
 
             // Close the document
@@ -119,20 +125,23 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             using PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf, PageSize.A4);
 
-            string fontPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
+            string fontPath = System.IO.Path.Combine(appDirectory, "Resources", "Fonts", "DejaVuSans.ttf");
             PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
 
             // Add the title
             Paragraph titleParagraph = new Paragraph(Constants.PageTitle)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(20)
-                .SimulateBold();
+                .SimulateBold()
+                .SetFont(font);
+
             document.Add(titleParagraph);
 
             document.Add(new Paragraph(Constants.Address)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(14)
-                .SetFont(font));
+                .SetFont(font))
+                .SetFont(font);
 
             document.Add(new Paragraph("\n\n"));
 
@@ -153,7 +162,9 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             // Add the UZ content (left-aligned)
             Paragraph contentParagraph = new Paragraph(UZContent)
                 .SetTextAlignment(TextAlignment.LEFT)
-                .SetFontSize(12);
+                .SetFontSize(12)
+                .SetFont(font);
+
             document.Add(contentParagraph);
 
             // Close the document
@@ -174,7 +185,7 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             using PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf, PageSize.A4);
 
-            string fontPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
+            string fontPath = System.IO.Path.Combine(appDirectory, "Resources", "Fonts", "DejaVuSans.ttf");
             PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
 
             // Add header
@@ -221,7 +232,7 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             using PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf, PageSize.A4);
 
-            string fontPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
+            string fontPath = System.IO.Path.Combine(appDirectory, "Resources", "Fonts", "DejaVuSans.ttf");
             PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
 
             // Add header
@@ -272,7 +283,7 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
             using PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf, PageSize.A4);
 
-            string fontPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
+            string fontPath = System.IO.Path.Combine(appDirectory, "Resources", "Fonts", "DejaVuSans.ttf");
             PdfFont font = PdfFontFactory.CreateFont(fontPath, PdfEncodings.IDENTITY_H);
 
             // Add header
