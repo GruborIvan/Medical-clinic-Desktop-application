@@ -99,7 +99,7 @@ namespace Ordinacija.Features.ReportPrint.Repository.Implementation
                 .Add($"DG:        {medicalReport.DG}\n\n") // Add space between fields
                 .Add($"TH:        {medicalReport.TH}\n\n")
                 .Add($"Kontrola:  {medicalReport.Control}\n\n")
-                .Add($"Datum:     {medicalReport.DateOfReport.ToString("dd/MM/yyyy")}\n\n")
+                .Add($"Datum:     {medicalReport.DateOfReport.ToString("dd.MM.yyyy.")}\n\n")
                 .Add($"{medicalReport.DoctorName}")
                 .SetTextAlignment(TextAlignment.LEFT)
                 .SetFontSize(12)

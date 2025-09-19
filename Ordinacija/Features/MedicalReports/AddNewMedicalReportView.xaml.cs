@@ -93,7 +93,7 @@ namespace Ordinacija.Features.MedicalReports
 
             _currentlySelectedDoctorId = DoctorComboBox.Text.Length == 6 ? DoctorComboBox.Text : GetDoctorIdForDoctorName(DoctorComboBox.Text);
             CurrentMedicalReport.DoctorId = _currentlySelectedDoctorId;
-            CurrentMedicalReport.DateOfReport = DateTime.Now;
+            CurrentMedicalReport.DateOfReport = DatumNalazaDatePicker.SelectedDate ?? DateTime.Now;
 
             if (_isEditMode)
             {

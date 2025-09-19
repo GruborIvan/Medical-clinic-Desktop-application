@@ -50,7 +50,7 @@
                 <TextBlock Text="Datum nalaza" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
                 <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
         Effect="{DynamicResource ShadowEffect}">
-                    <DatePicker Height="40" Padding="8" BorderThickness="0" 
+                    <DatePicker Name="DatumNalazaDatePicker" Height="40" Padding="8" BorderThickness="0" 
                 SelectedDate="{x:Static sys:DateTime.Today}">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
