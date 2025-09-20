@@ -64,6 +64,11 @@ namespace Ordinacija.Features.MedicalReports
             CurrentMedicalReport = medicalReport ?? new MedicalReport { PatientId = _patient.AcSubject };
             SetComboBoxText(CurrentMedicalReport.DoctorName);
 
+            if (medicalReport != null)
+            {
+                DatumNalazaDatePicker.SelectedDate = medicalReport.DateOfReport;
+            }
+
             DataContext = this;
         }
 
