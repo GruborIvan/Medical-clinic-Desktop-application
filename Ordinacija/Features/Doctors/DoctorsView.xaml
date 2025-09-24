@@ -51,8 +51,9 @@
                 BorderBrush="Transparent"
                 Cursor="Hand"
                 Height="40"
+                Width="200"
                 Click="AddDoctor_Click"
-                Grid.Column="2" Grid.ColumnSpan="2" Margin="0,0,1038,0"/>
+                Grid.Column="1" Grid.ColumnSpan="3" Margin="10,0,1068,0"/>
             <!-- Changed from 0 to 2 -->
         </Grid>
 

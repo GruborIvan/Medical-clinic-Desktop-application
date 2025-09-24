@@ -18,10 +18,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="{Binding TitleText}" FontSize="26" FontWeight="Bold" Foreground="#2C3E50" 
+        <TextBlock Text="{Binding TitleText}" FontSize="32" FontWeight="Bold" Foreground="#2C3E50" 
                Margin="0 0 0 30" HorizontalAlignment="Center"/>
 
-        <!-- Patient Information Form -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -29,21 +28,20 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Left Side - Patient Info -->
             <StackPanel Grid.Column="0" Margin="0 0 30 0">
-                <TextBlock Text="Ime*" Foreground="#34495E" Margin="0 0 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Ime*" Foreground="#34495E" Margin="0 0 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FirstName}"/>
+                    <TextBox Height="50" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FirstName}" FontSize="18"/>
                 </Border>
 
-                <TextBlock Text="Prezime*" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Prezime*" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.LastName}"/>
+                    <TextBox Height="50" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.LastName}" FontSize="18"/>
                 </Border>
 
-                <TextBlock Text="Datum rođenja*" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Datum rođenja*" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
     Padding="5" Effect="{StaticResource ShadowEffect}">
                     <Grid>
@@ -65,9 +63,8 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <!-- Day Section -->
                         <TextBlock Text="Dan" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center"
-      Margin="0,0,0,4" Foreground="#444444" FontSize="14" FontWeight="SemiBold"/>
+      Margin="0,0,0,4" Foreground="#444444" FontSize="16" FontWeight="SemiBold"/>
                         <TextBox x:Name="DayTextBox" Grid.Row="1" Grid.Column="2" Width="60" Height="40"
     HorizontalAlignment="Center"
     Text="{Binding Day, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
@@ -75,14 +72,12 @@
     TextAlignment="Center" FontSize="18" BorderThickness="1" BorderBrush="#999999"
     ToolTip="Unesite dan (01-31)" Padding="0" VerticalContentAlignment="Center"/>
 
-                        <!-- Separator 1 -->
                         <TextBlock Text="-" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" 
       HorizontalAlignment="Center" Foreground="#666666" FontSize="20" FontWeight="Bold"
       Margin="0,4,0,0"/>
 
-                        <!-- Month Section -->
                         <TextBlock Text="Mesec" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Center"
-      Margin="0,0,0,4" Foreground="#444444" FontSize="14" FontWeight="SemiBold"/>
+      Margin="0,0,0,4" Foreground="#444444" FontSize="16" FontWeight="SemiBold"/>
                         <TextBox x:Name="MonthTextBox" Grid.Row="1" Grid.Column="6" Width="60" Height="40"
     HorizontalAlignment="Center"
     Text="{Binding Month, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
@@ -90,14 +85,12 @@
     TextAlignment="Center" FontSize="18" BorderThickness="1" BorderBrush="#999999"
     ToolTip="Unesite mesec (01-12)" Padding="0" VerticalContentAlignment="Center"/>
 
-                        <!-- Separator 2 -->
                         <TextBlock Text="-" Grid.Row="1" Grid.Column="8" VerticalAlignment="Center" 
       HorizontalAlignment="Center" Foreground="#666666" FontSize="20" FontWeight="Bold"
       Margin="0,4,0,0"/>
 
-                        <!-- Year Section -->
                         <TextBlock Text="Godina" Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="3" HorizontalAlignment="Center"
-      Margin="0,0,0,4" Foreground="#444444" FontSize="14" FontWeight="SemiBold"/>
+      Margin="0,0,0,4" Foreground="#444444" FontSize="16" FontWeight="SemiBold"/>
                         <TextBox x:Name="YearTextBox" Grid.Row="1" Grid.Column="10" Width="80" Height="40"
     HorizontalAlignment="Center"
     Text="{Binding Year, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
@@ -107,73 +100,71 @@
                     </Grid>
                 </Border>
 
-                <TextBlock Text="Mesto rođenja" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Mesto rođenja" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.PlaceOfBirth}"/>
+                    <TextBox Height="50" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.PlaceOfBirth}" FontSize="18"/>
                 </Border>
 
-                <TextBlock Text="Adresa" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Adresa" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.Address}"/>
+                    <TextBox Height="50" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.Address}" FontSize="18"/>
                 </Border>
 
-                <TextBlock Text="Telefon" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Telefon" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.PhoneNo}"/>
+                    <TextBox Height="50" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.PhoneNo}" FontSize="18"/>
                 </Border>
             </StackPanel>
 
-            <!-- Right Side - Parent Information -->
             <StackPanel Grid.Column="2" Margin="40 0 0 0">
-                <TextBlock Text="Ime Oca" Foreground="#34495E" Margin="0 0 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Ime Oca" Foreground="#34495E" Margin="0 0 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FathersName}"/>
+                    <TextBox Height="50" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FathersName}" FontSize="18"/>
                 </Border>
 
-                <TextBlock Text="Zanimanje Oca" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Zanimanje Oca" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FathersOccupation}"/>
+                    <TextBox Height="50" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.FathersOccupation}" FontSize="18"/>
                 </Border>
 
-                <TextBlock Text="Godina rođenja Oca" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Godina rođenja Oca" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" 
-                             Text="{Binding CurrentPatient.YearOfFathersBirth}" 
+                    <TextBox Height="50" Padding="8" BorderThickness="0" 
+                             Text="{Binding CurrentPatient.YearOfFathersBirth}" FontSize="18"
                              PreviewTextInput="NumberValidationTextBox"/>
                 </Border>
 
-                <TextBlock Text="Ime Majke" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Ime Majke" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.MothersName}"/>
+                    <TextBox Height="50" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.MothersName}" FontSize="18"/>
                 </Border>
 
-                <TextBlock Text="Zanimanje Majke" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Zanimanje Majke" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.MothersOccupation}"/>
+                    <TextBox Height="50" Padding="8" BorderThickness="0" Text="{Binding CurrentPatient.MothersOccupation}" FontSize="18"/>
                 </Border>
 
-                <TextBlock Text="Godina rođenja Majke" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold"/>
+                <TextBlock Text="Godina rođenja Majke" Foreground="#34495E" Margin="0 30 8 0" FontWeight="SemiBold" FontSize="20"/>
                 <Border Background="White" CornerRadius="8" BorderBrush="#BDC3C7" BorderThickness="1" 
                     Padding="5" Effect="{StaticResource ShadowEffect}">
-                    <TextBox Height="40" Padding="8" BorderThickness="0" 
-                             Text="{Binding CurrentPatient.YearOfMothersBirth}"
+                    <TextBox Height="50" Padding="8" BorderThickness="0" 
+                             Text="{Binding CurrentPatient.YearOfMothersBirth}" FontSize="18"
                              PreviewTextInput="NumberValidationTextBox"/>
                 </Border>
             </StackPanel>
         </Grid>
 
-        <!-- Buttons -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 0">
-            <Button x:Name="ConfirmButton" Content="Sačuvaj izmene" Width="160" Height="45" Foreground="White"
-        BorderBrush="Transparent" FontSize="18" Margin="8" Padding="8" FontWeight="Bold" 
+            <Button x:Name="ConfirmButton" Content="Sačuvaj izmene" Width="180" Height="55" Foreground="White"
+        BorderBrush="Transparent" FontSize="20" Margin="8" Padding="8" FontWeight="Bold" 
         Click="ConfirmButton_Click">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -183,8 +174,8 @@
                 </Button.Background>
             </Button>
 
-            <Button x:Name="PonistiButton" Content="Poništi" Width="160" Height="45" Foreground="White"
-        BorderBrush="Transparent" FontSize="18" Margin="8" Padding="8" FontWeight="Bold"
+            <Button x:Name="PonistiButton" Content="Poništi" Width="180" Height="55" Foreground="White"
+        BorderBrush="Transparent" FontSize="20" Margin="8" Padding="8" FontWeight="Bold"
         Click="PonistiButton_Click">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -193,8 +184,6 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-
         </StackPanel>
     </Grid>
-
 </Window>

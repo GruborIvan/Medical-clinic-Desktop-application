@@ -146,18 +146,23 @@
                                 </Style>
                             </GridViewColumn.HeaderContainerStyle>
                         </GridViewColumn>
-                        <GridViewColumn Header="Datum rođenja" Width="250">
+                        <GridViewColumn Header="Datum rođenja" Width="350">
                             <GridViewColumn.HeaderContainerStyle>
                                 <Style TargetType="GridViewColumnHeader">
                                     <Setter Property="FontSize" Value="18"/>
                                     <Setter Property="FontWeight" Value="Bold"/>
                                     <Setter Property="Height" Value="50"/>
                                     <Setter Property="Padding" Value="10"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                 </Style>
                             </GridViewColumn.HeaderContainerStyle>
-                            <GridViewColumn.DisplayMemberBinding>
-                                <Binding Path="DateOfBirth" StringFormat="dd.MM.yyyy."/>
-                            </GridViewColumn.DisplayMemberBinding>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding DateOfBirth, StringFormat='dd.MM.yyyy.'}" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="300">
                             <GridViewColumn.HeaderContainerStyle>
