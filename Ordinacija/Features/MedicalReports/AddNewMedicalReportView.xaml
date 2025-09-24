@@ -89,16 +89,18 @@
                     <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
                         Effect="{DynamicResource ShadowEffect}">
                         <ComboBox Name="DoctorComboBox"
-                                  Height="40" 
-                                  Padding="8" 
-                                  BorderThickness="0" 
-                                  ItemsSource="{Binding Doctors}" 
-                                  DisplayMemberPath="FullName" 
-                                  SelectedValuePath="AcSubject" 
-                                  IsEditable="True"
-                                  PreviewTextInput="ComboBox_PreviewTextInput"
-                                  SelectedValue="{Binding CurrentMedicalReport.DoctorId, Mode=TwoWay}"
-                                  SelectionChanged="ComboBox_SelectionChanged"/>
+                             Height="40" 
+                             Background="#F0F0F0"
+                             Padding="8" 
+                             BorderBrush="Gray"
+                             BorderThickness="1"
+                             ItemsSource="{Binding Doctors}" 
+                             DisplayMemberPath="FullName" 
+                             SelectedValuePath="AcSubject" 
+                             IsEditable="False"
+                             PreviewTextInput="ComboBox_PreviewTextInput"
+                             SelectedValue="{Binding CurrentMedicalReport.DoctorId, Mode=TwoWay}"
+                             SelectionChanged="ComboBox_SelectionChanged"/>
                     </Border>
 
                     <TextBlock Text="Datum nalaza" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
