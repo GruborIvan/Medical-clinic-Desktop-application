@@ -5,11 +5,27 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Unos novog nalaza" WindowState="Maximized">
+        Title="Unos novog nalaza" 
+        WindowState="Maximized"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="ToolWindow">
     <Window.Resources>
         <DropShadowEffect x:Key="ShadowEffect" BlurRadius="10" Opacity="0.2" ShadowDepth="2"/>
         <DropShadowEffect x:Key="ButtonShadowEffect" BlurRadius="8" Opacity="0.3" ShadowDepth="3"/>
+
+        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#34495E"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0 0 8 8"/>
+        </Style>
+
+        <Style x:Key="ControlStyle" TargetType="Control">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="50"/>
+        </Style>
     </Window.Resources>
+
     <Grid Background="#F5F7FA">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,132 +33,173 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Title -->
-        <TextBlock Text="{Binding TitleText}" FontSize="26" FontWeight="Bold" Foreground="#2C3E50" 
-           Margin="20 0" HorizontalAlignment="Center"/>
-
-        <!-- Content Grid -->
-        <Grid Grid.Row="1" Margin="20">
+        <!-- Fixed Header -->
+        <Grid Grid.Row="0" Margin="20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Left Side (Patient Info) -->
-            <StackPanel Grid.Column="0" Margin="0 0 30 0">
-                <TextBlock Text="Lekar" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 0 8 0"/>
-                <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
-                    Effect="{DynamicResource ShadowEffect}">
-                    <ComboBox Name="DoctorComboBox"
-                              Height="40" 
-                              Padding="8" 
-                              BorderThickness="0" 
-                              ItemsSource="{Binding Doctors}" 
-                              DisplayMemberPath="FullName" 
-                              SelectedValuePath="AcSubject" 
-                              IsEditable="True"
-                              PreviewTextInput="ComboBox_PreviewTextInput"
-                              SelectedValue="{Binding CurrentMedicalReport.DoctorId, Mode=TwoWay}"
-                              SelectionChanged="ComboBox_SelectionChanged"/>
-                </Border>
+            <!-- Back Button (left aligned) -->
+            <Button x:Name="BackButton"
+                Grid.Column="0"
+                Width="180"
+                Height="40"
+                Padding="12,6"
+                Background="#4CAF50" 
+                Foreground="White"
+                FontWeight="Bold"
+                BorderBrush="Transparent"
+                Cursor="Hand"
+                HorizontalAlignment="Left" Click="BackButton_Click">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Path Data="M15 18L9 12L15 6" 
+                      Stroke="White" 
+                      StrokeThickness="2" 
+                      Stretch="Uniform"
+                      Margin="0,0,8,0"/>
+                    <TextBlock Text="Nazad" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
 
-                <TextBlock Text="Datum nalaza" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
-                <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
-        Effect="{DynamicResource ShadowEffect}">
-                    <DatePicker Name="DatumNalazaDatePicker" Height="40" Padding="8" BorderThickness="0" 
-                SelectedDate="{x:Static sys:DateTime.Today}">
-                        <DatePicker.Resources>
-                            <Style TargetType="{x:Type DatePickerTextBox}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate>
-                                            <TextBox x:Name="PART_TextBox"
-                                Text="{Binding 
-                                    Path=SelectedDate, 
-                                    RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, 
-                                    StringFormat=dd.MM.yyyy.}"
-                                BorderThickness="0"
-                                Background="Transparent"
-                                Padding="0"
-                                FocusVisualStyle="{x:Null}"/>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <!-- Remove the watermark text styling if needed -->
-                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-                                <Setter Property="Background" Value="Transparent"/>
-                            </Style>
-                        </DatePicker.Resources>
-                    </DatePicker>
-                </Border>
-
-                <!-- New Field: Anamneza i fizikalni nalaz -->
-                <TextBlock Text="Anamneza i fizikalni nalaz" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
-                <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
-                    Effect="{DynamicResource ShadowEffect}">
-                    <TextBox Name="Anamneza" Height="180" Padding="8" BorderThickness="0" 
-                         AcceptsReturn="True" TextWrapping="Wrap" 
-                         VerticalScrollBarVisibility="Auto"
-                         Text="{Binding CurrentMedicalReport.Anamneza}"/>
-                </Border>
-
-                <!-- Dijagnoza Field (Reduced Height) -->
-                <TextBlock Text="Dijagnoza" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
-                <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
-                    Effect="{DynamicResource ShadowEffect}">
-                    <TextBox Height="70" Padding="8" BorderThickness="0" 
-                         AcceptsReturn="True" TextWrapping="Wrap" 
-                         VerticalScrollBarVisibility="Auto"
-                         Text="{Binding CurrentMedicalReport.DG}"/>
-                </Border>
-            </StackPanel>
-
-            <!-- Right Side (Treatment, Control & Description) -->
-            <StackPanel Grid.Column="2" Margin="40 0 0 0">
-                <!-- Terapija -->
-                <TextBlock Text="Terapija" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 0 8 0"/>
-                <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
-                    Effect="{DynamicResource ShadowEffect}">
-                    <TextBox Height="200" Padding="8" BorderThickness="0" 
-                         AcceptsReturn="True" TextWrapping="Wrap" 
-                         VerticalScrollBarVisibility="Auto"
-                         Text="{Binding CurrentMedicalReport.TH}"/>
-                </Border>
-
-                <!-- Kontrola -->
-                <TextBlock Text="Kontrola" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
-                <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
-                    Effect="{DynamicResource ShadowEffect}">
-                    <TextBox Height="100" Padding="8" BorderThickness="0" 
-                         AcceptsReturn="True" TextWrapping="Wrap" 
-                         VerticalScrollBarVisibility="Auto"
-                         Text="{Binding CurrentMedicalReport.Control}"/>
-                </Border>
-
-                <!-- Opis -->
-                <TextBlock Text="Opis" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
-                <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
-                    Effect="{DynamicResource ShadowEffect}">
-                    <TextBox Height="100" Padding="8" BorderThickness="0" 
-                         AcceptsReturn="True" TextWrapping="Wrap" 
-                         VerticalScrollBarVisibility="Auto"
-                         Text="{Binding CurrentMedicalReport.Description}"/>
-                </Border>
-            </StackPanel>
+            <!-- Title (truly centered) -->
+            <TextBlock Grid.Column="1" 
+                   Text="{Binding TitleText}" 
+                   FontSize="26" 
+                   FontWeight="Bold" 
+                   Foreground="#2C3E50" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+            <Grid Grid.Column="2"/>
         </Grid>
 
-        <!-- Buttons -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 20">
-            <Button Name="ConfirmCreateMedicalReportButton" Content="Sačuvaj" Width="160" Height="50" Background="#4CAF50" Foreground="White" 
-                BorderBrush="Transparent" FontSize="18" FontWeight="Bold" Cursor="Hand"
-                Effect="{DynamicResource ButtonShadowEffect}"
-                Command="{Binding SaveReportCommand}" Click="ConfirmCreateMedicalReportButton_Click"/>
+        <!-- Scrollable Content Area -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="10">
+            <Grid Margin="20 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-            <Button Name="CancelButton" Content="Otkaži" Width="160" Height="50" Background="#F44336" Foreground="White" 
-                BorderBrush="Transparent" FontSize="18" FontWeight="Bold" Cursor="Hand"
-                Effect="{DynamicResource ButtonShadowEffect}"
-                Command="{Binding CancelCommand}" Margin="20 0 0 0" Click="CancelButton_Click"/>
-        </StackPanel>
+                <!-- Left Side (Patient Info) -->
+                <StackPanel Grid.Column="0" Margin="0 0 30 0">
+                    <TextBlock Text="Lekar" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 0 8 0"/>
+                    <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
+                        Effect="{DynamicResource ShadowEffect}">
+                        <ComboBox Name="DoctorComboBox"
+                                  Height="40" 
+                                  Padding="8" 
+                                  BorderThickness="0" 
+                                  ItemsSource="{Binding Doctors}" 
+                                  DisplayMemberPath="FullName" 
+                                  SelectedValuePath="AcSubject" 
+                                  IsEditable="True"
+                                  PreviewTextInput="ComboBox_PreviewTextInput"
+                                  SelectedValue="{Binding CurrentMedicalReport.DoctorId, Mode=TwoWay}"
+                                  SelectionChanged="ComboBox_SelectionChanged"/>
+                    </Border>
+
+                    <TextBlock Text="Datum nalaza" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
+                    <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
+            Effect="{DynamicResource ShadowEffect}">
+                        <DatePicker Name="DatumNalazaDatePicker" Height="40" Padding="8" BorderThickness="0" 
+                    SelectedDate="{x:Static sys:DateTime.Today}">
+                            <DatePicker.Resources>
+                                <Style TargetType="{x:Type DatePickerTextBox}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <TextBox x:Name="PART_TextBox"
+                                    Text="{Binding 
+                                        Path=SelectedDate, 
+                                        RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, 
+                                        StringFormat=dd.MM.yyyy.}"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    Padding="0"
+                                    FocusVisualStyle="{x:Null}"/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+                    </Border>
+
+                    <!-- New Field: Anamneza i fizikalni nalaz -->
+                    <TextBlock Text="Anamneza i fizikalni nalaz" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
+                    <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
+                        Effect="{DynamicResource ShadowEffect}">
+                        <TextBox Name="Anamneza" Height="240" Padding="8" BorderThickness="0" 
+                             AcceptsReturn="True" TextWrapping="Wrap" 
+                             VerticalScrollBarVisibility="Auto"
+                                 FontSize="20"
+                             Text="{Binding CurrentMedicalReport.Anamneza}"/>
+                    </Border>
+
+                    <!-- Dijagnoza Field (Reduced Height) -->
+                    <TextBlock Text="Dijagnoza" Foreground="#34495E" FontWeight="Bold" Margin="0 40 0 8"/>
+                    <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
+                        Effect="{DynamicResource ShadowEffect}">
+                        <TextBox Height="120" Padding="8" BorderThickness="0" 
+                             AcceptsReturn="True" TextWrapping="Wrap" 
+                             VerticalScrollBarVisibility="Auto" FontSize="20"
+                             Text="{Binding CurrentMedicalReport.DG}"/>
+                    </Border>
+                </StackPanel>
+
+                <!-- Right Side (Treatment, Control & Description) -->
+                <StackPanel Grid.Column="2" Margin="40 0 0 0">
+                    <!-- Terapija -->
+                    <TextBlock Text="Terapija" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 0 8 0"/>
+                    <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
+                        Effect="{DynamicResource ShadowEffect}">
+                        <TextBox Height="240" Padding="8" BorderThickness="0" 
+                             AcceptsReturn="True" TextWrapping="Wrap" 
+                             VerticalScrollBarVisibility="Auto" FontSize="20"
+                             Text="{Binding CurrentMedicalReport.TH}"/>
+                    </Border>
+
+                    <!-- Kontrola -->
+                    <TextBlock Text="Kontrola" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
+                    <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
+                        Effect="{DynamicResource ShadowEffect}">
+                        <TextBox Height="130" Padding="8" BorderThickness="0" 
+                             AcceptsReturn="True" TextWrapping="Wrap" 
+                             VerticalScrollBarVisibility="Auto" FontSize="20"
+                             Text="{Binding CurrentMedicalReport.Control}"/>
+                    </Border>
+
+                    <!-- Opis -->
+                    <TextBlock Text="Opis" Foreground="#34495E" FontSize="16" FontWeight="Bold" Margin="0 40 0 8"/>
+                    <Border Background="White" CornerRadius="10" BorderBrush="#D1D5DB" BorderThickness="1" Padding="4"
+                        Effect="{DynamicResource ShadowEffect}">
+                        <TextBox Height="140" Padding="8" BorderThickness="0" 
+                             AcceptsReturn="True" TextWrapping="Wrap" 
+                             VerticalScrollBarVisibility="Auto" FontSize="20"
+                             Text="{Binding CurrentMedicalReport.Description}"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- Fixed Footer -->
+        <Border Grid.Row="2" Background="#E8ECF1" BorderBrush="#D1D9E6" BorderThickness="0 1 0 0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 20" Background="Transparent">
+                <Button Name="ConfirmCreateMedicalReportButton" Content="Sačuvaj" Width="160" Height="50" Background="#4CAF50" Foreground="White" 
+                    BorderBrush="Transparent" FontSize="18" FontWeight="Bold" Cursor="Hand"
+                    Effect="{DynamicResource ButtonShadowEffect}"
+                    Command="{Binding SaveReportCommand}" Click="ConfirmCreateMedicalReportButton_Click"/>
+
+                <Button Name="CancelButton" Content="Otkaži" Width="160" Height="50" Background="#F44336" Foreground="White" 
+                    BorderBrush="Transparent" FontSize="18" FontWeight="Bold" Cursor="Hand"
+                    Effect="{DynamicResource ButtonShadowEffect}"
+                    Command="{Binding CancelCommand}" Margin="20 0 0 0" Click="CancelButton_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

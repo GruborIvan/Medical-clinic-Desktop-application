@@ -21,35 +21,56 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
+            <!-- Green Back Button -->
+            <Button x:Name="ReturnButton"
+                Grid.Column="0"
+                Width="180"
+                Height="40"
+                Padding="12,6"
+                Background="#4CAF50" 
+                Foreground="White"
+                FontWeight="Bold"
+                BorderBrush="Transparent"
+                Cursor="Hand" Click="ReturnButton_Click">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Path Data="M15 18L9 12L15 6" 
+                      Stroke="White" 
+                      StrokeThickness="2" 
+                      Stretch="Uniform"
+                      Margin="0,0,8,0"/>
+                    <TextBlock Text="Nazad" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
             <!-- "Dodaj doktora" Button -->
             <Button Content="Dodaj novog doktora"
-            Padding="12,6"
-            Background="#0078D7"
-            Foreground="White"
-            FontWeight="Bold"
-            BorderBrush="Transparent"
-            Cursor="Hand"
-            Width="180"
-            Height="40"
-            Click="AddDoctor_Click"
-            Grid.Column="0"/>
+                Padding="12,6"
+                Background="#0078D7"
+                Foreground="White"
+                FontWeight="Bold"
+                BorderBrush="Transparent"
+                Cursor="Hand"
+                Height="40"
+                Click="AddDoctor_Click"
+                Grid.Column="2" Grid.ColumnSpan="2" Margin="0,0,1038,0"/>
+            <!-- Changed from 0 to 2 -->
         </Grid>
 
         <!-- Doctors Table -->
         <Border Background="White" 
-                CornerRadius="12" 
-                Padding="15" 
-                Margin="0,20,0,0"
-                BorderBrush="Gray" 
-                BorderThickness="1"
-                Grid.Row="1">
+            CornerRadius="12" 
+            Padding="15" 
+            Margin="0,20,0,0"
+            BorderBrush="Gray" 
+            BorderThickness="1"
+            Grid.Row="1">
 
             <ListView x:Name="DoctorsListView" 
-                      SelectionMode="Single"
-                      ItemsSource="{Binding Doctors}" 
-                      SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}"
-                      Background="Transparent"
-                      BorderThickness="0">
+                  SelectionMode="Single"
+                  ItemsSource="{Binding Doctors}" 
+                  SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}"
+                  Background="Transparent"
+                  BorderThickness="0">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Margin" Value="6"/>
@@ -89,15 +110,15 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <Button Padding="5"
-                                                Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                Cursor="Hand"
-                                                Click="EditDoctorButton_Click"
-                                                CommandParameter="{Binding}">
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Cursor="Hand"
+                                            Click="EditDoctorButton_Click"
+                                            CommandParameter="{Binding}">
                                             <TextBlock FontFamily="Segoe MDL2 Assets"
-                                                       Text="&#xE104;"
-                                                       FontSize="20"
-                                                       Foreground="#0078D7"/>
+                                                   Text="&#xE104;"
+                                                   FontSize="20"
+                                                   Foreground="#0078D7"/>
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>

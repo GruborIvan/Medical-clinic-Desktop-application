@@ -46,14 +46,14 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                     Foreground="Black"
-                     FontSize="16"
-                     Padding="12,0,12,0"
-                     Background="Transparent"
-                     BorderThickness="0"
-                     VerticalContentAlignment="Center"
-                     Height="40"
-                     Width="500"/>
+                        Foreground="Black"
+                        FontSize="16"
+                        Padding="12,0,12,0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        VerticalContentAlignment="Center"
+                        Height="40"
+                        Width="500"/>
 
                     <!-- Built-in Search Icon -->
                     <TextBlock Text="&#xE721;" 

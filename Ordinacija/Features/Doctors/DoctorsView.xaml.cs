@@ -39,5 +39,10 @@ namespace Ordinacija.Features.Doctors
                 editDoctorView.ShowDialog();
             }
         }
+
+        private void ReturnButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

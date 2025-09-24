@@ -82,10 +82,8 @@
                     <PasswordBox x:Name="txtPassword" Background="Transparent" BorderThickness="0"
                                  FontSize="14" Padding="5"/>
                 </Border>
-
                 <Button Content="Prijava" 
                         Style="{StaticResource RoundedButton}" 
-                        Margin="0,10,0,0" 
                         Click="Login_Click"/>
             </StackPanel>
         </Border>

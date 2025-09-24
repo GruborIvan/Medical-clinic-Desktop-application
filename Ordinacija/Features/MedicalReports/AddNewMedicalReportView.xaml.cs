@@ -195,5 +195,10 @@ namespace Ordinacija.Features.MedicalReports
         {
             return Doctors.Where(d => d.FullName.Equals(doctorName)).FirstOrDefault()!.Id;
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

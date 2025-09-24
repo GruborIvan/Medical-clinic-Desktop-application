@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="DocumentsManagerView" WindowState="Maximized">
+        Title="Stampanje potvrda" WindowState="Maximized">
     <Grid Margin="30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,40 +16,41 @@
         <StackPanel>
             <TextBlock Text="Tip dokumenta:" Margin="0,0,0,5" />
             <ComboBox 
-                Name="DocumentTypesComboBox"
-                Height="40"
-                Background="#F0F0F0"
-                Padding="8"
-                BorderBrush="Gray"
-                BorderThickness="1"
-                ItemsSource="{Binding DocumentTypes}"
-                DisplayMemberPath="."
-                SelectedValue="{Binding SelectedDocumentType, Mode=TwoWay}" 
-                SelectionChanged="DocumentTypesComboBox_SelectionChanged"/>
+            Name="DocumentTypesComboBox"
+            Height="40"
+            Background="#F0F0F0"
+            Padding="8"
+            BorderBrush="Gray"
+            BorderThickness="1"
+            ItemsSource="{Binding DocumentTypes}"
+            DisplayMemberPath="."
+            SelectedValue="{Binding SelectedDocumentType, Mode=TwoWay}" 
+            SelectionChanged="DocumentTypesComboBox_SelectionChanged"/>
         </StackPanel>
 
         <Border Grid.Row="1" 
-                Background="White" 
-            CornerRadius="10" 
-            Padding="20" 
-            Margin="0 0 0 20">
-                <TextBox Name="SchemaTextBox"
-                 Text="{Binding FormText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 AcceptsReturn="True"
-                 TextWrapping="Wrap"
-                 VerticalScrollBarVisibility="Auto"
-                 FontSize="16"
-                 FontFamily="Segoe UI"
-                 Foreground="Black"
-                 Background="#F0F0F0"
-                 BorderBrush="Gray"
-                 BorderThickness="1"/>
-            </Border>
+            Background="White" 
+        CornerRadius="10" 
+        Padding="20" 
+        Margin="0 0 0 20">
+            <TextBox Name="SchemaTextBox"
+             Text="{Binding FormText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+             AcceptsReturn="True"
+             TextWrapping="Wrap"
+             VerticalScrollBarVisibility="Auto"
+             FontSize="16"
+             FontFamily="Segoe UI"
+             Foreground="Black"
+             Background="#F0F0F0"
+             BorderBrush="Gray"
+             BorderThickness="1"/>
+        </Border>
 
-            <!-- ComboBox for Doctors -->
+        <!-- ComboBox for Doctors - Now matches the first ComboBox -->
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="Doktor:" Margin="0,0,0,5" />
             <ComboBox Name="DoctorComboBox"
-              Grid.Row="2"
-                Height="40"
+              Height="40"
               Background="#F0F0F0"
               Padding="8"
               BorderBrush="Gray"
@@ -57,43 +58,42 @@
               ItemsSource="{Binding Doctors}"
               DisplayMemberPath="FullName"
               SelectedValuePath="AcSubject"
-              IsEditable="True"
-              PreviewTextInput="ComboBox_PreviewTextInput"
               SelectedValue="{Binding CurrentMedicalReport.DoctorId, Mode=TwoWay}"
               SelectionChanged="ComboBox_SelectionChanged"
-              Margin="0 0 0 20"/>
+              Margin="0 0 0 0"/>
+        </StackPanel>
 
-                <!-- Buttons -->
-                <StackPanel Grid.Row="3"
-                    Orientation="Horizontal" 
-                HorizontalAlignment="Center" 
-                Margin="0 30 0 20">
-                    <Button Name="SaveButton"
-                Content="Štampanje"
-                Width="160"
-                Height="50"
-                Background="#4CAF50"
-                Foreground="White"
-                BorderBrush="Transparent"
-                FontSize="18"
-                FontWeight="Bold"
-                Cursor="Hand"
-                Command="{Binding SaveReportCommand}" 
-                Click="SaveButton_Click"/>
+        <!-- Buttons -->
+        <StackPanel Grid.Row="3"
+                Orientation="Horizontal" 
+            HorizontalAlignment="Center" 
+            Margin="0 30 0 20">
+            <Button Name="SaveButton"
+            Content="Štampanje"
+            Width="160"
+            Height="50"
+            Background="#4CAF50"
+            Foreground="White"
+            BorderBrush="Transparent"
+            FontSize="18"
+            FontWeight="Bold"
+            Cursor="Hand"
+            Command="{Binding SaveReportCommand}" 
+            Click="SaveButton_Click"/>
 
-                    <Button Name="CancelButton"
-                Content="Otkaži"
-                Width="160"
-                Height="50"
-                Background="#F44336"
-                Foreground="White"
-                BorderBrush="Transparent"
-                FontSize="18"
-                FontWeight="Bold"
-                Cursor="Hand"
-                Command="{Binding CancelCommand}"
-                Margin="20 0 0 0" 
-                Click="CancelButton_Click"/>
-                </StackPanel>
+            <Button Name="CancelButton"
+            Content="Nazad"
+            Width="160"
+            Height="50"
+            Background="#F44336"
+            Foreground="White"
+            BorderBrush="Transparent"
+            FontSize="18"
+            FontWeight="Bold"
+            Cursor="Hand"
+            Command="{Binding CancelCommand}"
+            Margin="20 0 0 0" 
+            Click="CancelButton_Click"/>
+        </StackPanel>
     </Grid>
 </Window>
