@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Stampanje potvrda" WindowState="Maximized">
-    <Grid Margin="30">
+        Title="Štampanje potvrda" WindowState="Maximized">
+    <Grid Margin="40">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -13,87 +13,91 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel>
-            <TextBlock Text="Tip dokumenta:" Margin="0,0,0,5" />
+        <!-- Document Type Selection -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,15">
+            <TextBlock Text="Tip dokumenta:" Margin="0,0,0,10" FontSize="18" FontWeight="SemiBold"/>
             <ComboBox 
-            Name="DocumentTypesComboBox"
-            Height="40"
-            Background="#F0F0F0"
-            Padding="8"
-            BorderBrush="Gray"
-            BorderThickness="1"
-            ItemsSource="{Binding DocumentTypes}"
-            DisplayMemberPath="."
-            SelectedValue="{Binding SelectedDocumentType, Mode=TwoWay}" 
-            SelectionChanged="DocumentTypesComboBox_SelectionChanged"/>
+                Name="DocumentTypesComboBox"
+                Height="50"
+                Background="#F0F0F0"
+                Padding="12"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                ItemsSource="{Binding DocumentTypes}"
+                DisplayMemberPath="."
+                SelectedValue="{Binding SelectedDocumentType, Mode=TwoWay}" 
+                FontSize="16"
+                SelectionChanged="DocumentTypesComboBox_SelectionChanged"/>
         </StackPanel>
 
+        <!-- Main Text Content -->
         <Border Grid.Row="1" 
-            Background="White" 
-        CornerRadius="10" 
-        Padding="20" 
-        Margin="0 0 0 20">
+                Background="White" 
+                CornerRadius="10" 
+                Padding="25" 
+                Margin="0,0,0,30">
             <TextBox Name="SchemaTextBox"
-             Text="{Binding FormText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-             AcceptsReturn="True"
-             TextWrapping="Wrap"
-             VerticalScrollBarVisibility="Auto"
-             FontSize="16"
-             FontFamily="Segoe UI"
-             Foreground="Black"
-             Background="#F0F0F0"
-             BorderBrush="Gray"
-             BorderThickness="1"/>
+                     Text="{Binding FormText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto"
+                     FontSize="25"
+                     FontFamily="Segoe UI"
+                     Foreground="Black"
+                     Background="#F0F0F0"
+                     BorderBrush="Gray"
+                     BorderThickness="1"/>
         </Border>
 
-        <!-- ComboBox for Doctors - Now matches the first ComboBox -->
-        <StackPanel Grid.Row="2">
-            <TextBlock Text="Doktor:" Margin="0,0,0,5" />
+        <!-- Doctor Selection -->
+        <StackPanel Grid.Row="2" Margin="0,0,0,20">
+            <TextBlock Text="Doktor:" Margin="0,0,0,10" FontSize="18" FontWeight="SemiBold"/>
             <ComboBox Name="DoctorComboBox"
-              Height="40"
-              Background="#F0F0F0"
-              Padding="8"
-              BorderBrush="Gray"
-              BorderThickness="1"
-              ItemsSource="{Binding Doctors}"
-              DisplayMemberPath="FullName"
-              SelectedValuePath="AcSubject"
-              SelectedValue="{Binding CurrentMedicalReport.DoctorId, Mode=TwoWay}"
-              SelectionChanged="ComboBox_SelectionChanged"
-              Margin="0 0 0 0"/>
+                      Height="50"
+                      Background="#F0F0F0"
+                      Padding="12"
+                      BorderBrush="Gray"
+                      BorderThickness="1"
+                      ItemsSource="{Binding Doctors}"
+                      DisplayMemberPath="FullName"
+                      SelectedValuePath="AcSubject"
+                      SelectedValue="{Binding CurrentMedicalReport.DoctorId, Mode=TwoWay}"
+                      FontSize="16"
+                      SelectionChanged="ComboBox_SelectionChanged"
+                      Margin="0,0,0,0"/>
         </StackPanel>
 
         <!-- Buttons -->
         <StackPanel Grid.Row="3"
-                Orientation="Horizontal" 
-            HorizontalAlignment="Center" 
-            Margin="0 30 0 20">
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center" 
+                    Margin="0,40,0,30">
             <Button Name="SaveButton"
-            Content="Štampanje"
-            Width="160"
-            Height="50"
-            Background="#4CAF50"
-            Foreground="White"
-            BorderBrush="Transparent"
-            FontSize="18"
-            FontWeight="Bold"
-            Cursor="Hand"
-            Command="{Binding SaveReportCommand}" 
-            Click="SaveButton_Click"/>
+                    Content="Štampanje"
+                    Width="200"
+                    Height="60"
+                    Background="#4CAF50"
+                    Foreground="White"
+                    BorderBrush="Transparent"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Cursor="Hand"
+                    Command="{Binding SaveReportCommand}" 
+                    Click="SaveButton_Click"/>
 
             <Button Name="CancelButton"
-            Content="Nazad"
-            Width="160"
-            Height="50"
-            Background="#F44336"
-            Foreground="White"
-            BorderBrush="Transparent"
-            FontSize="18"
-            FontWeight="Bold"
-            Cursor="Hand"
-            Command="{Binding CancelCommand}"
-            Margin="20 0 0 0" 
-            Click="CancelButton_Click"/>
+                    Content="Nazad"
+                    Width="200"
+                    Height="60"
+                    Background="#F44336"
+                    Foreground="White"
+                    BorderBrush="Transparent"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Cursor="Hand"
+                    Command="{Binding CancelCommand}"
+                    Margin="30,0,0,0" 
+                    Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

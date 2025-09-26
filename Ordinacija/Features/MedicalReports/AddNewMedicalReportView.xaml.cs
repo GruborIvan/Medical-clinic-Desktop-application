@@ -51,7 +51,7 @@ namespace Ordinacija.Features.MedicalReports
 
             _medicalReportsView = medicalReportsView;
             _isEditMode = medicalReport != null;
-            
+
             FillUltraSoundSchema(isUltrasound);
 
             var pageTitle = _isEditMode ? _editMedicalReportTitle : _addNewMedicalReportTitle;
@@ -59,17 +59,22 @@ namespace Ordinacija.Features.MedicalReports
             this.Title = pageTitle;
             TitleText = pageTitle;
 
-            LoadDoctors();
-
             CurrentMedicalReport = medicalReport ?? new MedicalReport { PatientId = _patient.AcSubject };
-            SetComboBoxText(CurrentMedicalReport.DoctorName);
+
+            DataContext = this;
+
+            Loaded += async (s, e) => await InitializeAsync(medicalReport, isUltrasound);
+        }
+
+        private async Task InitializeAsync(MedicalReport? medicalReport, bool isUltraSound)
+        {
+            await LoadDoctors();
+            SetComboBoxText(CurrentMedicalReport.DoctorId);
 
             if (medicalReport != null)
             {
                 DatumNalazaDatePicker.SelectedDate = medicalReport.DateOfReport;
             }
-
-            DataContext = this;
         }
 
         private async void FillUltraSoundSchema(bool isUltraSound)
@@ -81,7 +86,7 @@ namespace Ordinacija.Features.MedicalReports
             }
         }
 
-        private async void LoadDoctors()
+        private async Task LoadDoctors()
         {
             var doctorsList = await _doctorService.GetAllDoctors();
             Doctors.Clear();
@@ -96,7 +101,11 @@ namespace Ordinacija.Features.MedicalReports
             if (!ValidateMedicalReportEntry())
                 return;
 
-            _currentlySelectedDoctorId = DoctorComboBox.Text.Length == 6 ? DoctorComboBox.Text : GetDoctorIdForDoctorName(DoctorComboBox.Text);
+            _currentlySelectedDoctorId = GetDoctorIdForDoctorName(DoctorComboBox.Text);
+
+            if (_currentlySelectedDoctorId == string.Empty)
+                return;
+
             CurrentMedicalReport.DoctorId = _currentlySelectedDoctorId;
             CurrentMedicalReport.DateOfReport = DatumNalazaDatePicker.SelectedDate ?? DateTime.Now;
 
@@ -141,12 +150,12 @@ namespace Ordinacija.Features.MedicalReports
             e.Handled = true;
         }
 
-        public void SetComboBoxText(string text)
+        public void SetComboBoxText(string doctorId)
         {
             var comboBox = FindName("DoctorComboBox") as ComboBox;
             if (comboBox != null)
             {
-                comboBox.Text = text;
+                comboBox.SelectedValue = doctorId;
             }
         }
 
@@ -189,11 +198,25 @@ namespace Ordinacija.Features.MedicalReports
 
             return messageBoxResult == MessageBoxResult.Yes;
         }
-        
 
         private string GetDoctorIdForDoctorName(string doctorName)
         {
-            return Doctors.Where(d => d.FullName.Equals(doctorName)).FirstOrDefault()!.Id;
+            var doctor = Doctors.Where(d => d.FullName.Equals(doctorName)).FirstOrDefault();
+
+            if (doctor == null)
+            {
+                MessageBox.Show(
+                $"Niste popunili polje lekara.",
+                "Nepotpun unos",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+                return string.Empty;
+            }
+            else
+            {
+                return doctor.Id;
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

@@ -99,7 +99,7 @@
                              SelectedValuePath="AcSubject" 
                              IsEditable="False"
                              PreviewTextInput="ComboBox_PreviewTextInput"
-                             SelectedValue="{Binding CurrentMedicalReport.DoctorId, Mode=TwoWay}"
+                             SelectedValue="{Binding CurrentMedicalReport.DoctorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              SelectionChanged="ComboBox_SelectionChanged"/>
                     </Border>
 
